@@ -21,11 +21,7 @@
       square
       class="my-flex-1 scroll"
     >
-      <q-scroll-area
-        style="height:calc( 100% - 40px)"
-      >
         <ListPage />
-      </q-scroll-area>
       <div
         v-if="Object.keys(store.meta).length"
         class="absolute-bottom bg-primary text-white"
