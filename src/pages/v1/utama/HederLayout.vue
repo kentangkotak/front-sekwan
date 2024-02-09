@@ -1,7 +1,5 @@
 <template>
-  <q-layout view="hHh lpR lFf" class="shadow-5 rounded-borders">
-
-    <q-header elevated class="bg-indigo text-white" height-hint="98">
+    <q-header class="bg-indigo text-white">
       <q-toolbar>
         <q-btn dense flat round icon="menu"  />
 
@@ -13,11 +11,5 @@
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
-  </q-layout>
 </template>
 
-<script setup>
-import { ref } from 'vue'
-import { useQuasar } from 'quasar';
-
-</script>

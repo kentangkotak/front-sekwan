@@ -25,24 +25,18 @@
                   class="col self-center"
                   style="width:110px;margin-right: 10px;"
                 >
-                  <q-img
-                    src="gambars/monitor.png"
-                    width="100"
-                    height="100"
-                  />
                 </div>
               </div>
               <div class="row">
                 <div class="col self-center">
                   <q-form
-                    ref="myForm"
+
                     style="width: 450px;margin: 0px auto;"
                     class="q-gutter-md"
-                    @submit="onSubmit"
-                    @reset="onReset"
+
                   >
                     <q-input
-                      v-model="form.username"
+                      v-model="username"
                       autofocus
                       filled
                       label="User Name*"
@@ -54,7 +48,7 @@
                     />
 
                     <q-input
-                      v-model="form.pass"
+                      v-model="pass"
                       filled
                       type="password"
                       label="Password"
@@ -67,8 +61,8 @@
                     <div>
                       <q-btn
                         label="Login"
-                        type="submit"
                         color="negative"
+                        @click="login"
                       />
                           &nbsp;
                       <q-btn
@@ -89,12 +83,37 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
 
-const form = ref({
-  username: '',
-  pass: '',
-})
+import { ref } from 'vue'
+import { useRouter } from 'vue-router';
+import { useQuasar } from 'quasar';
+
+const username = ref()
+const pass = ref()
+// const form = ref({
+//   username: '',
+//   pass: '',
+// })
+
+const router = useRouter()
+
+
+// function onSubmit () {
+//   const formData = new FormData()
+//   formData.append('email', form.value.email + '@app.com')
+//   formData.append('password', form.value.password)
+//   storeAuth.login(formData)
+// }
+
+// function onReset () {
+//   const formData = new FormData()
+// }
+
+const login = () => {
+  router.push({ path: "/"})
+  return { login }
+}
+
 
 </script>
 

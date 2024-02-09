@@ -1,9 +1,7 @@
 <template>
   <q-drawer
-    v-model="toggleLeftDrawer"
     show-if-above
     :width="300"
-    :breakpoint="700"
     elevated
   >
     <q-scroll-area class="fit">
@@ -13,7 +11,6 @@
       >
         <q-list
           bordered
-
           class="rounded-borders text-primary"
         >
           <q-expansion-item class="bg-indigo text-white">
@@ -53,7 +50,7 @@
                 v-ripple
                 clickable
                 active-class="my-menu-link"
-                to="/masterbarang"
+                @click="panggil()"
                 class="bg-indigo-1 text-dark"
               >
                 <q-item-section avatar>
@@ -125,7 +122,17 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useQuasar } from 'quasar';
 import toggleLeftDrawer from './HederLayout.vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+function panggil() {
+  console.log('wew',router)
+  router.push({ path: "/anggotadewan"})
+  // return { panggil }
+}
 
 
 </script>
