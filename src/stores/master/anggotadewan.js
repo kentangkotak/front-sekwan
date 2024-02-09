@@ -20,7 +20,4 @@ export const useAnggotaDewanStore = defineStore('master_anggota_dewan', {
       // from: dateDbFormat(new Date())
     }
   }),
-  actions: {
-
-  }
 })
