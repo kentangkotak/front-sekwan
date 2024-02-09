@@ -22,6 +22,5 @@ export const useAnggotaDewanStore = defineStore('master_anggota_dewan', {
   }),
   actions: {
 
-
   }
 })
