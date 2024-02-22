@@ -30,13 +30,14 @@
               <div class="row">
                 <div class="col self-center">
                   <q-form
-
+                    ref="myForm"
                     style="width: 450px;margin: 0px auto;"
                     class="q-gutter-md"
+                    @submit="onSubmit"
 
                   >
                     <q-input
-                      v-model="username"
+                      v-model="form.username"
                       autofocus
                       filled
                       label="User Name*"
@@ -44,25 +45,25 @@
                       style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"
                       error-message="User Name Tidak Boleh kosong"
                       lazy-rules
-                      :rules="[ val => val && val.length > 0 || 'Masukkan Username Anda']"
+                      :rules="[val => !!val || 'Harap diisi terlebih dahulu']"
                     />
 
                     <q-input
-                      v-model="pass"
+                      v-model="form.pass"
                       filled
-                      type="password"
                       label="Password"
                       bg-color="white"
                       error-message="Password Tidak Boleh kosong"
                       style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;"
                       lazy-rules
-                      :rules="[ val => val && val.length > 0 || 'Masukkan Password Anda']"
+                      :rules="[val => !!val || 'Harap diisi terlebih dahulu']"
+                      :type="isPasw ? 'password' : 'text'"
                     />
                     <div>
                       <q-btn
                         label="Login"
                         color="negative"
-                        @click="login"
+                        type="submit"
                       />
                           &nbsp;
                       <q-btn
@@ -85,35 +86,31 @@
 <script setup>
 
 import { ref } from 'vue'
-import { useRouter } from 'vue-router';
 import { useQuasar } from 'quasar';
+//import { useAuthStore } from 'src/stores/auth'
+import { useAuthStore } from 'src/stores/auth'
+const $q = useQuasar()
 
-const username = ref()
-const pass = ref()
-// const form = ref({
-//   username: '',
-//   pass: '',
-// })
+const isPasw = ref(true)
+const myForm = ref(null)
+const form = ref({
+  username: '',
+  pass: '',
+})
 
-const router = useRouter()
-
-
-// function onSubmit () {
-//   const formData = new FormData()
-//   formData.append('email', form.value.email + '@app.com')
-//   formData.append('password', form.value.password)
-//   storeAuth.login(formData)
-// }
-
-// function onReset () {
-//   const formData = new FormData()
-// }
-
-const login = () => {
-  router.push({ path: "/"})
-  return { login }
+const storeAuth = useAuthStore()
+function onSubmit () {
+  const formData = new FormData()
+  formData.append('username', form.value.username)
+  formData.append('password', form.value.pass)
+  storeAuth.login(formData)
 }
 
+function resetform() {
+  const formData = new FormData()
+  this.form.username.value = ''
+
+}
 
 </script>
 

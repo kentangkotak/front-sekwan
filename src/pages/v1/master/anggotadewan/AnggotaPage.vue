@@ -3,16 +3,16 @@
      class=""
     :class="style.componentfull?'container-no-header':'container--q-header q-pa-xs'"
   >
-    <div class="header">
+    <div class="header" style="margin-top: 5px;">
       <HeaderComp
         ada-per-page
         ada-refresh
         use-full
-        :search="store.params.q"
-        :per-page="store.params.per_page"
-        @cari="store.setSearch"
-        @refresh="store.refresh"
-        @set-per-page="store.setPerPage"
+        :search="wew.params.q"
+        :per-page="wew.params.per_page"
+        @cari="wew.setSearch"
+        @refresh="wew.refresh"
+        @set-per-page="wew.setPerPage"
       />
     </div>
     <q-card
@@ -21,18 +21,16 @@
       square
       class="my-flex-1 scroll"
     >
-      <q-scroll-area
-        style="height:calc( 100% - 40px)"
-      >
-        <ListPage />
-      </q-scroll-area>
+    {{ wew.items }}
+    <ListPage />
+
       <div
-        v-if="Object.keys(store.meta).length"
+        v-if="Object.keys(wew.meta).length"
         class="absolute-bottom bg-primary text-white"
       >
         <BottomComp
-          :meta="store.meta"
-          @go-to="store.setPage"
+          :meta="wew.meta"
+          @go-to="wew.setPage"
         />
       </div>
     </q-card>
@@ -48,8 +46,10 @@ const HeaderComp = defineAsyncComponent(() => import('../comp/HeaderComp.vue'))
 const ListPage = defineAsyncComponent(() => import('../comp/ListPage.vue'))
 const BottomComp = defineAsyncComponent(() => import('../comp/BottomComp.vue'))
 
-const store = useAnggotaDewanStore()
+const wew = useAnggotaDewanStore()
 const style = useStyledStore()
+
+wew.getData()
 
 </script>
 

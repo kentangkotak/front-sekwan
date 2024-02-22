@@ -1,10 +1,19 @@
-import { createRouter, createWebHistory } from 'vue-router'
 const routes = [
   {
+    path: '/login',
+    meta: { requireAuth: false },
+    component: () => import('../layouts/v1/utama/FormLogin.vue'),
+    children: [
+      { path: '', component: () => import('pages/IndexPage.vue') }
+    ]
+  },
+  {
     path: '/',
+    meta: { requireAuth: false },
     component: () => import('layouts/v1/utama/IndexLayout.vue'),
     children: [
-      { path: '',  redirect: '/dasboard' },
+      { path: '',
+        redirect: '/dasboard' },
       {
         path: '/dasboard',
         name: 'dasboard',
@@ -27,14 +36,7 @@ const routes = [
   //   import('../pages/v1/master/anggotadewan/IndexLayout.vue')
   // },
 
-  {
-    path: '/login',
-    name: 'Login',
-    component: () => import('../pages/v1/FormLogin.vue'),
-    // children: [
-    //   { path: '', component: () => import('pages/IndexPage.vue') }
-    // ]
-  },
+
 
   // Always leave this as last one,
   // but you can also remove it

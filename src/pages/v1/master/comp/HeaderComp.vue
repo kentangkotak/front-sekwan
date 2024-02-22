@@ -33,10 +33,27 @@
         </q-input>
       </div>
       <div class="kanan">
+        <q-btn
+          v-if="props.adaRefresh"
+          unelevated
+          round
+          color="orange"
+          size="sm"
+          icon="add"
+          @click="icon = true"
+        >
+          <q-tooltip
+            class="primary"
+            :offset="[10, 10]"
+          >
+           Add
+          </q-tooltip>
+        </q-btn>
         <!-- refresh Ids -->
         <q-btn
           v-if="props.adaRefresh"
           unelevated
+          color="orange"
           round
           size="sm"
           icon="refresh"
@@ -52,7 +69,6 @@
         <!-- per page -->
         <q-btn
           v-if="props.adaPerPage"
-          class="q-ml-sm"
           unelevated
           color="orange"
           round
@@ -92,24 +108,6 @@
               </q-item>
             </q-list>
           </q-menu>
-        </q-btn>
-        <!-- style -->
-        <q-btn
-          v-if="useFull"
-          flat
-          :icon="!style.componentfull ? 'open_in_full' : 'close_fullscreen'"
-          round
-          :color="style.componentfull ? 'green' : 'white'"
-          size="12px"
-          class="q-ml-md"
-          @click="style.setComponentFull"
-        >
-          <q-tooltip
-            class="primary"
-            :offset="[10, 10]"
-          >
-            Full Screen
-          </q-tooltip>
         </q-btn>
       </div>
     </div>
