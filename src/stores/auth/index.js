@@ -17,10 +17,10 @@ export const useAuthStore = defineStore('auth', {
       return new Promise((resolve, reject) => {
         api.post('/login', payload)
           .then(resp => {
+            console.log('login', resp)
             storage.setLocalToken(resp.data.token)
             storage.setUser(resp.data.user)
             localStorage.setItem('activeTime', new Date())
-            // console.log('login', resp)
             const hdd = storage.getLocalToken()
             const hddUser = storage.getUser()
             if (hdd && hddUser) {

@@ -8,6 +8,7 @@ import axios from 'axios'
 // "export default () => {}" function below (which runs individually
 // for each client)
  const api = axios.create({ baseURL: 'http://localhost:8080/sekwan/sekwan/public/api' })
+//  api.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 //const api = axios.create({ baseURL: 'http://localhost:8080/toko/belakang/public/api' })
 api.defaults.headers.get.Accepts = 'application/json'
 
@@ -27,4 +28,9 @@ export default boot(({ app }) => {
   //       so you can easily perform requests against your app's API
 })
 
-export { api }
+const setToken = (token) => {
+  api.defaults.headers.common.Authorization = `Bearer ${token}`
+}
+const deleteToken = () => delete api.defaults.headers.common.Authorization
+
+export { api, setToken, deleteToken };

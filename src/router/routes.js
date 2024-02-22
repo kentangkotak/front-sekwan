@@ -9,7 +9,7 @@ const routes = [
   },
   {
     path: '/',
-    meta: { requireAuth: false },
+    meta: { requireAuth: true },
     component: () => import('layouts/v1/utama/IndexLayout.vue'),
     children: [
       { path: '',
