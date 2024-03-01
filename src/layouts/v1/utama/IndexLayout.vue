@@ -6,7 +6,13 @@
     <LeftDrawer
       v-model="leftDrawerOpen"
     />
-
+    <div class="fixed-center">
+          <!-- <q-spinner-hourglass
+            color="purple"
+            size="4em"
+          /> -->
+          <AppLoading/>
+    </div>
     <q-page-container >
       <router-view
           v-slot="{ Component }"
@@ -35,7 +41,9 @@
   </q-layout> -->
 </template>
 <script setup>
-import{ ref } from 'vue'
+import { setToken } from 'src/boot/axios';
+import { getLocalToken } from 'src/modules/storage';
+import{ defineAsyncComponent, onMounted, ref } from 'vue'
 import HeaderLayout from "../../../pages/v1/utama/HederLayout.vue";
 import LeftDrawer from "../../../pages/v1/utama/MenukiriLayout.vue";
 
@@ -45,4 +53,13 @@ const leftDrawerOpen = ref(true)
 function toggleLeftDrawer () {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
+
+const AppLoading = defineAsyncComponent(() =>
+  import ('../../../components/~global/AppLoading.vue')
+)
+
+onMounted(() =>{
+  const token = getLocalToken()
+  setToken(token)
+})
 </script>

@@ -8,7 +8,8 @@
         <q-btn
           flat
           :color="textColor"
-          icon="icon-mat-skip_previous"
+          class="material-symbols-outlined"
+          icon="skip_previous"
           size="sm"
           round
           :disable="meta?.current_page===1"
@@ -17,7 +18,7 @@
         <q-btn
           flat
           :color="textColor"
-          icon="icon-mat-chevron_left"
+          icon="eva-arrow-ios-back-outline"
           size="sm"
           round
           :disable="meta?.prev_page===null"
@@ -34,7 +35,7 @@
         <q-btn
           flat
           :color="textColor"
-          icon="icon-mat-chevron_right"
+          icon="eva-arrow-ios-forward-outline"
           size="sm"
           round
 
@@ -43,7 +44,7 @@
         <q-btn
           flat
           :color="textColor"
-          icon="icon-mat-skip_next"
+          icon="skip_next"
           size="sm"
           round
 
@@ -58,7 +59,7 @@
         color="orange"
         class="q-mr-xs"
       >
-        {{ meta?.total }}
+        {{ meta?.nik }}
       </q-badge> DATA DITEMUKAN
     </div>
   </div>
@@ -69,7 +70,7 @@ const emits = defineEmits(['goTo'])
 defineProps({
   color: {
     type: String,
-    default: 'bg-primary'
+    default: 'bg-indigo'
   },
   textColor: {
     type: String,

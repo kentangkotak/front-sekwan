@@ -21,8 +21,9 @@
       square
       class="my-flex-1 scroll"
     >
-    {{ wew.items }}
-    <ListPage />
+    <ListPage
+      :loading="wew.loading"
+    />
 
       <div
         v-if="Object.keys(wew.meta).length"
@@ -41,6 +42,7 @@
 import { defineAsyncComponent } from "vue";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan"
 import { useStyledStore } from 'src/stores/app/styled'
+import { store } from "quasar/wrappers";
 
 const HeaderComp = defineAsyncComponent(() => import('../comp/HeaderComp.vue'))
 const ListPage = defineAsyncComponent(() => import('../comp/ListPage.vue'))

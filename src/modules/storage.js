@@ -1,4 +1,4 @@
-import { setToken, deleteToken} from 'boot/axios'
+import { setToken,deleteToken} from 'boot/axios'
 
 export const setHeaderToken = token => setToken(token)
 export const setLocalToken = token => localStorage.setItem('token', JSON.stringify(token))

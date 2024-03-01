@@ -3,28 +3,28 @@
     <thead>
       <tr>
         <th width="5%">
-          No.
+          NO.
         </th>
         <th>
-          Nik
+          NIK
         </th>
         <th>
-          Nama
+          NAMA
         </th>
         <th>
-          Kelamin
+          JENIS KELAMIN
         </th>
         <th>
-          Alamat
+          ALAMAT
         </th>
         <th>
-          Komisi
+          JABATAN
         </th>
         <th>
-          Status
+          KOMISI
         </th>
-        <th class="text-end">
-          Aksi
+        <th>
+          STATUS
         </th>
       </tr>
     </thead>
@@ -110,107 +110,28 @@
         >
           <tr :class="item?.flag==='1'?'bg-light-blue-2':''">
             <td width="5%">
-              {{ n+1 }} wewew
+              {{ n+1 }}.
             </td>
             <td>
-              <div class="row ">
-                {{ item?.noresep }}
-              </div>
-              <div class="row text-grey f-10">
-                {{ dateFullFormat(item?.tgl_permintaan) }}
-              </div>
+                {{ item?.nik }}
             </td>
             <td>
-              <div class="row text-weight-bold">
-                {{ item?.datapasien?.nama }}
-              </div>
-              <div class="row">
-                {{ item?.noreg }}   ||   {{ item?.norm }}
-              </div>
+                {{ item?.nama }}
             </td>
             <td>
-              {{ item?.dokter?.nama }}
+                {{ getkelamin(item?.jns_kelamin) }}
             </td>
             <td>
-              <div v-if="item?.poli">
-                {{ item?.poli?.rs2 }}
-              </div>
-              <div v-if="item?.ruanganranap">
-                {{ item?.ruanganranap?.rs2 }}
-              </div>
+                {{ item?.alamat }}
             </td>
             <td>
-              <q-chip
-                square
-                class="f-10"
-                :color="color(item?.flag)"
-                text-color="white"
-              >
-                {{ status(item?.flag) }}
-              </q-chip>
+              {{ item?.jabatan }}
             </td>
-            <td class="text-end q-mr-sm">
-              <q-btn
-                round
-                class="f-10 q-mr-sm"
-                color="dark"
-                text-color="white"
-                icon="icon-mat-print"
-                @click="toPrint(item)"
-              >
-                <q-tooltip
-                  class="primary"
-                  :offset="[10, 10]"
-                >
-                  Print resep
-                </q-tooltip>
-              </q-btn>
-              <q-btn
-                v-if="item?.flag==='1'"
-                round
-                class="f-10 q-mr-sm"
-                :color="color(item?.flag)"
-                text-color="white"
-                icon="icon-mat-move_to_inbox"
-                :disable="store.loadingTerima && item?.loading"
-                :loading="store.loadingTerima && item?.loading"
-                @click="store.terimaResep(item)"
-              >
-                <q-tooltip
-                  class="primary"
-                  :offset="[10, 10]"
-                >
-                  Terima
-                </q-tooltip>
-              </q-btn>
-              <q-btn
-                v-if="item?.flag==='2' && item?.doneresep && item?.doneracik"
-                round
-                class="f-10 q-mr-sm"
-                :color="color(item?.flag)"
-                text-color="white"
-                icon="icon-mat-done_all"
-                :disable="store.loadingSelesai && item?.loading"
-                :loading="store.loadingSelesai && item?.loading"
-                @click="store.resepSelesai(item)"
-              >
-                <q-tooltip
-                  class="primary"
-                  :offset="[10, 10]"
-                >
-                  Selesai
-                </q-tooltip>
-              </q-btn>
-              <q-btn
-                square
-                class="f-10"
-                color="primary"
-                text-color="white"
-                no-caps
-                @click="buka(item)"
-              >
-                Buka
-              </q-btn>
+            <td>
+              {{ item?.komisi }}
+            </td>
+            <td>
+              {{ getstatusmu(item?.status) }}
             </td>
           </tr>
         </template>
@@ -220,11 +141,14 @@
 </template>
 
 <script setup>
+
+import { useQuasar } from "quasar";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan"
 import { useRouter } from 'vue-router'
 
 const store = useAnggotaDewanStore()
 const router = useRouter()
+const dateFullFormat = useQuasar
 
 // const indexId = ref(0)
 
@@ -259,6 +183,22 @@ function buka(val) {
   console.log('buka', val)
   // if (val?.expand === undefined) val.expand = true
   // else val.expand = !val.expand
+}
+
+function getkelamin(val) {
+  if(val === 'L') {
+    return 'Laki-Laki'
+  }else{
+    return 'Perempuan'
+  }
+}
+
+function getstatusmu(val) {
+  if(val === 0) {
+    return 'Tidak Aktif'
+  }else{
+    return 'Aktif'
+  }
 }
 
 </script>

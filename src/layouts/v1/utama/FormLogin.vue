@@ -85,11 +85,21 @@
 
 <script setup>
 
-import { ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useQuasar } from 'quasar';
 //import { useAuthStore } from 'src/stores/auth'
 import { useAuthStore } from 'src/stores/auth'
+import { useRouter } from 'vue-router';
+
 const $q = useQuasar()
+
+const router = useRouter()
+
+const auth = computed(()=> {
+  return storeAuth.token
+})
+
+// console.log('q',$q)
 
 const isPasw = ref(true)
 const myForm = ref(null)
@@ -111,6 +121,14 @@ function resetform() {
   this.form.username.value = ''
 
 }
+
+watch(auth, (n,o)=>{
+  // console.log('n',n)
+  // console.log('o',o)
+  if (n!==null) {
+    router.push({ path: '/' })
+  }
+},{deep:true})
 
 </script>
 

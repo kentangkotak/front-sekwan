@@ -31,16 +31,29 @@
             />
           </template>
         </q-input>
+        <q-select
+          v-model="txt"
+          dense
+          outlined
+          dark
+          color="white"
+          :options="txts"
+          label="status dewan"
+          class="q-ml-sm"
+          emit-value
+          map-options
+          style="min-width: 150px;"
+          @update:model-value="gantiTxt"
+        />
       </div>
       <div class="kanan">
         <q-btn
-          v-if="props.adaRefresh"
           unelevated
           round
           color="orange"
           size="sm"
           icon="add"
-          @click="icon = true"
+          @click="dialog = true"
         >
           <q-tooltip
             class="primary"
@@ -112,13 +125,17 @@
       </div>
     </div>
   </div>
+  <formDialog v-model="dialog" />
 </template>
 
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, defineAsyncComponent, onMounted, ref } from 'vue'
 import { useStyledStore } from 'src/stores/app/styled'
 import { useQuasar } from 'quasar'
 
+const txts = ref(['SEMUA', 'AKTIF', 'TIDAK AKTIF'])
+const formDialog = defineAsyncComponent(() => import('./FormDialogComp.vue'))
+const dialog = ref(false)
 const style = useStyledStore()
 const emits = defineEmits(['cari', 'refresh', 'setPerPage'])
 const props = defineProps({
@@ -151,4 +168,29 @@ const search = computed({
     emits('cari', newVal)
   }
 })
+
+function gantiTxt() {
+  gantiPeriode(periode.value)
+}
+
+function gantiPeriode(val) {
+  if (val === 1) {
+    hariIni()
+  } else if (val === 2) {
+    mingguIni()
+  } else if (val === 3) {
+    bulanIni()
+  } else {
+    tahunIni()
+  }
+
+  // console.log(to.value)
+  // console.log(from.value)
+  const per = {
+    to: to.value,
+    from: from.value,
+    status: gantiStatus(txt.value)
+  }
+  emits('setPeriode', per)
+}
 </script>

@@ -9,6 +9,13 @@
           </q-avatar>
           <b> SISTEM APLIKASI DPRD KOTA PROBOLINGGO</b>
         </q-toolbar-title>
+        <q-btn
+          flat
+          icon="logout"
+            Weight="700"
+            Grade="200"
+          rounds
+        />
       </q-toolbar>
     </q-header>
 </template>

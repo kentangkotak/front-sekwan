@@ -1,7 +1,7 @@
 import { defineStore } from "pinia"
 import { api } from "src/boot/axios"
 import * as storage from 'src/modules/storage'
-import { routerInstance } from 'src/boot/router'
+// import { routerInstance } from 'src/boot/router'
 
 
 export const useAuthStore = defineStore('auth', {
@@ -45,7 +45,7 @@ export const useAuthStore = defineStore('auth', {
       // send to channel
 
       this.loading = false
-      routerInstance.push({ path: '/' })
+      // routerInstance.push({ path: '/' })
       setTimeout(() => {
         this.loading = false
       }, 2000)
