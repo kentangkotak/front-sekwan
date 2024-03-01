@@ -11,17 +11,22 @@ export const useAnggotaDewanStore = defineStore('master_anggota_dewan', {
       q: '',
       page: 1,
       per_page: 10,
-      status: ''
+      status: 'all'
     },
     form:{}
   }),
   actions:{
+    init(val) {
+      console.log('val', val)
+      this.params = val
+      this.getData()
+    },
     async getData() {
-      // this.loading = true
+      //this.loading = true
       const params = { params: this.params }
       await api.get('/indexdewan', params)
         .then((resp) => {
-          console.log('sasasa', resp)
+          // console.log('sasasa', resp)
           //this.loading = false
           if (resp.status === 200) {
             this.meta = resp.data
@@ -36,7 +41,7 @@ export const useAnggotaDewanStore = defineStore('master_anggota_dewan', {
       this.loading = true
       console.log(this.form)
       api.post('/storedewan', this.form).then((resp) => {
-        console.log('sasasa', resp)
+        //console.log('sasasa', resp)
         this.loading = false
         this.form.nik=''
         if (resp.status === 200) {
@@ -48,6 +53,11 @@ export const useAnggotaDewanStore = defineStore('master_anggota_dewan', {
         console.log(err)
         this.loading = false
       })
+    },
+    setQ(val) {
+      this.params.page = 1
+      this.params.q = val
+      this.getData()
     },
   }
 

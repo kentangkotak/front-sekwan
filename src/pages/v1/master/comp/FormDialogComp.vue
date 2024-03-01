@@ -22,7 +22,7 @@
         </q-bar>
 
           <q-card-section>
-            <div class="text-h6"><U>FORM INPUT ANGGOTA DEWAN</U></div>
+            <div class="text-h6"><u>FORM INPUT ANGGOTA DEWAN</u></div>
           </q-card-section>
           <div style="border-right-style: solid;border-color:black;">
             <q-card-section class="q-pt-none">
@@ -92,9 +92,6 @@ import { ref } from "vue";
 const maximizedToggle= ref(true)
 const penyimpanan = useAnggotaDewanStore()
 const kelamin = ref('L')
-console.log('wewewew',kelamin)
-
-
 
 function coba() {
   console.log(penyimpanan.form)

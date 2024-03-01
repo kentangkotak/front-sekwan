@@ -3,33 +3,34 @@
     <div class="row justify-between items-center q-pa-sm bg-indigo text-white">
       <div class="kiri row q-gutter-sm items-center">
         <q-input
-          v-model="search"
+          v-model="q"
           outlined
           dark
           color="white"
           dense
-          :label="labelCari"
+          placeholder="Cari Anggota ..."
           debounce="500"
-          style="min-width: 250px;"
-          @keyup.enter="enterSearch"
+          style="min-width: 200px;"
         >
-          <template
-            v-if="props?.search"
-            #append
-          >
-            <q-icon
-              name="close"
-              size="xs"
-              class="cursor-pointer"
-              @click.stop.prevent="enterSearch('')"
-            />
-          </template>
-          <template #prepend>
-            <q-icon
-              size="sm"
-              name="search"
-            />
-          </template>
+        <template
+          v-if="q"
+          #append
+        >
+          <q-icon
+            name="close"
+            icon="eva-close-outline"
+            size="xs"
+            class="cursor-pointer"
+            @click.stop.prevent="q = ''"
+          />
+        </template>
+        <template #prepend>
+          <q-icon
+            size="sm"
+            name="search"
+            icon="search-outline"
+          />
+        </template>
         </q-input>
         <q-select
           v-model="txt"
@@ -132,12 +133,13 @@
 import { computed, defineAsyncComponent, onMounted, ref } from 'vue'
 import { useStyledStore } from 'src/stores/app/styled'
 import { useQuasar } from 'quasar'
+import { useAnggotaDewanStore } from 'src/stores/master/anggotadewan'
 
 const txts = ref(['SEMUA', 'AKTIF', 'TIDAK AKTIF'])
 const formDialog = defineAsyncComponent(() => import('./FormDialogComp.vue'))
 const dialog = ref(false)
 const style = useStyledStore()
-const emits = defineEmits(['cari', 'refresh', 'setPerPage'])
+const emits = defineEmits(['cari', 'refresh', 'setPerPage','setSearch'])
 const props = defineProps({
   search: { type: String, default: '' },
   labelCari: { type: String, default: 'Cari ...' },
@@ -147,10 +149,26 @@ const props = defineProps({
   perPage: { type: Number, default: 5 },
 })
 
-function enterSearch(evt) {
-  const val = evt?.target?.value
-  emits('cari', val)
-}
+const store = useAnggotaDewanStore()
+const q = computed({
+  get() {
+    return props.search
+  },
+  set(newVal) {
+    emits('setSearch', newVal)
+  }
+})
+
+onMounted(() => {
+    const params = {
+      page: 1,
+      q: '',
+      status: '',
+      per_page: 10,
+  }
+  store.init(params)
+})
+
 const options = ref([5, 10, 20, 50, 100])
 const selectPerPage = computed({
   get () {
@@ -170,27 +188,18 @@ const search = computed({
 })
 
 function gantiTxt() {
-  gantiPeriode(periode.value)
+  gantiPeriode()
 }
 
-function gantiPeriode(val) {
-  if (val === 1) {
-    hariIni()
-  } else if (val === 2) {
-    mingguIni()
-  } else if (val === 3) {
-    bulanIni()
-  } else {
-    tahunIni()
-  }
+const txt = ref('SEMUA')
 
+function gantiPeriode() {
   // console.log(to.value)
   // console.log(from.value)
   const per = {
-    to: to.value,
-    from: from.value,
     status: gantiStatus(txt.value)
   }
   emits('setPeriode', per)
 }
+
 </script>
