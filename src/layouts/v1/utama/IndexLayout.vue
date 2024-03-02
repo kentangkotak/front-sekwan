@@ -11,7 +11,6 @@
             color="purple"
             size="4em"
           /> -->
-          <AppLoading/>
     </div>
     <q-page-container >
       <router-view

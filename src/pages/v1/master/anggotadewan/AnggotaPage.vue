@@ -8,7 +8,6 @@
         ada-per-page
         ada-refresh
         use-full
-        :search="wew.params.q"
         :per-page="wew.params.per_page"
         @cari="wew.setSearch"
         @refresh="wew.refresh"
@@ -22,7 +21,6 @@
       class="my-flex-1 scroll"
     >
     <ListPage
-      :loading="wew.loading"
     />
 
       <div
@@ -30,6 +28,8 @@
         class="absolute-bottom bg-primary text-white"
       >
         <BottomComp
+          v-if="wew.meta !==null"
+          :key="wew.meta"
           :meta="wew.meta"
           @go-to="wew.setPage"
         />

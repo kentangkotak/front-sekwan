@@ -3,6 +3,7 @@
     class="row items-center justify-between q-pa-sm"
     :class="`${color} text-${textColor}`"
   >
+  Halaman Ke {{ meta.current_page }} Dari {{ meta.last_page }} Halaman
     <div>
       <div class="row items-center">
         <q-btn
@@ -59,7 +60,7 @@
         color="orange"
         class="q-mr-xs"
       >
-        {{ meta?.nik }}
+        {{ meta.total }}
       </q-badge> DATA DITEMUKAN
     </div>
   </div>

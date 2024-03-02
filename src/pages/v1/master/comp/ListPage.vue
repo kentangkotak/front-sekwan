@@ -29,12 +29,17 @@
       </tr>
     </thead>
     <tbody>
-      <template v-if="store.loading">
+      <template
+        v-if="store.loading"
+        >
         <tr
           v-for="n in store.params.per_page"
           :key="n"
         >
-          <td width="5%">
+        <div class="fixed-center">
+            <AppLoading/>.
+        </div>
+          <!-- <td width="5%">
             <q-skeleton
               type="text"
               width="20px"
@@ -100,7 +105,7 @@
                 height="14px"
               />
             </div>
-          </td>
+          </td> -->
         </tr>
       </template>
       <template v-else>
@@ -144,46 +149,13 @@
 
 import { useQuasar } from "quasar";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan"
+import { defineAsyncComponent } from "vue";
 import { useRouter } from 'vue-router'
 
 const store = useAnggotaDewanStore()
-const router = useRouter()
-const dateFullFormat = useQuasar
-
-// const indexId = ref(0)
-
-function color(val) {
-  let balik = 'grey'
-  switch (val) {
-    case '':
-      balik = 'grey'
-      break
-    case '1':
-      balik = 'grey'
-      break
-    case '2':
-      balik = 'green'
-      break
-    case '3':
-      balik = 'negative'
-      break
-    case '4':
-      balik = 'orange'
-      break
-
-    default:
-      break
-  }
-  return balik
-}
-
-function buka(val) {
-  store.setOpen()
-  store.setResep(val)
-  console.log('buka', val)
-  // if (val?.expand === undefined) val.expand = true
-  // else val.expand = !val.expand
-}
+const AppLoading = defineAsyncComponent(() =>
+  import('../../../../components/~global/AppLoading.vue')
+)
 
 function getkelamin(val) {
   if(val === 'L') {

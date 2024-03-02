@@ -3,7 +3,7 @@
     <div class="row justify-between items-center q-pa-sm bg-indigo text-white">
       <div class="kiri row q-gutter-sm items-center">
         <q-input
-          v-model="q"
+          v-model="store.params.q"
           outlined
           dark
           color="white"
@@ -11,6 +11,7 @@
           placeholder="Cari Anggota ..."
           debounce="500"
           style="min-width: 200px;"
+          @keyup.enter="store.init()"
         >
         <template
           v-if="q"
@@ -71,7 +72,7 @@
           round
           size="sm"
           icon="refresh"
-          @click="emits('refresh')"
+          @click="store.refreshTable()"
         >
           <q-tooltip
             class="primary"
@@ -138,7 +139,7 @@ import { useAnggotaDewanStore } from 'src/stores/master/anggotadewan'
 const txts = ref(['SEMUA', 'AKTIF', 'TIDAK AKTIF'])
 const formDialog = defineAsyncComponent(() => import('./FormDialogComp.vue'))
 const dialog = ref(false)
-const style = useStyledStore()
+// const style = useStyledStore()
 const emits = defineEmits(['cari', 'refresh', 'setPerPage','setSearch'])
 const props = defineProps({
   search: { type: String, default: '' },
@@ -150,6 +151,17 @@ const props = defineProps({
 })
 
 const store = useAnggotaDewanStore()
+
+// onMounted(() => {
+//     const params = {
+//       page: 1,
+//       q: '',
+//       status: '',
+//       per_page: 10,
+//   }
+//   store.init(params)
+// })
+
 const q = computed({
   get() {
     return props.search
@@ -157,16 +169,6 @@ const q = computed({
   set(newVal) {
     emits('setSearch', newVal)
   }
-})
-
-onMounted(() => {
-    const params = {
-      page: 1,
-      q: '',
-      status: '',
-      per_page: 10,
-  }
-  store.init(params)
 })
 
 const options = ref([5, 10, 20, 50, 100])
@@ -187,8 +189,15 @@ const search = computed({
   }
 })
 
-function gantiTxt() {
-  gantiPeriode()
+function gantiTxt(val) {
+  if(val === 'AKTIF') {
+    store.params.status= ''
+  }else if(val === 'TIDAK AKTIF') {
+    store.params.status= 1
+  }else{
+    store.params.status= 'all'
+  }
+ store.init()
 }
 
 const txt = ref('SEMUA')
