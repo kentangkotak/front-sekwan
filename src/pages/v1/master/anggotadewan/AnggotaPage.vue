@@ -1,9 +1,13 @@
 <template>
   <q-page
-     class=""
-    :class="style.componentfull?'container-no-header':'container--q-header q-pa-xs'"
+    class=""
+    :class="
+      style.componentfull
+        ? 'container-no-header'
+        : 'container--q-header q-pa-xs'
+    "
   >
-    <div class="header" style="margin-top: 5px;">
+    <div class="header" style="margin-top: 5px">
       <HeaderComp
         ada-per-page
         ada-refresh
@@ -12,23 +16,18 @@
         @cari="wew.setSearch"
         @refresh="wew.refresh"
         @set-per-page="wew.setPerPage"
+        :jabatan="jabatanStore.items"
       />
     </div>
-    <q-card
-      flat
-      no-shadow
-      square
-      class="my-flex-1 scroll"
-    >
-    <ListPage
-    />
+    <q-card flat no-shadow square class="my-flex-1 scroll">
+      <ListPage />
 
       <div
         v-if="Object.keys(wew.meta).length"
         class="absolute-bottom bg-primary text-white"
       >
         <BottomComp
-          v-if="wew.meta !==null"
+          v-if="wew.meta !== null"
           :key="wew.meta"
           :meta="wew.meta"
           @go-to="wew.setPage"
@@ -40,19 +39,19 @@
 
 <script setup>
 import { defineAsyncComponent } from "vue";
-import { useAnggotaDewanStore } from "src/stores/master/anggotadewan"
-import { useStyledStore } from 'src/stores/app/styled'
+import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
+import { useStyledStore } from "src/stores/app/styled";
 import { store } from "quasar/wrappers";
+import { useJabatanStore } from "src/stores/master/jabatan";
 
-const HeaderComp = defineAsyncComponent(() => import('../comp/HeaderComp.vue'))
-const ListPage = defineAsyncComponent(() => import('../comp/ListPage.vue'))
-const BottomComp = defineAsyncComponent(() => import('../comp/BottomComp.vue'))
+const HeaderComp = defineAsyncComponent(() => import("../comp/HeaderComp.vue"));
+const ListPage = defineAsyncComponent(() => import("../comp/ListPage.vue"));
+const BottomComp = defineAsyncComponent(() => import("../comp/BottomComp.vue"));
+const jabatanStore = useJabatanStore();
 
-const wew = useAnggotaDewanStore()
-const style = useStyledStore()
+const wew = useAnggotaDewanStore();
+const style = useStyledStore();
 
-wew.getData()
-
+wew.getData();
+jabatanStore.getData();
 </script>
-
-

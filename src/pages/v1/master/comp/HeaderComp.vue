@@ -10,28 +10,21 @@
           dense
           placeholder="Cari Anggota ..."
           debounce="500"
-          style="min-width: 200px;"
+          style="min-width: 200px"
           @keyup.enter="store.init()"
         >
-        <template
-          v-if="q"
-          #append
-        >
-          <q-icon
-            name="close"
-            icon="eva-close-outline"
-            size="xs"
-            class="cursor-pointer"
-            @click.stop.prevent="q = ''"
-          />
-        </template>
-        <template #prepend>
-          <q-icon
-            size="sm"
-            name="search"
-            icon="search-outline"
-          />
-        </template>
+          <template v-if="q" #append>
+            <q-icon
+              name="close"
+              icon="eva-close-outline"
+              size="xs"
+              class="cursor-pointer"
+              @click.stop.prevent="q = ''"
+            />
+          </template>
+          <template #prepend>
+            <q-icon size="sm" name="search" icon="search-outline" />
+          </template>
         </q-input>
         <q-select
           v-model="txt"
@@ -44,7 +37,7 @@
           class="q-ml-sm"
           emit-value
           map-options
-          style="min-width: 150px;"
+          style="min-width: 150px"
           @update:model-value="gantiTxt"
         />
       </div>
@@ -55,14 +48,9 @@
           color="orange"
           size="sm"
           icon="add"
-          @click="dialog = true"
+          @click="formDialogx()"
         >
-          <q-tooltip
-            class="primary"
-            :offset="[10, 10]"
-          >
-           Add
-          </q-tooltip>
+          <q-tooltip class="primary" :offset="[10, 10]"> Add </q-tooltip>
         </q-btn>
         <!-- refresh Ids -->
         <q-btn
@@ -74,10 +62,7 @@
           icon="refresh"
           @click="store.refreshTable()"
         >
-          <q-tooltip
-            class="primary"
-            :offset="[10, 10]"
-          >
+          <q-tooltip class="primary" :offset="[10, 10]">
             Refresh Table
           </q-tooltip>
         </q-btn>
@@ -90,10 +75,7 @@
           size="sm"
           icon="layers"
         >
-          <q-tooltip
-            class="primary"
-            :offset="[10, 10]"
-          >
+          <q-tooltip class="primary" :offset="[10, 10]">
             Filter Table
           </q-tooltip>
           <q-menu
@@ -104,12 +86,7 @@
             self="top right"
           >
             <q-list>
-              <q-item
-                v-for="(opt, i) in options"
-                :key="i"
-                v-ripple
-                tag="label"
-              >
+              <q-item v-for="(opt, i) in options" :key="i" v-ripple tag="label">
                 <q-item-section>
                   <q-radio
                     v-model="selectPerPage"
@@ -127,88 +104,74 @@
       </div>
     </div>
   </div>
-  <formDialog v-model="dialog" />
+  <formDialog v-model="dialog" :jabatan="jabatan" />
 </template>
 
 <script setup>
-import { computed, defineAsyncComponent, onMounted, ref } from 'vue'
-import { useStyledStore } from 'src/stores/app/styled'
-import { useQuasar } from 'quasar'
-import { useAnggotaDewanStore } from 'src/stores/master/anggotadewan'
+import { computed, defineAsyncComponent, onMounted, ref } from "vue";
+import { useStyledStore } from "src/stores/app/styled";
+import { useQuasar } from "quasar";
+import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 
-const txts = ref(['SEMUA', 'AKTIF', 'TIDAK AKTIF'])
-const formDialog = defineAsyncComponent(() => import('./FormDialogComp.vue'))
-const dialog = ref(false)
+const txts = ref(["SEMUA", "AKTIF", "TIDAK AKTIF"]);
+const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
+const dialog = ref(false);
 // const style = useStyledStore()
-const emits = defineEmits(['cari', 'refresh', 'setPerPage','setSearch'])
+const emits = defineEmits(["cari", "refresh", "setPerPage", "setSearch"]);
 const props = defineProps({
-  search: { type: String, default: '' },
-  labelCari: { type: String, default: 'Cari ...' },
+  search: { type: String, default: "" },
+  labelCari: { type: String, default: "Cari ..." },
   adaPerPage: { type: Boolean, default: false },
   adaRefresh: { type: Boolean, default: false },
   useFull: { type: Boolean, default: false },
   perPage: { type: Number, default: 5 },
-})
+  jabatan: { type: Array, default: () => [] },
+});
 
-const store = useAnggotaDewanStore()
-
-// onMounted(() => {
-//     const params = {
-//       page: 1,
-//       q: '',
-//       status: '',
-//       per_page: 10,
-//   }
-//   store.init(params)
-// })
+const store = useAnggotaDewanStore();
 
 const q = computed({
   get() {
-    return props.search
+    return props.search;
   },
   set(newVal) {
-    emits('setSearch', newVal)
-  }
-})
+    emits("setSearch", newVal);
+  },
+});
 
-const options = ref([5, 10, 20, 50, 100])
+const options = ref([5, 10, 20, 50, 100]);
 const selectPerPage = computed({
-  get () {
-    return props.perPage
+  get() {
+    return props.perPage;
   },
-  set (val) {
-    emits('setPerPage', val)
-  }
-})
-const search = computed({
-  get () {
-    return props.search
+  set(val) {
+    emits("setPerPage", val);
   },
-  set (newVal) {
-    emits('cari', newVal)
-  }
-})
+});
 
 function gantiTxt(val) {
-  if(val === 'AKTIF') {
-    store.params.status= ''
-  }else if(val === 'TIDAK AKTIF') {
-    store.params.status= 1
-  }else{
-    store.params.status= 'all'
+  if (val === "AKTIF") {
+    store.params.status = "";
+  } else if (val === "TIDAK AKTIF") {
+    store.params.status = 1;
+  } else {
+    store.params.status = "all";
   }
- store.init()
+  store.init();
 }
 
-const txt = ref('SEMUA')
+const txt = ref("SEMUA");
 
 function gantiPeriode() {
   // console.log(to.value)
   // console.log(from.value)
   const per = {
-    status: gantiStatus(txt.value)
-  }
-  emits('setPeriode', per)
+    status: gantiStatus(txt.value),
+  };
+  emits("setPeriode", per);
 }
 
+function formDialogx() {
+  dialog.value = true;
+}
 </script>

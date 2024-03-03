@@ -2,43 +2,20 @@
   <table>
     <thead>
       <tr>
-        <th width="5%">
-          NO.
-        </th>
-        <th>
-          NIK
-        </th>
-        <th>
-          NAMA
-        </th>
-        <th>
-          JENIS KELAMIN
-        </th>
-        <th>
-          ALAMAT
-        </th>
-        <th>
-          JABATAN
-        </th>
-        <th>
-          KOMISI
-        </th>
-        <th>
-          STATUS
-        </th>
+        <th width="5%">NO.</th>
+        <th>NIK</th>
+        <th>NAMA</th>
+        <th>JENIS KELAMIN</th>
+        <th>ALAMAT</th>
+        <th>JABATAN</th>
+        <th>KOMISI</th>
+        <th>STATUS</th>
       </tr>
     </thead>
     <tbody>
-      <template
-        v-if="store.loading"
-        >
-        <tr
-          v-for="n in store.params.per_page"
-          :key="n"
-        >
-        <div class="fixed-center">
-            <AppLoading/>.
-        </div>
+      <template v-if="store.loading">
+        <tr v-for="n in store.params.per_page" :key="n">
+          <div class="fixed-center"><AppLoading />.</div>
           <!-- <td width="5%">
             <q-skeleton
               type="text"
@@ -109,25 +86,20 @@
         </tr>
       </template>
       <template v-else>
-        <template
-          v-for="(item, n) in store.items"
-          :key="n"
-        >
-          <tr :class="item?.flag==='1'?'bg-light-blue-2':''">
-            <td width="5%">
-              {{ n+1 }}.
+        <template v-for="(item, n) in store.items" :key="n">
+          <tr :class="item?.flag === '1' ? 'bg-light-blue-2' : ''">
+            <td width="5%">{{ n + 1 }}.</td>
+            <td>
+              {{ item?.nik }}
             </td>
             <td>
-                {{ item?.nik }}
+              {{ item?.nama }}
             </td>
             <td>
-                {{ item?.nama }}
+              {{ getkelamin(item?.jns_kelamin) }}
             </td>
             <td>
-                {{ getkelamin(item?.jns_kelamin) }}
-            </td>
-            <td>
-                {{ item?.alamat }}
+              {{ item?.alamat }}
             </td>
             <td>
               {{ item?.jabatan }}
@@ -146,38 +118,37 @@
 </template>
 
 <script setup>
-
 import { useQuasar } from "quasar";
-import { useAnggotaDewanStore } from "src/stores/master/anggotadewan"
+import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
+import { useJabatanStore } from "src/stores/master/jabatan";
 import { defineAsyncComponent } from "vue";
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
 
-const store = useAnggotaDewanStore()
+const store = useAnggotaDewanStore();
+const jabatanStore = useJabatanStore();
 const AppLoading = defineAsyncComponent(() =>
-  import('../../../../components/~global/AppLoading.vue')
-)
+  import("../../../../components/~global/AppLoading.vue")
+);
 
 function getkelamin(val) {
-  if(val === 'L') {
-    return 'Laki-Laki'
-  }else{
-    return 'Perempuan'
+  if (val === "L") {
+    return "Laki-Laki";
+  } else {
+    return "Perempuan";
   }
 }
 
 function getstatusmu(val) {
-  if(val === 0) {
-    return 'Tidak Aktif'
-  }else{
-    return 'Aktif'
+  if (val === 0) {
+    return "Tidak Aktif";
+  } else {
+    return "Aktif";
   }
 }
-
 </script>
 
 <style lang="scss" scoped>
-
-.text-end{
+.text-end {
   text-align: end;
 }
 /* Standard Tables */
@@ -192,7 +163,6 @@ table {
 
 th,
 td {
-
   vertical-align: text-top;
   text-align: left;
   text-indent: -0.5em;
@@ -207,11 +177,11 @@ th {
   color: white;
 }
 
-tr:nth-child(even) th[scope=row] {
+tr:nth-child(even) th[scope="row"] {
   background-color: #f2f2f2;
 }
 
-tr:nth-child(odd) th[scope=row] {
+tr:nth-child(odd) th[scope="row"] {
   background-color: #fff;
 }
 
@@ -240,34 +210,45 @@ th {
   z-index: 2;
 }
 
-th[scope=row] {
+th[scope="row"] {
   position: -webkit-sticky;
   position: sticky;
   left: 0;
   z-index: 1;
 }
 
-th[scope=row] {
+th[scope="row"] {
   vertical-align: top;
   color: inherit;
   background-color: inherit;
-  background: linear-gradient(90deg, transparent 0%, transparent calc(100% - .05em), #d6d6d6 calc(100% - .05em), #d6d6d6 100%);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent calc(100% - 0.05em),
+    #d6d6d6 calc(100% - 0.05em),
+    #d6d6d6 100%
+  );
 }
 
-table:nth-of-type(2) th:not([scope=row]):first-child {
+table:nth-of-type(2) th:not([scope="row"]):first-child {
   left: 0;
   z-index: 3;
-  background: linear-gradient(90deg, #666 0%, #666 calc(100% - .05em), #ccc calc(100% - .05em), #ccc 100%);
+  background: linear-gradient(
+    90deg,
+    #666 0%,
+    #666 calc(100% - 0.05em),
+    #ccc calc(100% - 0.05em),
+    #ccc 100%
+  );
 }
 
 /* Strictly for making the scrolling happen. */
 
-th[scope=row] + td {
+th[scope="row"] + td {
   min-width: 24em;
 }
 
-th[scope=row] {
+th[scope="row"] {
   min-width: 20em;
 }
-
 </style>
