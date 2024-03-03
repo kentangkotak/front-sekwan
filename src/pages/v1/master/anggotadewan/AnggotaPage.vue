@@ -17,6 +17,7 @@
         @refresh="wew.refresh"
         @set-per-page="wew.setPerPage"
         :jabatan="jabatanStore.items"
+        :komisi="komisiStore.items"
       />
     </div>
     <q-card flat no-shadow square class="my-flex-1 scroll">
@@ -43,15 +44,17 @@ import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 import { useStyledStore } from "src/stores/app/styled";
 import { store } from "quasar/wrappers";
 import { useJabatanStore } from "src/stores/master/jabatan";
+import { useKomisiStore } from "src/stores/master/komisi";
 
 const HeaderComp = defineAsyncComponent(() => import("../comp/HeaderComp.vue"));
 const ListPage = defineAsyncComponent(() => import("../comp/ListPage.vue"));
 const BottomComp = defineAsyncComponent(() => import("../comp/BottomComp.vue"));
 const jabatanStore = useJabatanStore();
-
+const komisiStore = useKomisiStore();
 const wew = useAnggotaDewanStore();
 const style = useStyledStore();
 
 wew.getData();
 jabatanStore.getData();
+komisiStore.getData();
 </script>

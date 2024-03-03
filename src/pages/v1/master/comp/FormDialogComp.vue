@@ -94,7 +94,14 @@
             />
           </div>
           <div>
-            <q-input v-model="penyimpanan.form.id_komisi" label="Komisi" />
+            <q-select
+              v-model="id_komisi"
+              :options="komisi"
+              option-label="komisi"
+              option-value="id"
+              label="Komisi"
+              @update:model-value="setkomisi"
+            />
           </div>
         </q-card-section>
       </div>
@@ -117,16 +124,22 @@ import { ref } from "vue";
 const maximizedToggle = ref(true);
 const penyimpanan = useAnggotaDewanStore();
 const kelamin = ref("Laki_laki");
-
 const id_jabatan = ref(null);
+const id_komisi = ref(null);
 
 function setjabatan(val) {
-  console.log("isi", val);
+  //console.log("isi", val);
   penyimpanan.form.id_jabatan = val.id;
+}
+
+function setkomisi(val) {
+  console.log("isi", val);
+  penyimpanan.form.id_komisi = val.id;
 }
 
 defineProps({
   jabatan: { type: Array, default: () => [] },
+  komisi: { type: Array, default: () => [] },
 });
 
 function coba() {

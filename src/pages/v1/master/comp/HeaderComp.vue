@@ -104,7 +104,7 @@
       </div>
     </div>
   </div>
-  <formDialog v-model="dialog" :jabatan="jabatan" />
+  <formDialog v-model="dialog" :jabatan="jabatan" :komisi="komisi" />
 </template>
 
 <script setup>
@@ -126,6 +126,7 @@ const props = defineProps({
   useFull: { type: Boolean, default: false },
   perPage: { type: Number, default: 5 },
   jabatan: { type: Array, default: () => [] },
+  komisi: { type: Array, default: () => [] },
 });
 
 const store = useAnggotaDewanStore();
