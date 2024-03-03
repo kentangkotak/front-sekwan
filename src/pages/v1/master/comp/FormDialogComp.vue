@@ -39,7 +39,9 @@
       </q-bar>
 
       <q-card-section>
-        <div class="text-h6"><u>FORM INPUT ANGGOTA DEWAN</u></div>
+        <div class="text-h6 center">
+          <b><u>FORM INPUT ANGGOTA DEWAN</u></b>
+        </div>
       </q-card-section>
       <div style="border-right-style: solid; border-color: black">
         <q-card-section class="q-pt-none">
@@ -126,6 +128,7 @@ const penyimpanan = useAnggotaDewanStore();
 const kelamin = ref("Laki_laki");
 const id_jabatan = ref(null);
 const id_komisi = ref(null);
+const id_flag_pegawai = ref(1);
 
 function setjabatan(val) {
   //console.log("isi", val);
