@@ -41,12 +41,14 @@
           @update:model-value="gantiTxt"
         /> -->
         <q-select
-          v-model="txt"
+          v-model="komisi_id"
           dense
           outlined
           dark
           color="white"
           :options="komisi"
+          option-label="komisi"
+          option-value="id"
           label="Komisi"
           class="q-ml-sm"
           emit-value
