@@ -10,6 +10,7 @@
         <th>JABATAN</th>
         <th>KOMISI</th>
         <th>STATUS</th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -102,13 +103,20 @@
               {{ item?.alamat }}
             </td>
             <td>
-              {{ item?.jabatan }}
+              {{ item?.jabatan?.jenis }}
             </td>
             <td>
-              {{ item?.komisi }}
+              {{ item?.komisi?.komisi }}
             </td>
             <td>
               {{ getstatusmu(item?.status) }}
+            </td>
+            <td>
+              <q-btn
+                label="EDIT"
+                color="orange"
+                @click="editdewan(item?.nik)"
+              />
             </td>
           </tr>
         </template>
@@ -144,6 +152,10 @@ function getstatusmu(val) {
   } else {
     return "Aktif";
   }
+}
+
+function editdewan(val) {
+  console.log("wew", val);
 }
 </script>
 

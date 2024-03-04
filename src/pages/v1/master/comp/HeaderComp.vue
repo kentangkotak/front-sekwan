@@ -26,7 +26,7 @@
             <q-icon size="sm" name="search" icon="search-outline" />
           </template>
         </q-input>
-        <q-select
+        <!-- <q-select
           v-model="txt"
           dense
           outlined
@@ -34,6 +34,20 @@
           color="white"
           :options="txts"
           label="status dewan"
+          class="q-ml-sm"
+          emit-value
+          map-options
+          style="min-width: 150px"
+          @update:model-value="gantiTxt"
+        /> -->
+        <q-select
+          v-model="txt"
+          dense
+          outlined
+          dark
+          color="white"
+          :options="komisi"
+          label="Komisi"
           class="q-ml-sm"
           emit-value
           map-options
@@ -117,7 +131,13 @@ const txts = ref(["SEMUA", "AKTIF", "TIDAK AKTIF"]);
 const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
 const dialog = ref(false);
 // const style = useStyledStore()
-const emits = defineEmits(["cari", "refresh", "setPerPage", "setSearch"]);
+const emits = defineEmits([
+  "cari",
+  "refresh",
+  "setPerPage",
+  "setSearch",
+  "dialog",
+]);
 const props = defineProps({
   search: { type: String, default: "" },
   labelCari: { type: String, default: "Cari ..." },
