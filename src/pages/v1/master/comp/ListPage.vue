@@ -4,7 +4,7 @@
       <tr>
         <th width="5%">NO.</th>
         <th>NIK</th>
-        <th>NAMA</th>
+        <th>NAMA ANGGOTA DEWAN</th>
         <th>JENIS KELAMIN</th>
         <th>ALAMAT</th>
         <th>JABATAN</th>

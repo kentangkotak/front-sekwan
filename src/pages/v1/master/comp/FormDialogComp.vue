@@ -114,6 +114,12 @@
           :loading="penyimpanan.loading"
           @click="penyimpanan.simpandewan()"
         />
+        <q-btn
+          label="coba"
+          class="bg-orange"
+          :loading="penyimpanan.loading"
+          @click="coba()"
+        />
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -122,6 +128,7 @@
 import { defaults } from "autoprefixer";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 import { ref } from "vue";
+import { useQuasar } from "quasar";
 
 const maximizedToggle = ref(true);
 const penyimpanan = useAnggotaDewanStore();
@@ -144,8 +151,4 @@ defineProps({
   jabatan: { type: Array, default: () => [] },
   komisi: { type: Array, default: () => [] },
 });
-
-function coba() {
-  console.log(penyimpanan.form);
-}
 </script>

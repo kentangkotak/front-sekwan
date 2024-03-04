@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { api } from "src/boot/axios";
+import { notifErr, notifSuccess } from "src/boot/notify-defaults";
 
 export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
   state: () => ({
@@ -12,12 +13,13 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
       page: 1,
       per_page: 10,
       status: "all",
+      id_flag_pegawai: "1",
     },
+    form: {},
     form: {
       id_flag_pegawai: "1",
     },
     id_jabatan: null,
-    filters: false,
   }),
   actions: {
     init() {
@@ -44,7 +46,7 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
     },
     simpandewan() {
       this.loading = true;
-      console.log("asu", this.form);
+      //console.log("asu", this.form);
       api
         .post("/storedewan", this.form)
         .then((resp) => {
@@ -52,14 +54,15 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
           this.loading = false;
           this.clear();
           if (resp.status === 200) {
+            notifSuccess(resp);
             this.init();
             console.log("OK");
           }
         })
         .catch((err) => {
-          alert("Data Gagal Tersimpan");
           console.log(err);
           this.loading = false;
+          notifErr(err);
         });
     },
     clear() {

@@ -3,7 +3,7 @@
     class="row items-center justify-between q-pa-sm"
     :class="`${color} text-${textColor}`"
   >
-  Halaman Ke {{ meta.current_page }} Dari {{ meta.last_page }} Halaman
+    Halaman Ke {{ meta.current_page }} Dari {{ meta.last_page }} Halaman
     <div>
       <div class="row items-center">
         <q-btn
@@ -13,8 +13,8 @@
           icon="skip_previous"
           size="sm"
           round
-          :disable="meta?.current_page===1"
-          @click="emits('goTo',1)"
+          :disable="meta?.current_page === 1"
+          @click="emits('goTo', 1)"
         />
         <q-btn
           flat
@@ -22,8 +22,8 @@
           icon="eva-arrow-ios-back-outline"
           size="sm"
           round
-          :disable="meta?.prev_page===null"
-          @click="emits('goTo',meta.current_page-1)"
+          :disable="meta?.prev_page === null"
+          @click="emits('goTo', meta.current_page - 1)"
         />
         <div class="q-px-sm">
           <!-- <div v-if="meta?.total !==0">
@@ -39,8 +39,7 @@
           icon="eva-arrow-ios-forward-outline"
           size="sm"
           round
-
-          @click="emits('goTo',meta.current_page+1)"
+          @click="emits('goTo', meta.current_page + 1)"
         />
         <q-btn
           flat
@@ -48,38 +47,33 @@
           icon="skip_next"
           size="sm"
           round
-
-          @click="emits('goTo',meta.last_page)"
+          @click="emits('goTo', meta.last_page)"
         />
       </div>
     </div>
     <div class="q-pr-xl">
-      <q-badge
-        outline
-        align="middle"
-        color="orange"
-        class="q-mr-xs"
-      >
+      <q-badge outline align="middle" color="orange" class="q-mr-xs">
         {{ meta.total }}
-      </q-badge> DATA DITEMUKAN
+      </q-badge>
+      DATA DITEMUKAN
     </div>
   </div>
 </template>
 
 <script setup>
-const emits = defineEmits(['goTo'])
+const emits = defineEmits(["goTo"]);
 defineProps({
   color: {
     type: String,
-    default: 'bg-indigo'
+    default: "bg-black",
   },
   textColor: {
     type: String,
-    default: 'white'
+    default: "white",
   },
   meta: {
     type: Object,
-    default: null
-  }
-})
+    default: null,
+  },
+});
 </script>
