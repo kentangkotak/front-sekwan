@@ -112,16 +112,13 @@
               {{ getstatusmu(item?.status) }}
             </td>
             <td>
-              <q-btn
-                label="EDIT"
-                color="orange"
-                @click="editdewan(item?.nik)"
-              />
+              <q-btn label="EDIT" color="orange" @click="editdewan(item)" />
             </td>
           </tr>
         </template>
       </template>
     </tbody>
+    <formDialog v-model="dialog" />
   </table>
 </template>
 
@@ -129,9 +126,11 @@
 import { useQuasar } from "quasar";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 import { useJabatanStore } from "src/stores/master/jabatan";
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 
+const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
+const dialog = ref(false);
 const store = useAnggotaDewanStore();
 const jabatanStore = useJabatanStore();
 const AppLoading = defineAsyncComponent(() =>
@@ -156,6 +155,7 @@ function getstatusmu(val) {
 
 function editdewan(val) {
   console.log("wew", val);
+  dialog.value = true;
 }
 </script>
 

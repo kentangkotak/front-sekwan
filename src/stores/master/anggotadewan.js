@@ -12,14 +12,15 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
       q: "",
       page: 1,
       per_page: 10,
-      status: "all",
       id_flag_pegawai: "1",
     },
     form: {},
     form: {
       id_flag_pegawai: "1",
+      komisi_id: "",
     },
     id_jabatan: null,
+    komisi_id: "1",
   }),
   actions: {
     init() {
@@ -129,6 +130,10 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
           console.log(err);
           this.loading = false;
         });
+    },
+    gantikomisi(val) {
+      this.params.komisi_id = val;
+      this.getData();
     },
   },
 });

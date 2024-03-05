@@ -54,7 +54,7 @@
           emit-value
           map-options
           style="min-width: 150px"
-          @update:model-value="gantiTxt"
+          @update:model-value="(val) => store.gantikomisi(val)"
         />
       </div>
       <div class="kanan">
@@ -122,16 +122,15 @@
   </div>
   <formDialog v-model="dialog" :jabatan="jabatan" :komisi="komisi" />
 </template>
-
 <script setup>
 import { computed, defineAsyncComponent, onMounted, ref } from "vue";
 import { useStyledStore } from "src/stores/app/styled";
 import { useQuasar } from "quasar";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 
-const txts = ref(["SEMUA", "AKTIF", "TIDAK AKTIF"]);
 const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
 const dialog = ref(false);
+const komisi_id = ref("SEMUA");
 // const style = useStyledStore()
 const emits = defineEmits([
   "cari",
@@ -139,6 +138,7 @@ const emits = defineEmits([
   "setPerPage",
   "setSearch",
   "dialog",
+  "komisi",
 ]);
 const props = defineProps({
   search: { type: String, default: "" },
@@ -180,6 +180,12 @@ function gantiTxt(val) {
   } else {
     store.params.status = "all";
   }
+  store.init();
+}
+
+function gantikomisi(val) {
+  console.log("val", val);
+  store.params.komisi_id = val.id;
   store.init();
 }
 

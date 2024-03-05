@@ -27,6 +27,10 @@ export const useKomisiStore = defineStore("master_komisi", {
             this.meta = resp.data;
             this.items = resp.data.data;
             this.meta.total = resp?.data.total;
+            this.items.unshift({
+              komisi: "SEMUA",
+              id: "",
+            });
           }
         })
         .catch((err) => {
@@ -34,5 +38,10 @@ export const useKomisiStore = defineStore("master_komisi", {
           this.loading = false;
         });
     },
+  },
+  gantikomisi(val) {
+    console.log("val", val);
+    store.params.komisi_id = val.id;
+    store.init();
   },
 });
