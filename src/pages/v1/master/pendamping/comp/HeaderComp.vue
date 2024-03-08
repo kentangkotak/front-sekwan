@@ -26,11 +26,13 @@
             <q-icon size="sm" name="search" icon="search-outline" />
           </template>
         </q-input>
-        <!-- <q-select
+        <q-select
+          v-model="komisi_id"
           dense
           outlined
           dark
           color="white"
+          :options="komisi"
           option-label="komisi"
           option-value="id"
           label="Komisi"
@@ -38,7 +40,8 @@
           emit-value
           map-options
           style="min-width: 150px"
-        /> -->
+          @update:model-value="(val) => store.gantikomisi()"
+        />
       </div>
       <div class="kanan">
         <q-btn
@@ -111,6 +114,10 @@ import { usePendampingDewanStore } from "src/stores/master/pendampingdewan";
 
 const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
 const dialog = ref(false);
+const komisi_id = ref({
+  id: "",
+  komisi: "SEMUA",
+});
 
 // const style = useStyledStore()
 const emits = defineEmits([

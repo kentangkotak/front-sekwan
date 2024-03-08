@@ -14,7 +14,11 @@ export const usePendampingDewanStore = defineStore("master_pedamping_dewan", {
       per_page: 10,
       id_flag_pegawai: "2",
     },
-    form: {},
+    form: {
+      id_flag_pegawai: "2",
+      id_komisi: null,
+      komisi_id: "1",
+    },
     payloadx: {
       id: null,
     },
@@ -29,7 +33,7 @@ export const usePendampingDewanStore = defineStore("master_pedamping_dewan", {
       await api
         .get("/indexdewan", params)
         .then((resp) => {
-          console.log("sasasa", resp);
+          // console.log("sasasa", resp);
           this.loading = false;
           if (resp.status === 200) {
             this.meta = resp.data;
@@ -41,6 +45,17 @@ export const usePendampingDewanStore = defineStore("master_pedamping_dewan", {
           console.log(err);
           this.loading = false;
         });
+    },
+    simpanpedamping() {
+      this.loading = true;
+      api.post("/storedewan", this.form).then((resp) => {
+        console.log("sasasa", resp);
+        this.loading = false;
+        if (resp.status === 200) {
+          notifSuccess(resp);
+          this.init();
+        }
+      });
     },
     setQ(val) {
       this.params.page = 1;
@@ -67,6 +82,15 @@ export const usePendampingDewanStore = defineStore("master_pedamping_dewan", {
     },
     setPerPage(payload) {
       this.params.per_page = payload;
+      this.getData();
+    },
+    setPage(payload) {
+      this.params.page = payload;
+      this.getData();
+    },
+    gantikomisi(val) {
+      console.log("as", val);
+      this.params.komisi_id = val;
       this.getData();
     },
   },

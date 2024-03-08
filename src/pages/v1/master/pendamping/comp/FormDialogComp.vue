@@ -99,7 +99,12 @@
         </q-card-section>
       </div>
       <q-card-actions>
-        <q-btn label="SIMPAN" class="bg-orange" :loading="store.loading" />
+        <q-btn
+          label="SIMPAN"
+          class="bg-orange"
+          :loading="store.loading"
+          @click="store.simpanpedamping"
+        />
         <!-- <q-btn
           label="coba"
           class="bg-orange"

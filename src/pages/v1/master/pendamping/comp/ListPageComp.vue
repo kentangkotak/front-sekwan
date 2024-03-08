@@ -4,7 +4,7 @@
       <tr>
         <th width="5%">NO.</th>
         <th>NIK</th>
-        <th>NAMA ANGGOTA DEWAN</th>
+        <th>NAMA PEDAMPING DEWAN</th>
         <th>JENIS KELAMIN</th>
         <th>ALAMAT</th>
         <th>KOMISI</th>
@@ -70,7 +70,6 @@
 <script setup>
 import { useQuasar } from "quasar";
 import { usePendampingDewanStore } from "src/stores/master/pendampingdewan";
-// import { useJabatanStore } from "src/stores/master/jabatan";
 import { defineAsyncComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 
@@ -78,7 +77,6 @@ import { useRouter } from "vue-router";
 const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
 const dialog = ref(false);
 const store = usePendampingDewanStore();
-//const jabatanStore = useJabatanStore();
 const AppLoading = defineAsyncComponent(() =>
   import("../../../../../components/~global/AppLoading.vue")
 );
