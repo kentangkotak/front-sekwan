@@ -1,18 +1,8 @@
 <template>
-  <q-drawer
-    show-if-above
-    :width="300"
-    elevated
-  >
+  <q-drawer show-if-above :width="300" elevated>
     <q-scroll-area class="fit">
-      <div
-        class="q-pa-md"
-        style="max-width: 300px"
-      >
-        <q-list
-          bordered
-          class="rounded-borders text-primary"
-        >
+      <div class="q-pa-md" style="max-width: 300px">
+        <q-list bordered class="rounded-borders text-primary">
           <q-expansion-item class="bg-indigo text-white">
             <template #header>
               <q-item-section>DATA MASTER</q-item-section>
@@ -28,9 +18,7 @@
                 <q-item-section avatar>
                   <q-icon name="book" />
                 </q-item-section>
-                <q-item-section class="text-bold">
-                  USER
-                </q-item-section>
+                <q-item-section class="text-bold"> USER </q-item-section>
               </q-item>
               <q-item
                 v-ripple
@@ -42,27 +30,39 @@
                 <q-item-section avatar>
                   <q-icon name="work_outline" />
                 </q-item-section>
+                <q-item-section class="text-bold"> KOMISI </q-item-section>
+              </q-item>
+              <q-item
+                v-ripple
+                clickable
+                active-class="my-menu-link"
+                @click="masteranggotadewan()"
+                class="bg-indigo-1 text-dark"
+              >
+                <q-item-section avatar>
+                  <q-icon name="person" />
+                </q-item-section>
                 <q-item-section class="text-bold">
-                  KOMISI
+                  ANGGOTA DEWAN
                 </q-item-section>
               </q-item>
               <q-item
                 v-ripple
                 clickable
                 active-class="my-menu-link"
-                @click="panggil()"
+                @click="masterpendampingdewan()"
                 class="bg-indigo-1 text-dark"
               >
                 <q-item-section avatar>
-                  <q-icon name="people" />
+                  <q-icon name="group" />
                 </q-item-section>
                 <q-item-section class="text-bold">
-                  ANGGOTA DEWAN
+                  PEDAMPING DEWAN
                 </q-item-section>
               </q-item>
             </q-list>
           </q-expansion-item>
-          <q-separator/>
+          <q-separator />
 
           <q-expansion-item class="bg-indigo text-white">
             <template #header>
@@ -93,9 +93,7 @@
                 <q-item-section avatar>
                   <q-icon name="work_outline" />
                 </q-item-section>
-                <q-item-section class="text-bold">
-                  KOMISI
-                </q-item-section>
+                <q-item-section class="text-bold"> KOMISI </q-item-section>
               </q-item>
               <q-item
                 v-ripple
@@ -117,24 +115,25 @@
       </div>
     </q-scroll-area>
   </q-drawer>
-
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useQuasar } from 'quasar';
-import toggleLeftDrawer from './HederLayout.vue'
-import { useRouter } from 'vue-router'
+import { ref } from "vue";
+import { useQuasar } from "quasar";
+import toggleLeftDrawer from "./HederLayout.vue";
+import { useRouter } from "vue-router";
 
-const router = useRouter()
+const router = useRouter();
 
-function panggil() {
-  console.log('wew',router)
-  router.push({ path: "/anggotadewan"})
+function masteranggotadewan() {
+  console.log("wew", router);
+  router.push({ path: "/master/anggotadewan" });
   // return { panggil }
 }
 
-
+function masterpendampingdewan() {
+  router.push({ path: "/master/pendampingdewan" });
+}
 </script>
 
 <style lang="sass" scoped>

@@ -1,32 +1,32 @@
 const routes = [
   {
-    path: '/login',
+    path: "/login",
     meta: { requireAuth: false },
-    component: () => import('../layouts/v1/utama/FormLogin.vue'),
-    children: [
-      { path: '', component: () => import('pages/IndexPage.vue') }
-    ]
+    component: () => import("../layouts/v1/utama/FormLogin.vue"),
+    children: [{ path: "", component: () => import("pages/IndexPage.vue") }],
   },
   {
-    path: '/',
+    path: "/",
     meta: { requireAuth: true },
-    component: () => import('layouts/v1/utama/IndexLayout.vue'),
+    component: () => import("layouts/v1/utama/IndexLayout.vue"),
     children: [
-      { path: '',
-        redirect: '/dasboard' },
+      { path: "", redirect: "/dasboard" },
       {
-        path: '/dasboard',
-        name: 'dasboard',
-        component: () =>
-        import('pages/v1/DasboardPage.vue')
+        path: "/dasboard",
+        name: "dasboard",
+        component: () => import("pages/v1/DasboardPage.vue"),
       },
       {
-        path: '/anggotadewan',
-        name: 'masteranggota',
-        component: () =>
-        import('pages/v1/master/anggotadewan/IndexLayout.vue')
+        path: "/master/anggotadewan",
+        name: "masteranggota",
+        component: () => import("pages/v1/master/anggotadewan/IndexLayout.vue"),
       },
-    ]
+      {
+        path: "/master/pendampingdewan",
+        name: "masterpendamping",
+        component: () => import("pages/v1/master/pendamping/IndexLayout.vue"),
+      },
+    ],
   },
 
   // {
@@ -36,14 +36,12 @@ const routes = [
   //   import('../pages/v1/master/anggotadewan/IndexLayout.vue')
   // },
 
-
-
   // Always leave this as last one,
   // but you can also remove it
   {
-    path: '/:catchAll(.*)*',
-    component: () => import('pages/ErrorNotFound.vue')
-  }
-]
+    path: "/:catchAll(.*)*",
+    component: () => import("pages/ErrorNotFound.vue"),
+  },
+];
 
-export default routes
+export default routes;
