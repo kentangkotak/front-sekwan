@@ -14,13 +14,16 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
       per_page: 10,
       id_flag_pegawai: "1",
     },
-    form: {},
     form: {
+      //nik: null,
       id_flag_pegawai: "1",
-      komisi_id: "",
+      id_jabatan: null,
+      id_komisi: null,
+      komisi_id: "1",
     },
-    id_jabatan: null,
-    komisi_id: "1",
+    payloadx: {
+      id: null,
+    },
   }),
   actions: {
     init() {
@@ -72,6 +75,27 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
       this.form.alamat = "";
       this.form.kelamin = "";
     },
+    hapusDewan() {
+      this.loading = true;
+      console.log(this.payloadx);
+      api
+        .post("/deletedewan", this.payloadx)
+        .then((resp) => {
+          //console.log('sasasa', resp)
+          this.loading = false;
+          this.clear();
+          if (resp.status === 200) {
+            notifSuccess(resp);
+            this.getData();
+            console.log("OK");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading = false;
+          notifErr(err);
+        });
+    },
     setQ(val) {
       this.params.page = 1;
       this.params.q = val;
@@ -106,6 +130,10 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
     setJabatan(val) {
       this.params.jabatan = val;
       this.getJabatan();
+    },
+    lemparDewan(payload) {
+      this.payloadx.id = payload;
+      this.hapusDewan();
     },
     async getJabatan() {
       this.loading = true;

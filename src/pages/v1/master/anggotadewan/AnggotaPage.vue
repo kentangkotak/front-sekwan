@@ -21,7 +21,7 @@
       />
     </div>
     <q-card flat no-shadow square class="my-flex-1 scroll">
-      <ListPage />
+      <ListPage :jabatan="jabatanStore.items" :komisi="komisiStore.items" />
 
       <div
         v-if="Object.keys(wew.meta).length"

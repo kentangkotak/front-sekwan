@@ -130,7 +130,11 @@ import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 
 const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
 const dialog = ref(false);
-const komisi_id = ref("SEMUA");
+const komisi_id = ref({
+  id: "",
+  komisi: "SEMUA",
+});
+
 // const style = useStyledStore()
 const emits = defineEmits([
   "cari",
@@ -201,6 +205,12 @@ function gantiPeriode() {
 }
 
 function formDialogx() {
+  store.form.nik = "";
+  store.form.nama = "";
+  store.form.alamat = "";
+  store.form.jns_kelamin = "";
+  store.form.id_jabatan = "";
+  store.form.id_komisi = "";
   dialog.value = true;
 }
 </script>

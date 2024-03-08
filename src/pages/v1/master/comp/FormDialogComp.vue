@@ -87,22 +87,24 @@
           </div>
           <div>
             <q-select
-              v-model="id_jabatan"
+              v-model="penyimpanan.form.id_jabatan"
               :options="jabatan"
               option-label="jenis"
               option-value="id"
+              emit-value
+              map-options
               label="Jabatan"
-              @update:model-value="setjabatan"
             />
           </div>
           <div>
             <q-select
-              v-model="id_komisi"
+              v-model="penyimpanan.form.id_komisi"
               :options="komisi"
               option-label="komisi"
               option-value="id"
               label="Komisi"
-              @update:model-value="setkomisi"
+              emit-value
+              map-options
             />
           </div>
         </q-card-section>
@@ -114,12 +116,12 @@
           :loading="penyimpanan.loading"
           @click="penyimpanan.simpandewan()"
         />
-        <q-btn
+        <!-- <q-btn
           label="coba"
           class="bg-orange"
           :loading="penyimpanan.loading"
           @click="coba()"
-        />
+        /> -->
       </q-card-actions>
     </q-card>
   </q-dialog>
@@ -127,18 +129,19 @@
 <script setup>
 import { defaults } from "autoprefixer";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
-import { ref } from "vue";
+import { ref, watchEffect } from "vue";
 import { useQuasar } from "quasar";
+import { store } from "quasar/wrappers";
 
 const maximizedToggle = ref(true);
 const penyimpanan = useAnggotaDewanStore();
 const kelamin = ref("Laki_laki");
-const id_jabatan = ref(null);
-const id_komisi = ref(null);
+const id_jabatan = ref(2);
+const id_komisi = ref();
 const id_flag_pegawai = ref(1);
 
 function setjabatan(val) {
-  //console.log("isi", val);
+  console.log("isix", val);
   penyimpanan.form.id_jabatan = val.id;
 }
 
@@ -147,8 +150,16 @@ function setkomisi(val) {
   penyimpanan.form.id_komisi = val.id;
 }
 
-defineProps({
+const props = defineProps({
   jabatan: { type: Array, default: () => [] },
   komisi: { type: Array, default: () => [] },
+  //dewanbyid: { type: Array, default: () => [] },
 });
+const wew = ref(props.komisi);
+
+console.log("sasasax", wew);
+
+// watchEffect(() => {
+//   console.log("asasaa", penyimpanan.form.id_komisi);
+// });
 </script>

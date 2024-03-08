@@ -16,7 +16,7 @@
     <tbody>
       <template v-if="store.loading">
         <tr v-for="n in store.params.per_page" :key="n">
-          <div class="fixed-center"><AppLoading />.</div>
+          <div class="fixed-center"><AppLoading /></div>
           <!-- <td width="5%">
             <q-skeleton
               type="text"
@@ -112,13 +112,29 @@
               {{ getstatusmu(item?.status) }}
             </td>
             <td>
-              <q-btn label="EDIT" color="orange" @click="editdewan(item)" />
+              <q-btn
+                color="black"
+                size="sm"
+                round
+                glossy
+                icon="eva-edit-2-outline"
+                @click="formDialogx(item)"
+              />
+              <q-btn
+                v-model="store.payloadx.id"
+                color="red"
+                size="sm"
+                round
+                glossy
+                icon="eva-person-delete-outline"
+                @click="store.lemparDewan(item.id)"
+              />
             </td>
           </tr>
         </template>
       </template>
     </tbody>
-    <formDialog v-model="dialog" />
+    <formDialog v-model="dialog" :jabatan="jabatan" :komisi="komisi" />
   </table>
 </template>
 
@@ -129,6 +145,7 @@ import { useJabatanStore } from "src/stores/master/jabatan";
 import { defineAsyncComponent, ref } from "vue";
 import { useRouter } from "vue-router";
 
+//const itemterpilih = ref({});
 const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
 const dialog = ref(false);
 const store = useAnggotaDewanStore();
@@ -136,6 +153,21 @@ const jabatanStore = useJabatanStore();
 const AppLoading = defineAsyncComponent(() =>
   import("../../../../components/~global/AppLoading.vue")
 );
+
+// const jabatan = ref([]);
+// const komisi = ref([]);
+
+function formDialogx(val) {
+  // itemterpilih.value = val;
+  dialog.value = true;
+
+  store.form.nik = val.nik;
+  store.form.nama = val.nama;
+  store.form.jns_kelamin = val.jns_kelamin;
+  store.form.alamat = val.alamat;
+  store.form.id_jabatan = parseInt(val.id_jabatan);
+  store.form.id_komisi = parseInt(val.id_komisi);
+}
 
 function getkelamin(val) {
   if (val === "L") {
@@ -153,10 +185,10 @@ function getstatusmu(val) {
   }
 }
 
-function editdewan(val) {
-  console.log("wew", val);
-  dialog.value = true;
-}
+const props = defineProps({
+  jabatan: { type: Array, default: () => [] },
+  komisi: { type: Array, default: () => [] },
+});
 </script>
 
 <style lang="scss" scoped>
