@@ -22,7 +22,7 @@
           icon="eva-arrow-ios-back-outline"
           size="sm"
           round
-          :disable="meta?.prev_page === null"
+          :disable="meta?.current_page === 1"
           @click="emits('goTo', meta.current_page - 1)"
         />
         <div class="q-px-sm">
@@ -39,6 +39,7 @@
           icon="eva-arrow-ios-forward-outline"
           size="sm"
           round
+          :disable="meta.current_page === meta.last_page"
           @click="emits('goTo', meta.current_page + 1)"
         />
         <q-btn
@@ -47,6 +48,7 @@
           icon="skip_next"
           size="sm"
           round
+          :disable="meta.current_page === meta.last_page"
           @click="emits('goTo', meta.last_page)"
         />
       </div>

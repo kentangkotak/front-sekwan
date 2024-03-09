@@ -40,7 +40,7 @@
           emit-value
           map-options
           style="min-width: 150px"
-          @update:model-value="(val) => store.gantikomisi()"
+          @update:model-value="(val) => store.gantikomisi(val)"
         />
       </div>
       <div class="kanan">

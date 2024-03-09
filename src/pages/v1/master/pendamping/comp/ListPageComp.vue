@@ -48,7 +48,9 @@
                 glossy
                 icon="eva-edit-2-outline"
                 @click="formDialogx(item)"
-              />
+              >
+                <q-tooltip class="primary" :offset="[10, 10]"> Edit </q-tooltip>
+              </q-btn>
               <q-btn
                 v-model="store.payloadx.id"
                 color="red"
@@ -57,7 +59,11 @@
                 glossy
                 icon="eva-person-delete-outline"
                 @click="store.lemparDewan(item.id)"
-              />
+              >
+                <q-tooltip class="primary" :offset="[10, 10]">
+                  Delete
+                </q-tooltip>
+              </q-btn>
             </td>
           </tr>
         </template>

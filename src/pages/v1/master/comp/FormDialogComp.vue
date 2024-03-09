@@ -111,10 +111,19 @@
       </div>
       <q-card-actions>
         <q-btn
+          v-if="!penyimpanan.form.nik"
           label="SIMPAN"
           class="bg-orange"
           :loading="penyimpanan.loading"
           @click="penyimpanan.simpandewan()"
+        />
+        <q-btn
+          v-else
+          label="SIMPAN EDIT"
+          class="bg-orange"
+          :loading="penyimpanan.loading"
+          @click="penyimpanan.editdewan(penyimpanan.form.id)"
+          v-close-popup
         />
         <!-- <q-btn
           label="coba"

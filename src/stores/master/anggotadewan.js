@@ -69,6 +69,24 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
           notifErr(err);
         });
     },
+    editdewan(val) {
+      console.log("aaa", val);
+      this.loading = true;
+      api
+        .post("/updatedewan", this.form)
+        .then((resp) => {
+          this.loading = false;
+          if (resp.status === 200) {
+            notifSuccess(resp);
+            this.init();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading = false;
+          notifErr(err);
+        });
+    },
     clear() {
       this.form.nik = "";
       this.form.nama = "";

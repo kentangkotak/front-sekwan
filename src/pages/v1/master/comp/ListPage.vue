@@ -93,9 +93,7 @@
             <td>
               {{ item?.nik }}
             </td>
-            <td>
-              {{ item?.nama }}
-            </td>
+            <td>{{ item?.nama }}</td>
             <td>
               {{ getkelamin(item?.jns_kelamin) }}
             </td>
@@ -119,7 +117,9 @@
                 glossy
                 icon="eva-edit-2-outline"
                 @click="formDialogx(item)"
-              />
+              >
+                <q-tooltip class="primary" :offset="[10, 10]"> Edit </q-tooltip>
+              </q-btn>
               <q-btn
                 v-model="store.payloadx.id"
                 color="red"
@@ -128,7 +128,11 @@
                 glossy
                 icon="eva-person-delete-outline"
                 @click="store.lemparDewan(item.id)"
-              />
+              >
+                <q-tooltip class="primary" :offset="[10, 10]">
+                  Delete
+                </q-tooltip>
+              </q-btn>
             </td>
           </tr>
         </template>
@@ -161,6 +165,7 @@ function formDialogx(val) {
   // itemterpilih.value = val;
   dialog.value = true;
 
+  store.form.id = val.id;
   store.form.nik = val.nik;
   store.form.nama = val.nama;
   store.form.jns_kelamin = val.jns_kelamin;
