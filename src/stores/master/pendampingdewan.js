@@ -85,6 +85,24 @@ export const usePendampingDewanStore = defineStore("master_pedamping_dewan", {
           notifErr(err);
         });
     },
+    editdewan(val) {
+      console.log("aaa", val);
+      // this.loading = true;
+      api
+        .post("/updatedewan", this.form)
+        .then((resp) => {
+          this.loading = false;
+          if (resp.status === 200) {
+            notifSuccess(resp);
+            this.init();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          // this.loading = false;
+          notifErr(err);
+        });
+    },
     setQ(val) {
       this.params.page = 1;
       this.params.q = val;

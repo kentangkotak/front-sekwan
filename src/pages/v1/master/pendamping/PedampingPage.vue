@@ -21,7 +21,7 @@
     </div>
 
     <q-card flat no-shadow square class="my-flex-1 scroll">
-      <ListPage />
+      <ListPage :komisi="komisiStore.items" />
 
       <div
         v-if="Object.keys(store.meta).length"
@@ -38,10 +38,9 @@
   </q-page>
 </template>
 <script setup>
-import { useStyledStore } from "src/stores/app/styled";
 import { useKomisiStore } from "src/stores/master/komisi";
 import { usePendampingDewanStore } from "src/stores/master/pendampingdewan";
-import { defineAsyncComponent } from "vue";
+import { useStyledStore } from "src/stores/app/styled";
 import ListPage from "src/pages/v1/master/pendamping/comp/ListPageComp.vue";
 import HeaderComp from "src/pages/v1/master/pendamping/comp/HeaderComp.vue";
 import BottomComp from "src/pages/v1/master/pendamping/comp/BottomComp.vue";

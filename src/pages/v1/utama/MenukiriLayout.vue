@@ -73,11 +73,11 @@
                 v-ripple
                 clickable
                 active-class="my-menu-link"
-                to="/masteruser"
                 class="bg-indigo-1 text-dark"
+                @click="transaksi()"
               >
                 <q-item-section avatar>
-                  <q-icon name="store" />
+                  <q-icon name="shop" />
                 </q-item-section>
                 <q-item-section class="text-bold">
                   PERJALANAN DINAS
@@ -133,6 +133,10 @@ function masteranggotadewan() {
 
 function masterpendampingdewan() {
   router.push({ path: "/master/pendampingdewan" });
+}
+
+function transaksi() {
+  router.push({ path: "/transaksi/perjalanandinas" });
 }
 </script>
 

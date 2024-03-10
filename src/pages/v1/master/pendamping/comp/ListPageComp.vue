@@ -82,7 +82,7 @@
         </template>
       </template>
     </tbody>
-    <formDialog v-model="dialog" />
+    <formDialog v-model="dialog" :komisi="komisi" />
   </table>
 </template>
 
@@ -101,10 +101,9 @@ const AppLoading = defineAsyncComponent(() =>
 );
 
 // const jabatan = ref([]);
-// const komisi = ref([]);
+// const komisi = ref();
 
 function formDialogx(val) {
-  console.log("wew", val);
   dialog.value = true;
   store.form.id = val.id;
   store.form.nik = val.nik;
@@ -131,7 +130,7 @@ function getstatusmu(val) {
 }
 
 const props = defineProps({
-  jabatan: { type: Array, default: () => [] },
+  // jabatan: { type: Array, default: () => [] },
   komisi: { type: Array, default: () => [] },
 });
 </script>

@@ -38,62 +38,52 @@
       </q-bar>
 
       <q-card-section>
-        <div class="text-h6 center">
-          <b><u>FORM INPUT ANGGOTA DEWAN</u></b>
+        <div class="text-h6 absolute-center">
+          <b><u>FORM PERJALANAN DINAS</u></b>
         </div>
       </q-card-section>
-      <div style="border-right-style: solid; border-color: black">
+      <div
+        style="border: solid; border-color: black; margin-top: -150px"
+        class="row absolute-center"
+      >
         <q-card-section class="q-pt-none">
           <div>
-            <q-input
-              v-model="store.form.nik"
-              label="Nik"
-              :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
-            />
+            <q-input label="No. Transaksi" />
           </div>
+        </q-card-section>
+        <q-card-section class="q-pt-none">
           <div>
-            <q-input
-              v-model="store.form.nama"
-              label="Nama"
-              :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
-            />
+            <q-input label="Tanggal" />
           </div>
+        </q-card-section>
+        <q-card-section class="q-pt-none">
           <div>
-            <q-item-label>Kelamin</q-item-label>
-            <q-radio
-              v-model="store.form.jns_kelamin"
-              name="kelamin"
-              checked-icon="task_alt"
-              unchecked-icon="panorama_fish_eye"
-              val="L"
-              label="Laki_laki"
-            />
-            <q-radio
-              v-model="store.form.jns_kelamin"
-              name="kelamin"
-              checked-icon="task_alt"
-              unchecked-icon="panorama_fish_eye"
-              val="P"
-              label="Perempuan"
-            />
+            <q-input label="No. SPM" />
           </div>
+        </q-card-section>
+        <q-card-section class="q-pt-none">
           <div>
-            <q-input
-              v-model="store.form.alamat"
-              label="Alamat"
-              :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
-            />
+            <q-input label="Kode Kegiatan" />
           </div>
+        </q-card-section>
+        <q-card-section class="q-pt-none">
           <div>
-            <q-select
-              v-model="store.form.id_komisi"
-              :options="komisi"
-              option-label="komisi"
-              option-value="id"
-              label="Komisi"
-              emit-value
-              map-options
-            />
+            <q-input label="Kegiatan" />
+          </div>
+        </q-card-section>
+        <q-card-section class="q-pt-none">
+          <div>
+            <q-input label="Kode Rekening Obyek" />
+          </div>
+        </q-card-section>
+        <q-card-section class="q-pt-none">
+          <div>
+            <q-input label="Tujuan" />
+          </div>
+        </q-card-section>
+        <q-card-section class="q-pt-none">
+          <div>
+            <q-input label="Lama/Hari" />
           </div>
         </q-card-section>
       </div>

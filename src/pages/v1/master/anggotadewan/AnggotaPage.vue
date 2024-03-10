@@ -16,7 +16,6 @@
         @cari="wew.setSearch"
         @refresh="wew.refresh"
         @set-per-page="wew.setPerPage"
-        :jabatan="jabatanStore.items"
         :komisi="komisiStore.items"
       />
     </div>
@@ -42,6 +41,7 @@
 import { defineAsyncComponent } from "vue";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 import { useStyledStore } from "src/stores/app/styled";
+
 import { store } from "quasar/wrappers";
 import { useJabatanStore } from "src/stores/master/jabatan";
 import { useKomisiStore } from "src/stores/master/komisi";

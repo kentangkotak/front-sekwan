@@ -146,15 +146,15 @@ import { store } from "quasar/wrappers";
 
 const maximizedToggle = ref(true);
 const penyimpanan = useAnggotaDewanStore();
-const kelamin = ref("Laki_laki");
-const id_jabatan = ref(2);
-const id_komisi = ref();
-const id_flag_pegawai = ref(1);
+// const kelamin = ref("Laki_laki");
+// const id_jabatan = ref(2);
+// const id_komisi = ref();
+// const id_flag_pegawai = ref(1);
 
-function setjabatan(val) {
-  console.log("isix", val);
-  penyimpanan.form.id_jabatan = val.id;
-}
+// function setjabatan(val) {
+//   console.log("isix", val);
+//   penyimpanan.form.id_jabatan = val.id;
+// }
 
 function setkomisi(val) {
   console.log("isi", val);

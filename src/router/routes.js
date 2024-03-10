@@ -13,18 +13,27 @@ const routes = [
       { path: "", redirect: "/dasboard" },
       {
         path: "/dasboard",
+        meta: { requireAuth: true },
         name: "dasboard",
         component: () => import("pages/v1/DasboardPage.vue"),
       },
       {
         path: "/master/anggotadewan",
+        meta: { requireAuth: true },
         name: "masteranggota",
         component: () => import("pages/v1/master/anggotadewan/IndexLayout.vue"),
       },
       {
         path: "/master/pendampingdewan",
+        meta: { requireAuth: true },
         name: "masterpendamping",
         component: () => import("pages/v1/master/pendamping/IndexLayout.vue"),
+      },
+      {
+        path: "/transaksi/perjalanandinas",
+        meta: { requireAuth: true },
+        name: "transperdin",
+        component: () => import("pages/v1/transaksi/perdin/IndexLayout.vue"),
       },
     ],
   },
