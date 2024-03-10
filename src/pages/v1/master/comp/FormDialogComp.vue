@@ -111,7 +111,8 @@
       </div>
       <q-card-actions>
         <q-btn
-          v-if="!penyimpanan.form.nik"
+          v-if="!penyimpanan.form.id"
+          v-model="penyimpanan.form.id"
           label="SIMPAN"
           class="bg-orange"
           :loading="penyimpanan.loading"
@@ -119,6 +120,7 @@
         />
         <q-btn
           v-else
+          v-model="penyimpanan.form.id"
           label="SIMPAN EDIT"
           class="bg-orange"
           :loading="penyimpanan.loading"
@@ -165,8 +167,6 @@ const props = defineProps({
   //dewanbyid: { type: Array, default: () => [] },
 });
 const wew = ref(props.komisi);
-
-console.log("sasasax", wew);
 
 // watchEffect(() => {
 //   console.log("asasaa", penyimpanan.form.id_komisi);

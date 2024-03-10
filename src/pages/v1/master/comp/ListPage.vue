@@ -2,21 +2,20 @@
   <table>
     <thead>
       <tr>
-        <th width="5%">NO.</th>
+        <th>AVATAR</th>
         <th>NIK</th>
-        <th>NAMA ANGGOTA DEWAN</th>
+        <th>NAMA</th>
         <th>JENIS KELAMIN</th>
         <th>ALAMAT</th>
         <th>JABATAN</th>
         <th>KOMISI</th>
-        <th>STATUS</th>
+        <!-- <th>STATUS</th> -->
         <th></th>
       </tr>
     </thead>
     <tbody>
       <template v-if="store.loading">
         <tr v-for="n in store.params.per_page" :key="n">
-          <div class="fixed-center"><AppLoading /></div>
           <!-- <td width="5%">
             <q-skeleton
               type="text"
@@ -89,14 +88,22 @@
       <template v-else>
         <template v-for="(item, n) in store.items" :key="n">
           <tr :class="item?.flag === '1' ? 'bg-light-blue-2' : ''">
-            <td width="5%">{{ n + 1 }}.</td>
             <td>
-              {{ item?.nik }}
+              <q-avatar
+                v-if="item?.jns_kelamin === 'P'"
+                glossy
+                size="40px"
+                class="overlapping"
+              >
+                <img src="../../../../assets/images/female.svg" />
+              </q-avatar>
+              <q-avatar v-else size="40px" class="overlapping" glossy
+                ><img src="../../../../assets/images/male.svg"
+              /></q-avatar>
             </td>
+            <td>{{ item?.nik }}</td>
             <td>{{ item?.nama }}</td>
-            <td>
-              {{ getkelamin(item?.jns_kelamin) }}
-            </td>
+            <td>{{ getkelamin(item?.jns_kelamin) }} <br /></td>
             <td>
               {{ item?.alamat }}
             </td>
@@ -106,9 +113,9 @@
             <td>
               {{ item?.komisi?.komisi }}
             </td>
-            <td>
+            <!-- <td>
               {{ getstatusmu(item?.status) }}
-            </td>
+            </td> -->
             <td>
               <q-btn
                 color="black"
@@ -127,6 +134,7 @@
                 round
                 glossy
                 icon="eva-person-delete-outline"
+                :loading="store.loading"
                 @click="store.lemparDewan(item.id)"
               >
                 <q-tooltip class="primary" :offset="[10, 10]">
@@ -154,9 +162,6 @@ const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
 const dialog = ref(false);
 const store = useAnggotaDewanStore();
 const jabatanStore = useJabatanStore();
-const AppLoading = defineAsyncComponent(() =>
-  import("../../../../components/~global/AppLoading.vue")
-);
 
 // const jabatan = ref([]);
 // const komisi = ref([]);
@@ -215,9 +220,10 @@ td {
   vertical-align: text-top;
   text-align: left;
   text-indent: -0.5em;
+  border-top-color: brown;
 }
 td {
-  padding: 0.5em 0.5em 0.5em 1.5em;
+  padding: 0.5em 1em 0em 1.5em;
 }
 th {
   padding: 0.5em 0.5em 0.5em 1em;
@@ -242,9 +248,9 @@ tr:nth-child(odd) {
   background-color: rgba(255, 255, 255, 0.05);
 }
 
-td:nth-of-type(2) {
-  font-style: italic;
-}
+// td:nth-of-type(2) {
+//   font-style: italic;
+// }
 
 // th:nth-of-type(3),
 // td:nth-of-type(3) {
@@ -252,52 +258,52 @@ td:nth-of-type(2) {
 // }
 /* Fixed Headers */
 
-th {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
-  z-index: 2;
-}
+// th {
+//   position: -webkit-sticky;
+//   position: sticky;
+//   top: 0;
+//   z-index: 2;
+// }
 
-th[scope="row"] {
-  position: -webkit-sticky;
-  position: sticky;
-  left: 0;
-  z-index: 1;
-}
+// th[scope="row"] {
+//   position: -webkit-sticky;
+//   position: sticky;
+//   left: 0;
+//   z-index: 1;
+// }
 
-th[scope="row"] {
-  vertical-align: top;
-  color: inherit;
-  background-color: inherit;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    transparent calc(100% - 0.05em),
-    #d6d6d6 calc(100% - 0.05em),
-    #d6d6d6 100%
-  );
-}
+// th[scope="row"] {
+//   vertical-align: top;
+//   color: inherit;
+//   background-color: inherit;
+//   background: linear-gradient(
+//     90deg,
+//     transparent 0%,
+//     transparent calc(100% - 0.05em),
+//     #d6d6d6 calc(100% - 0.05em),
+//     #d6d6d6 100%
+//   );
+// }
 
-table:nth-of-type(2) th:not([scope="row"]):first-child {
-  left: 0;
-  z-index: 3;
-  background: linear-gradient(
-    90deg,
-    #666 0%,
-    #666 calc(100% - 0.05em),
-    #ccc calc(100% - 0.05em),
-    #ccc 100%
-  );
-}
+// table:nth-of-type(2) th:not([scope="row"]):first-child {
+//   left: 0;
+//   z-index: 3;
+//   background: linear-gradient(
+//     90deg,
+//     #666 0%,
+//     #666 calc(100% - 0.05em),
+//     #ccc calc(100% - 0.05em),
+//     #ccc 100%
+//   );
+// }
 
 /* Strictly for making the scrolling happen. */
 
-th[scope="row"] + td {
-  min-width: 24em;
-}
+// th[scope="row"] + td {
+//   min-width: 24em;
+// }
 
-th[scope="row"] {
-  min-width: 20em;
-}
+// th[scope="row"] {
+//   min-width: 20em;
+// }
 </style>

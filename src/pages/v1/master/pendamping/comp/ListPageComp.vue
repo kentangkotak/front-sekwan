@@ -8,7 +8,7 @@
         <th>JENIS KELAMIN</th>
         <th>ALAMAT</th>
         <th>KOMISI</th>
-        <th>STATUS</th>
+        <!-- <th>STATUS</th> -->
         <th></th>
       </tr>
     </thead>
@@ -21,7 +21,20 @@
       <template v-else>
         <template v-for="(item, n) in store.items" :key="n">
           <tr :class="item?.flag === '1' ? 'bg-light-blue-2' : ''">
-            <td width="5%">{{ n + 1 }}.</td>
+            <!-- <td width="5%">{{ n + 1 }}.</td> -->
+            <td>
+              <q-avatar
+                v-if="item?.jns_kelamin === 'P'"
+                glossy
+                size="40px"
+                class="overlapping"
+              >
+                <img src="../../../../../assets/images/female.svg" />
+              </q-avatar>
+              <q-avatar v-else size="40px" class="overlapping" glossy
+                ><img src="../../../../../assets/images/male.svg"
+              /></q-avatar>
+            </td>
             <td>
               {{ item?.nik }}
             </td>
@@ -37,9 +50,9 @@
             <td>
               {{ item?.komisi?.komisi }}
             </td>
-            <td>
+            <!-- <td>
               {{ getstatusmu(item?.status) }}
-            </td>
+            </td> -->
             <td>
               <q-btn
                 color="black"
@@ -91,15 +104,14 @@ const AppLoading = defineAsyncComponent(() =>
 // const komisi = ref([]);
 
 function formDialogx(val) {
-  // itemterpilih.value = val;
+  console.log("wew", val);
   dialog.value = true;
-
-  // store.form.nik = val.nik;
-  // store.form.nama = val.nama;
-  // store.form.jns_kelamin = val.jns_kelamin;
-  // store.form.alamat = val.alamat;
-  // store.form.id_jabatan = parseInt(val.id_jabatan);
-  // store.form.id_komisi = parseInt(val.id_komisi);
+  store.form.id = val.id;
+  store.form.nik = val.nik;
+  store.form.nama = val.nama;
+  store.form.jns_kelamin = val.jns_kelamin;
+  store.form.alamat = val.alamat;
+  store.form.id_komisi = parseInt(val.id_komisi);
 }
 
 function getkelamin(val) {

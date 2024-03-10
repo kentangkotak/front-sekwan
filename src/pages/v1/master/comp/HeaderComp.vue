@@ -205,6 +205,7 @@ function gantiPeriode() {
 }
 
 function formDialogx() {
+  store.form.id = "";
   store.form.nik = "";
   store.form.nama = "";
   store.form.alamat = "";

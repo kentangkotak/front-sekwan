@@ -2,8 +2,7 @@
   <q-page>
     <Suspense>
       <AsyncComp />
-
-      <template #fallback> </template>
+      <template #fallback> <AppLoading /> </template>
     </Suspense>
   </q-page>
 </template>
@@ -11,7 +10,9 @@
 import { defineAsyncComponent } from "vue";
 
 const AsyncComp = defineAsyncComponent(() => import("./AnggotaPage.vue"));
-
+const AppLoading = defineAsyncComponent(() =>
+  import("../../../../components/~global/AppLoading.vue")
+);
 //import { defineComponent } from 'vue'
 
 // export default defineComponent({

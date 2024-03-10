@@ -161,6 +161,7 @@ const selectPerPage = computed({
 });
 
 function formDialogx() {
+  store.clear();
   dialog.value = true;
 }
 </script>

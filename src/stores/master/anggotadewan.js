@@ -71,7 +71,7 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
     },
     editdewan(val) {
       console.log("aaa", val);
-      this.loading = true;
+      // this.loading = true;
       api
         .post("/updatedewan", this.form)
         .then((resp) => {
@@ -83,19 +83,21 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
         })
         .catch((err) => {
           console.log(err);
-          this.loading = false;
+          // this.loading = false;
           notifErr(err);
         });
     },
     clear() {
+      this.form.id = "";
       this.form.nik = "";
       this.form.nama = "";
       this.form.alamat = "";
       this.form.kelamin = "";
+      // this.form.komisi_id = "";
     },
     hapusDewan() {
       this.loading = true;
-      console.log(this.payloadx);
+      // console.log(this.payloadx);
       api
         .post("/deletedewan", this.payloadx)
         .then((resp) => {
@@ -110,7 +112,7 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
         })
         .catch((err) => {
           console.log(err);
-          this.loading = false;
+          // this.loading = false;
           notifErr(err);
         });
     },

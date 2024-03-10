@@ -57,6 +57,34 @@ export const usePendampingDewanStore = defineStore("master_pedamping_dewan", {
         }
       });
     },
+    clear() {
+      this.form.id = "";
+      this.form.nik = "";
+      this.form.nama = "";
+      this.form.alamat = "";
+      this.form.kelamin = "";
+    },
+    hapusDewan() {
+      this.loading = true;
+      // console.log(this.payloadx);
+      api
+        .post("/deletedewan", this.payloadx)
+        .then((resp) => {
+          //console.log('sasasa', resp)
+          this.loading = false;
+          this.clear();
+          if (resp.status === 200) {
+            notifSuccess(resp);
+            this.getData();
+            console.log("OK");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          // this.loading = false;
+          notifErr(err);
+        });
+    },
     setQ(val) {
       this.params.page = 1;
       this.params.q = val;
@@ -92,6 +120,10 @@ export const usePendampingDewanStore = defineStore("master_pedamping_dewan", {
       console.log("as", val);
       this.params.komisi_id = val;
       this.getData();
+    },
+    lemparDewan(payload) {
+      this.payloadx.id = payload;
+      this.hapusDewan();
     },
   },
 });
