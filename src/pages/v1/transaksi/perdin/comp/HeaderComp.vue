@@ -7,7 +7,7 @@
           dark
           color="white"
           dense
-          placeholder="Cari Pendamping ..."
+          placeholder="Cari Transaksi ..."
           debounce="500"
           style="min-width: 200px"
         >
@@ -31,20 +31,20 @@
           color="orange"
           size="sm"
           icon="add"
-          @click="formDialogx()"
+          @click="formDialogTransaksi()"
         >
           <q-tooltip class="primary" :offset="[10, 10]"> Add </q-tooltip>
         </q-btn>
       </div>
     </div>
   </div>
-  <form-dialog v-model="dialogform" />
+  <formDialog v-model="dialogformtrans" />
 </template>
 <script setup>
 import { computed, defineAsyncComponent, ref } from "vue";
 
 const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
-const dialogform = ref(false);
+const dialogformtrans = ref(false);
 // const q = computed({
 //   get() {
 //     return props.search;
@@ -54,8 +54,8 @@ const dialogform = ref(false);
 //   },
 // });
 
-function formDialogx() {
+function formDialogTransaksi() {
   // store.clear();
-  dialogform.value = true;
+  dialogformtrans.value = true;
 }
 </script>
