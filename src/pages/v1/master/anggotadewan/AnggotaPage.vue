@@ -17,6 +17,7 @@
         @refresh="wew.refresh"
         @set-per-page="wew.setPerPage"
         :komisi="komisiStore.items"
+        :jabatan="jabatanStore.items"
       />
     </div>
     <q-card flat no-shadow square class="my-flex-1 scroll">

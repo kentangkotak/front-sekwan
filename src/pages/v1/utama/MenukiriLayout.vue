@@ -24,7 +24,7 @@
                 v-ripple
                 clickable
                 active-class="my-menu-link"
-                to="/masterbarang"
+                @click="masterkomisi()"
                 class="bg-indigo-1 text-dark"
               >
                 <q-item-section avatar>
@@ -137,6 +137,10 @@ function masterpendampingdewan() {
 
 function transaksi() {
   router.push({ path: "/transaksi/perjalanandinas" });
+}
+
+function masterkomisi() {
+  router.push({ path: "/master/komisi" });
 }
 </script>
 

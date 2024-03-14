@@ -48,14 +48,21 @@ export const usePendampingDewanStore = defineStore("master_pedamping_dewan", {
     },
     simpanpedamping() {
       this.loading = true;
-      api.post("/storedewan", this.form).then((resp) => {
-        console.log("sasasa", resp);
-        this.loading = false;
-        if (resp.status === 200) {
-          notifSuccess(resp);
-          this.init();
-        }
-      });
+      api
+        .post("/storedewan", this.form)
+        .then((resp) => {
+          console.log("sasasa", resp);
+          this.loading = false;
+          if (resp.status === 200) {
+            notifSuccess(resp);
+            this.init();
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          // this.loading = false;
+          notifErr(err);
+        });
     },
     clear() {
       this.form.id = "";

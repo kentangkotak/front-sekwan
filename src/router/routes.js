@@ -18,6 +18,12 @@ const routes = [
         component: () => import("pages/v1/DasboardPage.vue"),
       },
       {
+        path: "/master/komisi",
+        meta: { requireAuth: true },
+        name: "masterkomisi",
+        component: () => import("src/pages/v1/master/komisi/IndexLayout.vue"),
+      },
+      {
         path: "/master/anggotadewan",
         meta: { requireAuth: true },
         name: "masteranggota",
