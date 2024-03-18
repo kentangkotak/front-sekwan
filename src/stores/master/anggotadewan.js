@@ -148,6 +148,7 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
       this.getData();
     },
     setJabatan(val) {
+      console("jabat", val);
       this.params.jabatan = val;
       this.getJabatan();
     },
