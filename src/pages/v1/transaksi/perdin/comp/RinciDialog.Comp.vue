@@ -25,7 +25,7 @@
         v-model="store.form.dewan"
         style="margin-bottom: 5px"
         outlined
-        :options="anggotadewan"
+        :options="options"
         option-label="nama"
         option-value="nik"
         label="Anggota Dewan/Pendamping"
@@ -65,7 +65,6 @@
       <q-input style="margin-bottom: 5px" outlined label="No. Transaksi" />
     </q-card-section>
   </div>
-  {{ anggotadewan }}
 </template>
 
 <script setup>
@@ -99,9 +98,11 @@ function filterFn(val, update) {
     const needle = val.toLowerCase();
 
     options.value = stringOptions.filter(
-      (v) => v.toString().toLowerCase().indexOf(needle) > -1
+      (v) =>
+        v.nama.toString().toLowerCase().indexOf(needle) > -1 ||
+        v.nik.toString().toLowerCase().indexOf(needle) > -1
     );
-    console.log("sasa", options.value);
+    // console.log("sasa", v);
   });
 }
 
