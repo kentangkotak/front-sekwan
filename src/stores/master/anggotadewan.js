@@ -20,6 +20,7 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
       id_jabatan: null,
       id_komisi: null,
       komisi_id: "1",
+      id_dewan: null,
     },
     payloadx: {
       id: null,
@@ -183,6 +184,18 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
     gantikomisi(val) {
       this.params.komisi_id = val;
       this.getData();
+    },
+    carianggota(val, update) {
+      console.log("sasa", val);
+      if (options.value !== "") {
+        console.log("sasa", val);
+        update(() => {
+          const needle = val.toLowerCase();
+          this.options = stringOptions.filter(
+            (v) => v.label.toLowerCase().indexOf(needle) > -1
+          );
+        });
+      }
     },
   },
 });

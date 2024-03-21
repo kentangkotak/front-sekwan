@@ -11,7 +11,7 @@
           debounce="500"
           style="min-width: 200px"
         >
-          <template v-if="q" #append>
+          <template #append>
             <q-icon
               name="close"
               icon="eva-close-outline"
@@ -55,7 +55,6 @@ const dialogformtrans = ref(false);
 // });
 
 function formDialogTransaksi() {
-  // store.clear();
   dialogformtrans.value = true;
 }
 </script>

@@ -16,7 +16,7 @@
       <tbody>
         <template v-if="store.loading">
           <tr v-for="n in store.params.per_page" :key="n">
-            <div class="fixed-center"><AppLoading /></div>
+            <div class="fixed-center"></div>
           </tr>
         </template>
         <template v-else>

@@ -7,15 +7,16 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     meta: {},
     loading: false,
     params: {
-      // q: "",
-      // page: 1,
-      // per_page: 10,
-      // status: "all",
+      q: "",
+      page: 1,
+      per_page: 10,
+      status: "all",
     },
     form: {
       id_propinsi: null,
       id_kota: null,
       id_jenistransaksi: null,
+      dewan: null,
     },
     jabatan: {},
   }),
@@ -40,6 +41,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     },
     kirimpropinsi(val) {
       this.params.id_propinsi = val.id;
+      this.form.id_kota = null;
       console.log("sasasa", this.params.id_propinsi);
       this.getData();
     },

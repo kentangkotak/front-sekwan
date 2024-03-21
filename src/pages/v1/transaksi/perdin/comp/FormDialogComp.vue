@@ -43,7 +43,10 @@
         <q-card class="my-card" flat bordered style="width: 100%">
           <q-card-section horizontal>
             <q-card-section style="width: 30%">
-              <RinciDialogComp :jenistransaksi="storejenistrans.items" />
+              <RinciDialogComp
+                :jenistransaksi="storejenistrans.items"
+                :anggotadewan="storedewan.items"
+              />
             </q-card-section>
             <q-separator vertical />
 
@@ -61,12 +64,14 @@ import { ref, watchEffect } from "vue";
 import HederDialogComp from "./HederDialogComp.vue";
 import GridTransComp from "./GridTransComp.vue";
 import RinciDialogComp from "./RinciDialog.Comp.vue";
+import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 //import { useQuasar } from "quasar";
 //import { store } from "quasar/wrappers";
 
 const maximizedToggle = ref(true);
 const storejenistrans = useJenisTransaksi();
 const strorepropinsi = usePropinsi();
+const storedewan = useAnggotaDewanStore();
 
 const date = ref("YYYY");
 const slide = ref("style");
@@ -74,6 +79,8 @@ const slide = ref("style");
 //   console.log("asasaa", penyimpanan.form.id_komisi);
 // });
 
+storedewan.params.q = "";
 storejenistrans.init();
 strorepropinsi.init();
+storedewan.init();
 </script>
