@@ -47,6 +47,9 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       console.log("sasasa", this.params.id_propinsi);
       this.getData();
     },
+    initkepmen() {
+      this.getDatapermen();
+    },
     async getDatapermen() {
       this.loading = true;
       const params = { params: this.params };

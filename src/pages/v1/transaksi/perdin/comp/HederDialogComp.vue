@@ -83,15 +83,30 @@
         />
         <q-select
           v-model="store.form.permen"
-          :options="store.itemspermen"
+          :options="options"
           option-label="uraian"
           option-value="kodeall"
           style="margin-right: 5px; width: 20%"
           outlined
           label="Uraian Rekening 50"
-        />
+          clearable
+          use-input
+          @filter="filterFn"
+        >
+          <template #option="scope">
+            <q-item v-bind="scope.itemProps"
+              ><q-item-section avatar>
+                <q-item-label>
+                  KODE REKENING : {{ scope.opt.kodeall }} <br />
+                  URAIAN : {{ scope.opt.uraian }}
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
       </q-card-section>
     </q-card>
+    {{ permen }}
   </div>
 </template>
 
@@ -105,9 +120,31 @@ const store = usePerdinStore();
 
 const props = defineProps({
   propinsi: { type: Array, default: () => [] },
+  permen: { type: Array, default: () => [] },
 });
 
 const storepropinsi = usePropinsi();
 
-store.getDatapermen();
+const stringOptions = props.permen;
+const options = ref(stringOptions);
+
+function filterFn(val, update) {
+  if (val === "") {
+    update(() => {
+      options.value = stringOptions;
+
+      // here you have access to "ref" which
+      // is the Vue reference of the QSelect
+    });
+    return;
+  }
+  update(() => {
+    const needle = val.toLowerCase();
+
+    options.value = stringOptions.filter(
+      (v) => v.uraian.toString().toLowerCase().indexOf(needle) > -1
+    );
+    // console.log("sasa", v);
+  });
+}
 </script>

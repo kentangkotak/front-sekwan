@@ -37,7 +37,10 @@
         </q-btn>
       </q-bar>
 
-      <HederDialogComp :propinsi="strorepropinsi.items" />
+      <HederDialogComp
+        :propinsi="strorepropinsi.items"
+        :permen="store.itemspermen"
+      />
 
       <div class="q-pa-md row items-start q-gutter-md">
         <q-card class="my-card" flat bordered style="width: 100%">
@@ -60,6 +63,7 @@
 <script setup>
 import { useJenisTransaksi } from "src/stores/master/jenistransaksi";
 import { usePropinsi } from "src/stores/master/propinsi";
+import { usePerdinStore } from "src/stores/transaksi/perdin";
 import { ref, watchEffect } from "vue";
 import HederDialogComp from "./HederDialogComp.vue";
 import GridTransComp from "./GridTransComp.vue";
@@ -72,6 +76,7 @@ const maximizedToggle = ref(true);
 const storejenistrans = useJenisTransaksi();
 const strorepropinsi = usePropinsi();
 const storedewan = useAnggotaDewanStore();
+const store = usePerdinStore();
 
 const date = ref("YYYY");
 const slide = ref("style");
@@ -83,4 +88,5 @@ storedewan.params.q = "";
 storejenistrans.init();
 strorepropinsi.init();
 storedewan.init();
+store.initkepmen();
 </script>
