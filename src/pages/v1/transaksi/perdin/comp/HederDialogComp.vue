@@ -81,7 +81,11 @@
           outlined
           label="Kode Rekening 50"
         />
-        <q-input
+        <q-select
+          v-model="store.form.permen"
+          :options="store.itemspermen"
+          option-label="uraian"
+          option-value="kodeall"
           style="margin-right: 5px; width: 20%"
           outlined
           label="Uraian Rekening 50"
@@ -104,4 +108,6 @@ const props = defineProps({
 });
 
 const storepropinsi = usePropinsi();
+
+store.getDatapermen();
 </script>

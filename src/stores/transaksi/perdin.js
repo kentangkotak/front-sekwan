@@ -4,6 +4,7 @@ import { api } from "src/boot/axios";
 export const usePerdinStore = defineStore("transaksi_perdin", {
   state: () => ({
     items: [],
+    itemspermen: {},
     meta: {},
     loading: false,
     params: {
@@ -17,6 +18,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       id_kota: null,
       id_jenistransaksi: null,
       dewan: null,
+      permen: null,
     },
     jabatan: {},
   }),
@@ -44,6 +46,16 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       this.form.id_kota = null;
       console.log("sasasa", this.params.id_propinsi);
       this.getData();
+    },
+    async getDatapermen() {
+      this.loading = true;
+      const params = { params: this.params };
+      await api.get("/indexkepmen", params).then((resp) => {
+        this.loading = false;
+        if (resp.status === 200) {
+          this.itemspermen = resp.data.data;
+        }
+      });
     },
   },
 });
