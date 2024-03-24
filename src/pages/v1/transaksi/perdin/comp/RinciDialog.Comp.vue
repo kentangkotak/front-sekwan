@@ -25,7 +25,7 @@
         v-model="store.form.dewan"
         style="margin-bottom: 5px"
         outlined
-        :options="options"
+        :options="dewan.items"
         option-label="nama"
         option-value="nik"
         label="Anggota Dewan/Pendamping"
@@ -33,7 +33,7 @@
         transition-hide="scale"
         clearable
         use-input
-        @filter="filterFn"
+        @input-value="dewan.init"
       >
         <template #option="scope">
           <q-item v-bind="scope.itemProps"
@@ -83,30 +83,30 @@ const props = defineProps({
     default: () => [],
   },
 });
-const stringOptions = props.anggotadewan;
-const options = ref(stringOptions);
+// const stringOptions = props.anggotadewan;
+// const options = ref(stringOptions);
 
-function filterFn(val, update) {
-  if (val === "") {
-    update(() => {
-      options.value = stringOptions;
+// function filterFn(val, update) {
+//   if (val === "") {
+//     update(() => {
+//       options.value = stringOptions;
 
-      // here you have access to "ref" which
-      // is the Vue reference of the QSelect
-    });
-    return;
-  }
-  update(() => {
-    const needle = val.toLowerCase();
+//       // here you have access to "ref" which
+//       // is the Vue reference of the QSelect
+//     });
+//     return;
+//   }
+//   update(() => {
+//     const needle = val.toLowerCase();
 
-    options.value = stringOptions.filter(
-      (v) =>
-        v.nama.toString().toLowerCase().indexOf(needle) > -1 ||
-        v.nik.toString().toLowerCase().indexOf(needle) > -1
-    );
-    // console.log("sasa", v);
-  });
-}
+//     options.value = stringOptions.filter(
+//       (v) =>
+//         v.nama.toString().toLowerCase().indexOf(needle) > -1 ||
+//         v.nik.toString().toLowerCase().indexOf(needle) > -1
+//     );
+//     // console.log("sasa", v);
+//   });
+// }
 
 const scope = ref();
 const dewan = useAnggotaDewanStore();

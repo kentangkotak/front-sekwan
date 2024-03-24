@@ -86,7 +86,6 @@ const slide = ref("style");
 //   console.log("asasaa", penyimpanan.form.id_komisi);
 // });
 
-storedewan.params.q = "";
 storejenistrans.init();
 strorepropinsi.init();
 storedewan.init();

@@ -8,6 +8,7 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
     items: [],
     meta: {},
     loading: false,
+    dewan: null,
     params: {
       q: "",
       page: 1,
@@ -27,7 +28,10 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
     },
   }),
   actions: {
-    init() {
+    init(val) {
+      if (val) {
+        this.params.q = val;
+      }
       this.getData();
     },
     async getData() {
@@ -185,17 +189,8 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
       this.params.komisi_id = val;
       this.getData();
     },
-    carianggota(val, update) {
-      console.log("sasa", val);
-      if (options.value !== "") {
-        console.log("sasa", val);
-        update(() => {
-          const needle = val.toLowerCase();
-          this.options = stringOptions.filter(
-            (v) => v.label.toLowerCase().indexOf(needle) > -1
-          );
-        });
-      }
-    },
+    // carianggota(val) {
+
+    // },
   },
 });
