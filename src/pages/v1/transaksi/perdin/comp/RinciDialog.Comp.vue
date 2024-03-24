@@ -29,6 +29,8 @@
         option-label="nama"
         option-value="nik"
         label="Anggota Dewan/Pendamping"
+        transition-show="scale"
+        transition-hide="scale"
         clearable
         use-input
         @filter="filterFn"

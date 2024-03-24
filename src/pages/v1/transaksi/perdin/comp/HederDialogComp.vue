@@ -49,7 +49,7 @@
         <q-select
           v-model="store.form.id_propinsi"
           style="margin-right: 5px; width: 20%"
-          :options="propinsi"
+          :options="options"
           option-label="name"
           option-value="id"
           outlined
@@ -57,8 +57,18 @@
           transition-show="scale"
           transition-hide="scale"
           map-options
+          clearable
+          use-input
+          @filter="filterFn"
           @update:model-value="(val) => store.kirimpropinsi(val)"
         />
+        <template #option="scopex">
+          <q-item v-bind="scopex.itemProps"
+            ><q-item-section avatar>
+              <q-item-label> {{ scopex.opt.name }} <br /> </q-item-label>
+            </q-item-section>
+          </q-item>
+        </template>
       </q-card-section>
       <q-card-section
         horizontal
@@ -77,13 +87,15 @@
           map-options
         />
         <q-input
+          v-model="storepermen.koderekening"
           style="margin-right: 5px; width: 20%"
           outlined
+          disable
           label="Kode Rekening 50"
         />
         <q-select
-          v-model="store.form.permen"
-          :options="options"
+          v-model="storepermen.kode"
+          :options="storepermen.items"
           option-label="uraian"
           option-value="kodeall"
           style="margin-right: 5px; width: 20%"
@@ -91,7 +103,11 @@
           label="Uraian Rekening 50"
           clearable
           use-input
-          @filter="filterFn"
+          hide-bottom-space
+          behavior="menu"
+          hide-dropdown-icon
+          @input-value="storepermen.init"
+          @update:model-value="storepermen.caripermen"
         >
           <template #option="scope">
             <q-item v-bind="scope.itemProps"
@@ -106,17 +122,21 @@
         </q-select>
       </q-card-section>
     </q-card>
-    {{ permen }}
   </div>
 </template>
 
 <script setup>
+import { usePermenStore } from "src/stores/master/permen50";
 import { usePropinsi } from "src/stores/master/propinsi";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 const date = ref("YYYY");
 const store = usePerdinStore();
+const storepermen = usePermenStore();
+
+const scope = ref();
+const scopex = ref();
 
 const props = defineProps({
   propinsi: { type: Array, default: () => [] },
@@ -125,7 +145,7 @@ const props = defineProps({
 
 const storepropinsi = usePropinsi();
 
-const stringOptions = props.permen;
+const stringOptions = props.propinsi;
 const options = ref(stringOptions);
 
 function filterFn(val, update) {
@@ -142,9 +162,15 @@ function filterFn(val, update) {
     const needle = val.toLowerCase();
 
     options.value = stringOptions.filter(
-      (v) => v.uraian.toString().toLowerCase().indexOf(needle) > -1
+      (v) => v.name.toString().toLowerCase().indexOf(needle) > -1
     );
-    // console.log("sasa", v);
+    store.kirimpropinsi(val);
+    // store.params.id_propinsi = val.id;
+    // this.params.id_propinsi = val.id;
+    // this.form.id_kota = null;
+    // console.log("sasasa", this.params.id_propinsi);
+    // store.getData();
   });
 }
+store.getData();
 </script>

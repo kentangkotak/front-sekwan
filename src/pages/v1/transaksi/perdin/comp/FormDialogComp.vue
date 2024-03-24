@@ -39,7 +39,7 @@
 
       <HederDialogComp
         :propinsi="strorepropinsi.items"
-        :permen="store.itemspermen"
+        :permen="storepermen.items"
       />
 
       <div class="q-pa-md row items-start q-gutter-md">
@@ -69,6 +69,7 @@ import HederDialogComp from "./HederDialogComp.vue";
 import GridTransComp from "./GridTransComp.vue";
 import RinciDialogComp from "./RinciDialog.Comp.vue";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
+import { usePermenStore } from "src/stores/master/permen50";
 //import { useQuasar } from "quasar";
 //import { store } from "quasar/wrappers";
 
@@ -76,6 +77,7 @@ const maximizedToggle = ref(true);
 const storejenistrans = useJenisTransaksi();
 const strorepropinsi = usePropinsi();
 const storedewan = useAnggotaDewanStore();
+const storepermen = usePermenStore();
 const store = usePerdinStore();
 
 const date = ref("YYYY");
@@ -88,5 +90,5 @@ storedewan.params.q = "";
 storejenistrans.init();
 strorepropinsi.init();
 storedewan.init();
-store.initkepmen();
+storepermen.init();
 </script>

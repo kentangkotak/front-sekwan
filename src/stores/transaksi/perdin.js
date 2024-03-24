@@ -5,16 +5,22 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
   state: () => ({
     items: [],
     itemspermen: {},
+    metapermen: {},
     meta: {},
     loading: false,
     params: {
       q: "",
       page: 1,
       per_page: 10,
-      status: "all",
+      permen: "",
+      id_propinsi: null,
+    },
+    paramspermen: {
+      options: "",
+      page: 1,
+      per_page: 10,
     },
     form: {
-      id_propinsi: null,
       id_kota: null,
       id_jenistransaksi: null,
       dewan: null,
@@ -42,23 +48,11 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
         });
     },
     kirimpropinsi(val) {
+      console.log("isi", val);
       this.params.id_propinsi = val.id;
       this.form.id_kota = null;
       console.log("sasasa", this.params.id_propinsi);
       this.getData();
-    },
-    initkepmen() {
-      this.getDatapermen();
-    },
-    async getDatapermen() {
-      this.loading = true;
-      const params = { params: this.params };
-      await api.get("/indexkepmen", params).then((resp) => {
-        this.loading = false;
-        if (resp.status === 200) {
-          this.itemspermen = resp.data.data;
-        }
-      });
     },
   },
 });
