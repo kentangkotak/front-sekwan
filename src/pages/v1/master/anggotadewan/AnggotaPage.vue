@@ -55,6 +55,8 @@ const komisiStore = useKomisiStore();
 const wew = useAnggotaDewanStore();
 const style = useStyledStore();
 
+wew.params.q = "";
+wew.params.id_flag_pegawai = "1";
 wew.getData();
 jabatanStore.getData();
 komisiStore.getData();
