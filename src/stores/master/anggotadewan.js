@@ -22,6 +22,8 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
       id_komisi: null,
       komisi_id: "1",
       id_dewan: null,
+      golongan_id: null,
+      tingkatan_id: null,
     },
     payloadx: {
       id: null,

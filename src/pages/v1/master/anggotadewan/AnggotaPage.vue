@@ -18,10 +18,17 @@
         @set-per-page="wew.setPerPage"
         :komisi="komisiStore.items"
         :jabatan="jabatanStore.items"
+        :golongan="storegolongan.items"
+        :tingkatan="storetingkatan.items"
       />
     </div>
     <q-card flat no-shadow square class="my-flex-1 scroll">
-      <ListPage :jabatan="jabatanStore.items" :komisi="komisiStore.items" />
+      <ListPage
+        :jabatan="jabatanStore.items"
+        :komisi="komisiStore.items"
+        :golongan="storegolongan.items"
+        :tingkatan="storetingkatan.items"
+      />
 
       <div
         v-if="Object.keys(wew.meta).length"
@@ -46,6 +53,8 @@ import { useStyledStore } from "src/stores/app/styled";
 import { store } from "quasar/wrappers";
 import { useJabatanStore } from "src/stores/master/jabatan";
 import { useKomisiStore } from "src/stores/master/komisi";
+import { useGolonganStore } from "src/stores/master/golongan";
+import { useTingkatanStore } from "src/stores/master/tingkatan";
 
 const HeaderComp = defineAsyncComponent(() => import("../comp/HeaderComp.vue"));
 const ListPage = defineAsyncComponent(() => import("../comp/ListPage.vue"));
@@ -54,10 +63,14 @@ const jabatanStore = useJabatanStore();
 const komisiStore = useKomisiStore();
 const wew = useAnggotaDewanStore();
 const style = useStyledStore();
+const storegolongan = useGolonganStore();
+const storetingkatan = useTingkatanStore();
 
 wew.params.q = "";
 wew.params.id_flag_pegawai = "1";
 wew.getData();
 jabatanStore.getData();
 komisiStore.getData();
+storegolongan.init();
+storetingkatan.init();
 </script>

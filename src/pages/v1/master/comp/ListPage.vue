@@ -1,14 +1,12 @@
 <template>
   <table>
-    <thead>
+    <thead width="100%">
       <tr>
-        <th>AVATAR</th>
-        <th>NIK</th>
-        <th>NAMA</th>
-        <th>JENIS KELAMIN</th>
-        <th>ALAMAT</th>
+        <th width="5%">AVATAR</th>
+        <th>IDENTITAS</th>
         <th>JABATAN</th>
-        <th>KOMISI</th>
+        <th>GOLONGAN</th>
+        <th>TINGKATAN</th>
         <!-- <th>STATUS</th> -->
         <th></th>
       </tr>
@@ -89,30 +87,35 @@
         <template v-for="(item, n) in store.items" :key="n">
           <tr :class="item?.flag === '1' ? 'bg-light-blue-2' : ''">
             <td>
-              <q-avatar
-                v-if="item?.jns_kelamin === 'P'"
-                glossy
-                size="40px"
-                class="overlapping"
-              >
-                <img src="../../../../assets/images/female.svg" />
-              </q-avatar>
-              <q-avatar v-else size="40px" class="overlapping" glossy
-                ><img src="../../../../assets/images/male.svg"
-              /></q-avatar>
-            </td>
-            <td>{{ item?.nik }}</td>
-            <td>{{ item?.nama }}</td>
-            <td>{{ getkelamin(item?.jns_kelamin) }} <br /></td>
-            <td>
-              {{ item?.alamat }}
+              <div>
+                <q-img
+                  v-if="item?.jns_kelamin === 'P'"
+                  src="../../../../assets/images/female.svg"
+                  class="q-mx-lg q-my-none"
+                />
+                <q-img
+                  v-else
+                  src="../../../../assets/images/male.svg"
+                  class="q-mx-lg q-my-none"
+                />
+              </div>
             </td>
             <td>
-              {{ item?.jabatan?.jenis }}
+              <div>
+                <b
+                  ><u>NIK : {{ item?.nik }}</u></b
+                >
+              </div>
+              <div>NAMA : {{ item?.nama }}</div>
+              <div>KELAMIN : {{ getkelamin(item?.jns_kelamin) }}</div>
+              <div>{{ item?.alamat }}</div>
             </td>
             <td>
-              {{ item?.komisi?.komisi }}
+              <div>{{ item?.jabatan?.jenis }}</div>
+              <div>{{ item?.komisi?.komisi }}</div>
             </td>
+            <td>{{ item?.golongan?.name }}</td>
+            <td>{{ item?.tingkatan?.name }}</td>
             <!-- <td>
               {{ getstatusmu(item?.status) }}
             </td> -->
@@ -127,6 +130,7 @@
               >
                 <q-tooltip class="primary" :offset="[10, 10]"> Edit </q-tooltip>
               </q-btn>
+
               <q-btn
                 v-model="store.payloadx.id"
                 color="red"
@@ -146,7 +150,13 @@
         </template>
       </template>
     </tbody>
-    <formDialog v-model="dialog" :jabatan="jabatan" :komisi="komisi" />
+    <formDialog
+      v-model="dialog"
+      :jabatan="jabatan"
+      :komisi="komisi"
+      :golongan="golongan"
+      :tingkatan="tingkatan"
+    />
   </table>
 </template>
 
@@ -177,6 +187,8 @@ function formDialogx(val) {
   store.form.alamat = val.alamat;
   store.form.id_jabatan = parseInt(val.id_jabatan);
   store.form.id_komisi = parseInt(val.id_komisi);
+  store.form.golongan_id = parseInt(val.golongan_id);
+  store.form.tingkatan_id = parseInt(val.tingkatan_id);
 }
 
 function getkelamin(val) {
@@ -198,6 +210,8 @@ function getstatusmu(val) {
 const props = defineProps({
   jabatan: { type: Array, default: () => [] },
   komisi: { type: Array, default: () => [] },
+  golongan: { type: Array, default: () => [] },
+  tingkatan: { type: Array, default: () => [] },
 });
 </script>
 

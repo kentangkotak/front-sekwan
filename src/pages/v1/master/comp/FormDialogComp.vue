@@ -37,7 +37,6 @@
           <q-tooltip class="bg-white text-primary">Close</q-tooltip>
         </q-btn>
       </q-bar>
-
       <q-card-section>
         <div class="text-h6 center">
           <b><u>FORM INPUT ANGGOTA DEWAN</u></b>
@@ -107,6 +106,28 @@
               map-options
             />
           </div>
+          <div>
+            <q-select
+              v-model="penyimpanan.form.golongan_id"
+              :options="golongan"
+              label="Golongan"
+              option-label="name"
+              option-value="id"
+              emit-value
+              map-options
+            />
+          </div>
+          <div>
+            <q-select
+              v-model="penyimpanan.form.tingkatan_id"
+              :options="tingkatan"
+              label="Tingkatan"
+              option-label="name"
+              option-value="id"
+              emit-value
+              map-options
+            />
+          </div>
         </q-card-section>
       </div>
       <q-card-actions>
@@ -164,6 +185,8 @@ function setkomisi(val) {
 const props = defineProps({
   jabatan: { type: Array, default: () => [] },
   komisi: { type: Array, default: () => [] },
+  golongan: { type: Array, default: () => [] },
+  tingkatan: { type: Array, default: () => [] },
   //dewanbyid: { type: Array, default: () => [] },
 });
 const wew = ref(props.komisi);
