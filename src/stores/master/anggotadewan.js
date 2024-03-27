@@ -9,6 +9,7 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
     meta: {},
     loading: false,
     dewan: null,
+    tingkatan_id: null,
     params: {
       q: "",
       page: 1,
@@ -23,7 +24,6 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
       komisi_id: "1",
       id_dewan: null,
       golongan_id: null,
-      tingkatan_id: null,
     },
     payloadx: {
       id: null,

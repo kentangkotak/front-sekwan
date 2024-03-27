@@ -32,7 +32,7 @@ export const usePermenStore = defineStore("master_permen", {
       this.getData();
     },
     caripermen(val) {
-      console.log("a", val);
+      //console.log("a", val);
       this.koderekening = null;
       if (val) {
         this.kode = val?.uraian;

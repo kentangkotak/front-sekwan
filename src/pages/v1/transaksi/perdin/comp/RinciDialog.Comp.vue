@@ -9,8 +9,11 @@
         option-label="name"
         option-value="id"
         label="Jenis Transaksi"
+        transition-show="scale"
+        transition-hide="scale"
         emit-value
         map-options
+        @update:model-value="store.carijenisbiaya"
       />
       <!-- <app-autocomplete
         label="Pilih Anggota Dewan"
@@ -22,7 +25,7 @@
         value-field="icon"
       /> -->
       <q-select
-        v-model="store.form.dewan"
+        v-model="dewan.dewan"
         style="margin-bottom: 5px"
         outlined
         :options="dewan.items"
@@ -34,6 +37,7 @@
         clearable
         use-input
         @input-value="dewan.init"
+        @update:model-value="store.caritingkatdangol"
       >
         <template #option="scope">
           <q-item v-bind="scope.itemProps"
@@ -62,11 +66,18 @@
         </template>
       </q-select>
 
-      <q-input style="margin-bottom: 5px" outlined label="No. Transaksi" />
-      <q-input style="margin-bottom: 5px" outlined label="No. Transaksi" />
+      <q-input
+        v-model="store.form.biaya"
+        style="margin-bottom: 5px"
+        outlined
+        label="Biaya..."
+        disable
+      />
+      <q-input style="margin-bottom: 5px" outlined label="Kuantitas" />
       <q-input style="margin-bottom: 5px" outlined label="No. Transaksi" />
     </q-card-section>
   </div>
+  {{ store.items[0]?.biaya }}
 </template>
 
 <script setup>
@@ -82,6 +93,7 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
+  propinsi: { type: Array, default: () => [] },
 });
 // const stringOptions = props.anggotadewan;
 // const options = ref(stringOptions);
@@ -129,6 +141,17 @@ const dewan = useAnggotaDewanStore();
 // }
 
 // fetchData();
+const id_propinsi = props;
+console.log("sa", id_propinsi);
+
+function carijenisbiaya(val) {
+  const id_jenistransaksi = store.form.id_jenistransaksi;
+  const id_tingkatan = val?.tingkatan_id;
+
+  if (val === 1) {
+    console.log("sa", tingkatan);
+  }
+}
 
 const filteredOptions = ref({});
 </script>
