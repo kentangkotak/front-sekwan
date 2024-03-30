@@ -82,7 +82,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     },
     kirimkendaraan(val) {
       this.paramsbiaya.kendaraan = val;
-      this.carijenisbiaya();
+      // this.carijenisbiaya();
       this.getTransport();
     },
     caritingkatdangol(val) {
@@ -106,6 +106,9 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
           this.getTransport();
         }
       } else if (val === 4) {
+        this.initcaribiayapesawat();
+      } else {
+        this.caribiayataksi();
       }
     },
     async getuangSaku() {
@@ -171,10 +174,10 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     initcaribiayapesawat() {
       this.paramspesawat.tujuan = this.form.id_tujuanpesawat;
       this.paramspesawat.kelas = this.form.kelas;
-      console.log("sasasa", this.paramspesawat.tujuan);
-      this.caribiayapeswat();
+      console.log("sasa", this.paramspesawat.tujuan);
+      this.caribiayapesawat();
     },
-    async caribiayapeswat() {
+    async caribiayapesawat() {
       this.loading = true;
       const params = { params: this.paramspesawat };
       await api
@@ -191,6 +194,25 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
                 : this.paramspesawat.kelas === "Bisnis"
                 ? this.items[0]?.bisnis
                 : this.items[0]?.ekonomi;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading = false;
+        });
+    },
+    async caribiayataksi() {
+      this.loading = true;
+      const params = { params: this.paramsbiaya };
+      await api
+        .get("/taksi", params)
+        .then((resp) => {
+          this.loading = false;
+          if (resp.status === 200) {
+            this.meta = resp.data;
+            this.items = resp.data.data;
+            this.meta.total = resp?.data.total;
+            this.form.biaya = resp.data.data[0]?.biaya;
           }
         })
         .catch((err) => {
