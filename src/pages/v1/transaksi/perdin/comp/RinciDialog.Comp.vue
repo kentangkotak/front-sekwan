@@ -68,7 +68,7 @@
 
       <q-select
         v-if="store.form.id_jenistransaksi !== 3"
-        v-model="store.form.id_jeniskendaraan"
+        v-model="store.form.id_jeniskendaraanx"
         style="display: none"
       />
       <q-select
@@ -79,6 +79,8 @@
         option-value="id"
         emit-value
         map-options
+        transition-show="scale"
+        transition-hide="scale"
         style="margin-bottom: 5px; visibility: visible"
         outlined
         label="Jenis Kendaraan"
@@ -87,15 +89,42 @@
 
       <q-select
         v-if="store.form.id_jenistransaksi !== 4"
-        v-model="sasa"
+        v-model="store.form.id_tujuanpesawatx"
         style="display: none"
       />
       <q-select
         v-else
-        v-model="sasa"
+        v-model="store.form.id_tujuanpesawat"
         style="margin-bottom: 5px; visibility: visible"
+        :options="pesawat"
+        option-label="tujuan"
+        option-value="id"
+        transition-show="scale"
+        transition-hide="scale"
+        emit-value
+        map-options
+        outlined
+        label="Tujuan Peswat..."
+        @update:model-value="store.initcaribiayapesawat()"
+      />
+
+      <q-select
+        v-if="store.form.id_jenistransaksi !== 4"
+        v-model="store.form.kelasx"
+        style="display: none"
+      />
+      <q-select
+        v-else
+        v-model="store.form.kelas"
+        style="margin-bottom: 5px; visibility: visible"
+        :options="kelas"
+        transition-show="scale"
+        transition-hide="scale"
+        emit-value
+        map-options
         outlined
         label="Kelas..."
+        @update:model-value="store.initcaribiayapesawat()"
       />
 
       <q-input
@@ -132,6 +161,7 @@ const props = defineProps({
   },
   propinsi: { type: Array, default: () => [] },
   jeniskendaraan: { type: Array, default: () => [] },
+  pesawat: { type: Array, default: () => [] },
 });
 
 // const stringOptions = props.anggotadewan;
@@ -159,6 +189,7 @@ const props = defineProps({
 //   });
 // }
 
+const kelas = ref(["Bisnis", "Ekonomi"]);
 const scope = ref();
 const dewan = useAnggotaDewanStore();
 
@@ -181,7 +212,6 @@ const dewan = useAnggotaDewanStore();
 
 // fetchData();
 const id_propinsi = props;
-console.log("sa", id_propinsi);
 
 function carijenisbiaya(val) {
   const id_jenistransaksi = store.form.id_jenistransaksi;

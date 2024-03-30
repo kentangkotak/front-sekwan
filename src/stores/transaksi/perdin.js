@@ -25,6 +25,10 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       provinsi: null,
       kendaraan: null,
     },
+    paramspesawat: {
+      tujuan: null,
+      kelas: "",
+    },
     form: {
       id_kota: null,
       id_jenistransaksi: null,
@@ -34,6 +38,8 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       golongan: null,
       biaya: 0,
       id_jeniskendaraan: null,
+      id_tujuanpesawat: null,
+      kelas: null,
     },
     jabatan: {},
   }),
@@ -99,6 +105,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
         } else {
           this.getTransport();
         }
+      } else if (val === 4) {
       }
     },
     async getuangSaku() {
@@ -144,7 +151,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     async getTransport() {
       this.loading = true;
       const params = { params: this.paramsbiaya };
-      console.log("aaa", params);
+      // console.log("aaa", params);
       await api
         .get("/transport", params)
         .then((resp) => {
@@ -154,6 +161,36 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
             this.items = resp.data.data;
             this.meta.total = resp?.data.total;
             this.form.biaya = resp.data.data[0]?.biaya;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading = false;
+        });
+    },
+    initcaribiayapesawat() {
+      this.paramspesawat.tujuan = this.form.id_tujuanpesawat;
+      this.paramspesawat.kelas = this.form.kelas;
+      console.log("sasasa", this.paramspesawat.tujuan);
+      this.caribiayapeswat();
+    },
+    async caribiayapeswat() {
+      this.loading = true;
+      const params = { params: this.paramspesawat };
+      await api
+        .get("/pesawat", params)
+        .then((resp) => {
+          this.loading = false;
+          if (resp.status === 200) {
+            this.meta = resp.data;
+            this.items = resp.data.data;
+            this.meta.total = resp?.data.total;
+            this.form.biaya =
+              this.paramspesawat.kelas === null
+                ? 0
+                : this.paramspesawat.kelas === "Bisnis"
+                ? this.items[0]?.bisnis
+                : this.items[0]?.ekonomi;
           }
         })
         .catch((err) => {

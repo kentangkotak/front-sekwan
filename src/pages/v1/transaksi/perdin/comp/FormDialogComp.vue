@@ -50,6 +50,7 @@
                 :jenistransaksi="storejenistrans.items"
                 :anggotadewan="storedewan.items"
                 :jeniskendaraan="storejeniskendaraan.items"
+                :pesawat="storepesawat.items"
               />
             </q-card-section>
             <q-separator vertical />
@@ -72,6 +73,7 @@ import RinciDialogComp from "./RinciDialog.Comp.vue";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 import { usePermenStore } from "src/stores/master/permen50";
 import { useJenisKendaraan } from "src/stores/master/kendaraan";
+import { usePesawatstore } from "src/stores/master/pesawat";
 //import { useQuasar } from "quasar";
 //import { store } from "quasar/wrappers";
 
@@ -81,6 +83,7 @@ const strorepropinsi = usePropinsi();
 const storedewan = useAnggotaDewanStore();
 const storepermen = usePermenStore();
 const storejeniskendaraan = useJenisKendaraan();
+const storepesawat = usePesawatstore();
 const store = usePerdinStore();
 
 const date = ref("YYYY");
@@ -94,4 +97,5 @@ strorepropinsi.init();
 storedewan.init();
 storepermen.init();
 storejeniskendaraan.init();
+storepesawat.init();
 </script>

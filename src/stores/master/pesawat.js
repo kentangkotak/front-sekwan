@@ -1,22 +1,15 @@
 import { defineStore } from "pinia";
 import { api } from "src/boot/axios";
-import { notifSuccess } from "src/boot/notify-defaults";
 
-export const useJenisTransaksi = defineStore("master_jenistransaksi", {
+export const usePesawatstore = defineStore("master_pesawat", {
   state: () => ({
     items: [],
-    meta: {},
     loading: false,
     params: {
       q: "",
       page: 1,
       per_page: 10,
-      status: "all",
-    },
-    form: {},
-    jabatan: {},
-    payloadx: {
-      id: null,
+      tujuan: null,
     },
   }),
   actions: {
@@ -27,16 +20,13 @@ export const useJenisTransaksi = defineStore("master_jenistransaksi", {
       this.loading = true;
       const params = { params: this.params };
       await api
-        .get("/jenisbiaya", params)
+        .get("/pesawat", params)
         .then((resp) => {
           this.loading = false;
           if (resp.status === 200) {
-            //this.meta = resp.data;
-            this.items = resp.data;
-            // this.items.unshift({
-            //   komisi: "SEMUA",
-            //   id: "",
-            // });
+            this.meta = resp.data;
+            this.items = resp.data.data;
+            this.meta.total = resp?.data.total;
           }
         })
         .catch((err) => {

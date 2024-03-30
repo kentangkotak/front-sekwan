@@ -31,7 +31,6 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
   }),
   actions: {
     init(val) {
-      console.log("isi", val);
       if (val) {
         this.params.id_flag_pegawai = null;
         this.params.komisi_id = null;
