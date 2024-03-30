@@ -49,6 +49,7 @@
               <RinciDialogComp
                 :jenistransaksi="storejenistrans.items"
                 :anggotadewan="storedewan.items"
+                :jeniskendaraan="storejeniskendaraan.items"
               />
             </q-card-section>
             <q-separator vertical />
@@ -70,6 +71,7 @@ import GridTransComp from "./GridTransComp.vue";
 import RinciDialogComp from "./RinciDialog.Comp.vue";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 import { usePermenStore } from "src/stores/master/permen50";
+import { useJenisKendaraan } from "src/stores/master/kendaraan";
 //import { useQuasar } from "quasar";
 //import { store } from "quasar/wrappers";
 
@@ -78,6 +80,7 @@ const storejenistrans = useJenisTransaksi();
 const strorepropinsi = usePropinsi();
 const storedewan = useAnggotaDewanStore();
 const storepermen = usePermenStore();
+const storejeniskendaraan = useJenisKendaraan();
 const store = usePerdinStore();
 
 const date = ref("YYYY");
@@ -90,4 +93,5 @@ storejenistrans.init();
 strorepropinsi.init();
 storedewan.init();
 storepermen.init();
+storejeniskendaraan.init();
 </script>

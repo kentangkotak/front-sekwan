@@ -231,4 +231,23 @@ const notifSuccess = (resp) => {
   });
 };
 
-export { notifSuccess, notifErr };
+const notifErrmodip = (resp) => {
+  const msg = resp;
+  Notify.create({
+    message: msg || "Sucees!, Wow Kerja Bagus!",
+    icon: "warning",
+    position: "top-right",
+    color: "negative",
+    actions: [
+      {
+        label: "Dismiss",
+        color: "yellow",
+        handler: () => {
+          /* console.log('wooow') */
+        },
+      },
+    ],
+  });
+};
+
+export { notifSuccess, notifErr, notifErrmodip };

@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { api } from "src/boot/axios";
+import { notifErr, notifErrmodip } from "src/boot/notify-defaults";
 
 export const usePerdinStore = defineStore("transaksi_perdin", {
   state: () => ({
@@ -20,6 +21,9 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       golongan: "",
       id_propinsi: null,
       jenisbiaya: null,
+      kota: null,
+      provinsi: null,
+      kendaraan: null,
     },
     form: {
       id_kota: null,
@@ -29,6 +33,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       tingkatan: null,
       golongan: null,
       biaya: 0,
+      id_jeniskendaraan: null,
     },
     jabatan: {},
   }),
@@ -44,6 +49,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
             this.meta = resp.data;
             this.items = resp.data;
             this.meta.total = resp?.data.total;
+            this.form.id_kota = "-";
           }
         })
         .catch((err) => {
@@ -60,6 +66,16 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       this.getData();
       this.carijenisbiaya();
     },
+    kirimkota(val) {
+      this.paramsbiaya.kota = val?.id;
+      //this.getTransport();
+      this.carijenisbiaya();
+    },
+    kirimkendaraan(val) {
+      this.paramsbiaya.kendaraan = val;
+      this.carijenisbiaya();
+      this.getTransport();
+    },
     caritingkatdangol(val) {
       this.paramsbiaya.tingkatan = val?.tingkatan_id;
       this.paramsbiaya.golongan = val?.golongan_id;
@@ -72,6 +88,14 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
         this.getuangSaku();
       } else if (val === 2) {
         this.getPenginapan();
+      } else if (val === 3) {
+        if (this.form.id_kota === "-") {
+          notifErrmodip("Kota Harus Dipilih...!!!");
+          this.form.id_jenistransaksi = "";
+        } else {
+          console.log("dddd", this.paramsbiaya.kendaraan);
+          this.getTransport();
+        }
       }
     },
     async getuangSaku() {
@@ -104,7 +128,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
           this.loading = false;
           if (resp.status === 200) {
             this.meta = resp.data;
-            this.items = resp.data;
+            // this.items = resp.data;
             this.meta.total = resp?.data.total;
             this.form.biaya = resp.data[0]?.biaya;
           }
@@ -117,16 +141,16 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     async getTransport() {
       this.loading = true;
       const params = { params: this.paramsbiaya };
-      // console.log("asdasdasdda", this.payloadbiaya);
+      console.log("aaa", params);
       await api
         .get("/transport", params)
         .then((resp) => {
           this.loading = false;
           if (resp.status === 200) {
             this.meta = resp.data;
-            this.items = resp.data;
+            this.items = resp.data.data;
             this.meta.total = resp?.data.total;
-            this.form.biaya = resp.data[0]?.biaya;
+            this.form.biaya = resp.data.data[0]?.biaya;
           }
         })
         .catch((err) => {

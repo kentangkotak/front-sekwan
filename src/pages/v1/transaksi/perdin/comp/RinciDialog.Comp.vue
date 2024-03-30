@@ -66,18 +66,55 @@
         </template>
       </q-select>
 
+      <q-select
+        v-if="store.form.id_jenistransaksi !== 3"
+        v-model="store.form.id_jeniskendaraan"
+        style="display: none"
+      />
+      <q-select
+        v-else
+        v-model="store.form.id_jeniskendaraan"
+        :options="jeniskendaraan"
+        option-label="name"
+        option-value="id"
+        emit-value
+        map-options
+        style="margin-bottom: 5px; visibility: visible"
+        outlined
+        label="Jenis Kendaraan"
+        @update:model-value="(val) => store.kirimkendaraan(val)"
+      />
+
+      <q-select
+        v-if="store.form.id_jenistransaksi !== 4"
+        v-model="sasa"
+        style="display: none"
+      />
+      <q-select
+        v-else
+        v-model="sasa"
+        style="margin-bottom: 5px; visibility: visible"
+        outlined
+        label="Kelas..."
+      />
+
       <q-input
         v-model="store.form.biaya"
         style="margin-bottom: 5px"
         outlined
         label="Biaya..."
         disable
+        input-class="text-right"
       />
-      <q-input style="margin-bottom: 5px" outlined label="Kuantitas" />
+      <q-input
+        type="number"
+        style="margin-bottom: 5px"
+        outlined
+        label="Kuantitas"
+      />
       <q-input style="margin-bottom: 5px" outlined label="No. Transaksi" />
     </q-card-section>
   </div>
-  {{ store.items[0]?.biaya }}
 </template>
 
 <script setup>
@@ -94,7 +131,9 @@ const props = defineProps({
     default: () => [],
   },
   propinsi: { type: Array, default: () => [] },
+  jeniskendaraan: { type: Array, default: () => [] },
 });
+
 // const stringOptions = props.anggotadewan;
 // const options = ref(stringOptions);
 

@@ -41,6 +41,7 @@
           </template>
         </q-input>
         <q-input
+          type="number"
           style="margin-right: 5px; width: 20%"
           outlined
           label="Lama PerDin"
@@ -84,7 +85,7 @@
           transition-show="scale"
           transition-hide="scale"
           label="Tujuan Kota"
-          map-options
+          @update:model-value="(val) => store.kirimkota(val)"
         />
 
         <q-input
