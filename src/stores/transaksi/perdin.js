@@ -38,6 +38,10 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     jabatan: {},
   }),
   actions: {
+    initpropinsi() {
+      this.form.id_kota = "-";
+      this.getData();
+    },
     async getData() {
       this.loading = true;
       const params = { params: this.params };
@@ -49,7 +53,6 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
             this.meta = resp.data;
             this.items = resp.data;
             this.meta.total = resp?.data.total;
-            this.form.id_kota = "-";
           }
         })
         .catch((err) => {
@@ -63,7 +66,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       this.form.id_kota = null;
       this.paramsbiaya.id_propinsi = val?.id;
       // console.log("sasasa", this.params.id_propinsi);
-      this.getData();
+      this.initpropinsi();
       this.carijenisbiaya();
     },
     kirimkota(val) {
@@ -83,6 +86,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       this.carijenisbiaya(jenisbiaya);
     },
     carijenisbiaya(val) {
+      this.getData();
       this.paramsbiaya.jenisbiaya = val;
       if (val === 1) {
         this.getuangSaku();
@@ -93,7 +97,6 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
           notifErrmodip("Kota Harus Dipilih...!!!");
           this.form.id_jenistransaksi = "";
         } else {
-          console.log("dddd", this.paramsbiaya.kendaraan);
           this.getTransport();
         }
       }
