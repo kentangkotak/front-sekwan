@@ -5,11 +5,12 @@
         <tr>
           <th width="5%">NO.</th>
           <th>NIK</th>
-          <th>NAMA PEDAMPING DEWAN</th>
-          <th>JENIS KELAMIN</th>
-          <th>ALAMAT</th>
+          <th>NAMA</th>
+          <th>STATUS</th>
           <th>KOMISI</th>
-          <!-- <th>STATUS</th> -->
+          <th>JENIS TRANSAKSI</th>
+          <th>BIAYA</th>
+          <th>JUMLAH</th>
           <th></th>
         </tr>
       </thead>

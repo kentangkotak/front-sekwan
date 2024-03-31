@@ -226,6 +226,7 @@ function caritingkatdangol(val) {
     store.paramsbiaya.golongan = "";
     store.form.tingkatan = "";
     store.form.golongan = "";
+    store.form.jabatan = "";
   } else {
     store.form.nik = val?.nik;
     store.form.id_jenistransaksi = "";
@@ -234,6 +235,7 @@ function caritingkatdangol(val) {
     store.paramsbiaya.golongan = val?.golongan_id;
     store.form.tingkatan = val?.tingkatan_id;
     store.form.golongan = val?.golongan_id;
+    store.form.jabatan = val?.id_jabatan;
   }
 
   // const idbiaya = store.paramsbiaya.jenisbiaya;

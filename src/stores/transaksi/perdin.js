@@ -1,7 +1,11 @@
 import { defineStore } from "pinia";
 import { date } from "quasar";
 import { api } from "src/boot/axios";
-import { notifErr, notifErrmodip } from "src/boot/notify-defaults";
+import {
+  notifErr,
+  notifErrmodip,
+  notifSuccess,
+} from "src/boot/notify-defaults";
 import { useAnggotaDewanStore } from "../master/anggotadewan";
 
 export const usePerdinStore = defineStore("transaksi_perdin", {
@@ -48,6 +52,8 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       judul: "",
       id_propinsi: null,
       koderekekning: null,
+      total_biaya: null,
+      jabatan: "",
     },
     jabatan: {},
   }),
@@ -263,6 +269,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       this.form.tanggal = date.formatDate(sekarang, "YYYY-MM-DD");
     },
     simpantransaksi() {
+      this.form.total_biaya = this.form.biaya * this.form.kuantitas;
       if (this.form.judul === "") {
         notifErrmodip("Judul Harus Di Isi ...!!!");
       } else if (this.form.koderekekning === "") {
@@ -281,12 +288,13 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
         api
           .post("/store", this.form)
           .then((resp) => {
-            // console.log("sasasa", form);
+            console.log("sasasa", resp.status);
             this.loading = false;
-            this.clear();
+            // this.clear();
             if (resp.status === 200) {
               notifSuccess(resp);
-              this.init();
+              this.form.notrans = resp.data.header.no_transaksi;
+              // this.init();
             }
           })
           .catch((err) => {
