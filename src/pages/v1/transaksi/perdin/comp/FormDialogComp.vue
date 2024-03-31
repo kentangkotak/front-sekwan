@@ -98,4 +98,5 @@ storedewan.init();
 storepermen.init();
 storejeniskendaraan.init();
 storepesawat.init();
+store.formattanggal();
 </script>

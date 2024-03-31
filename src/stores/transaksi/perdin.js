@@ -1,6 +1,8 @@
 import { defineStore } from "pinia";
+import { date } from "quasar";
 import { api } from "src/boot/axios";
 import { notifErr, notifErrmodip } from "src/boot/notify-defaults";
+import { useAnggotaDewanStore } from "../master/anggotadewan";
 
 export const usePerdinStore = defineStore("transaksi_perdin", {
   state: () => ({
@@ -9,6 +11,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     metapermen: {},
     meta: {},
     loading: false,
+    namakota: "-",
     params: {
       q: "",
       page: 1,
@@ -30,22 +33,27 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       kelas: "",
     },
     form: {
+      notrans: null,
+      tanggal: Date.now(),
       id_kota: null,
       id_jenistransaksi: null,
-      dewan: null,
-      permen: null,
       tingkatan: null,
       golongan: null,
       biaya: 0,
       id_jeniskendaraan: null,
       id_tujuanpesawat: null,
       kelas: null,
+      kuantitas: 1,
+      lamaperdin: 1,
+      judul: "",
+      id_propinsi: null,
+      koderekekning: null,
     },
     jabatan: {},
   }),
   actions: {
     initpropinsi() {
-      this.form.id_kota = "-";
+      this.namakota = "-";
       this.getData();
     },
     async getData() {
@@ -59,6 +67,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
             this.meta = resp.data;
             this.items = resp.data;
             this.meta.total = resp?.data.total;
+            // this.form.biaya = 0;
           }
         })
         .catch((err) => {
@@ -66,48 +75,66 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
           this.loading = false;
         });
     },
-    kirimpropinsi(val) {
-      //console.log("isi", val);
-      this.params.id_propinsi = val?.id;
-      this.form.id_kota = null;
-      this.paramsbiaya.id_propinsi = val?.id;
-      // console.log("sasasa", this.params.id_propinsi);
-      this.initpropinsi();
-      this.carijenisbiaya();
+    kirimpropinsi(val, x) {
+      this.params.id_propinsi = val;
+      this.paramsbiaya.id_propinsi = val;
+      console.log("ijin", x);
+      if (x === 1) {
+        this.initpropinsi();
+        this.cleargantiprovinsi();
+        this.carijenisbiaya();
+      } else {
+        this.getData();
+      }
     },
     kirimkota(val) {
       this.paramsbiaya.kota = val?.id;
+      this.form.id_kota = val?.id;
       //this.getTransport();
-      this.carijenisbiaya();
+      // this.carijenisbiaya();
     },
     kirimkendaraan(val) {
       this.paramsbiaya.kendaraan = val;
       // this.carijenisbiaya();
       this.getTransport();
     },
-    caritingkatdangol(val) {
-      this.paramsbiaya.tingkatan = val?.tingkatan_id;
-      this.paramsbiaya.golongan = val?.golongan_id;
-      const jenisbiaya = this.paramsbiaya.jenisbiaya;
-      this.carijenisbiaya(jenisbiaya);
-    },
+
     carijenisbiaya(val) {
-      this.getData();
+      // this.getData();
+      //this.clearpilihjenisbiaya();
       this.paramsbiaya.jenisbiaya = val;
+      this.form.biaya = 0;
+      const kodepropinsi = this.paramsbiaya.id_propinsi;
+      const storedewan = useAnggotaDewanStore();
+      const fielddewan = storedewan.form.id_dewan;
+
       if (val === 1) {
-        this.getuangSaku();
-      } else if (val === 2) {
-        this.getPenginapan();
-      } else if (val === 3) {
-        if (this.form.id_kota === "-") {
-          notifErrmodip("Kota Harus Dipilih...!!!");
+        if (fielddewan === null) {
+          notifErrmodip("Propinsi && Anggota Dewan Tidak Boleh Kosong...!!!");
           this.form.id_jenistransaksi = "";
         } else {
-          this.getTransport();
+          //this.kirimpropinsi(kodepropinsi, 2);
+          this.getuangSaku();
         }
+      } else if (val === 2) {
+        if (fielddewan === null) {
+          notifErrmodip("Propinsi Tidak Boleh Kosong...!!!");
+          this.form.id_jenistransaksi = "";
+        } else {
+          //this.kirimpropinsi(kodepropinsi, 2);
+          this.getPenginapan();
+        }
+      } else if (val === 3) {
+        if (this.form.id_kota === null) {
+          notifErrmodip("Kota Harus Dipilih...!!!");
+          this.form.id_jenistransaksi = "";
+        }
+        // else {
+        //   this.getTransport();
+        // }
       } else if (val === 4) {
         this.initcaribiayapesawat();
-      } else {
+      } else if (val === 5) {
         this.caribiayataksi();
       }
     },
@@ -123,7 +150,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
             this.meta = resp.data;
             this.items = resp.data;
             this.meta.total = resp?.data.total;
-            this.form.biaya = resp.data[0]?.biaya;
+            this.form.biaya = resp.data[0]?.biaya ?? 0;
           }
         })
         .catch((err) => {
@@ -143,7 +170,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
             this.meta = resp.data;
             // this.items = resp.data;
             this.meta.total = resp?.data.total;
-            this.form.biaya = resp.data[0]?.biaya;
+            this.form.biaya = resp.data[0]?.biaya ?? 0;
           }
         })
         .catch((err) => {
@@ -163,7 +190,18 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
             this.meta = resp.data;
             this.items = resp.data.data;
             this.meta.total = resp?.data.total;
-            this.form.biaya = resp.data.data[0]?.biaya;
+            if (
+              resp.data.data[0]?.biaya === "0.00" ||
+              resp.data.data[0]?.biaya === null ||
+              resp.data.data[0]?.biaya === ""
+            ) {
+              notifErrmodip(
+                "Tidak Ada Biaya Untuk Tujuan Deangan Menggunakan Model Kendaraan Ini...!!!"
+              );
+              this.form.biaya = 0;
+            } else {
+              this.form.biaya = resp.data.data[0]?.biaya;
+            }
           }
         })
         .catch((err) => {
@@ -219,6 +257,57 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
           console.log(err);
           this.loading = false;
         });
+    },
+    formattanggal() {
+      const sekarang = Date.now();
+      this.form.tanggal = date.formatDate(sekarang, "YYYY-MM-DD");
+    },
+    simpantransaksi() {
+      if (this.form.judul === "") {
+        notifErrmodip("Judul Harus Di Isi ...!!!");
+      } else if (this.form.koderekekning === "") {
+        notifErrmodip("Kode Rekening Harus Di Isi ...!!!");
+      } else {
+        const wew = Object.keys(this.form);
+        wew.forEach((sasa) => {
+          if (this.form[sasa] === null) {
+            delete this.form[sasa];
+            // console.log("wew", sasa);
+            // console.log("isi nya", this.form[sasa]);
+          }
+        });
+        // console.log("aaaaaaaaaaaaaaaaa", this.form);
+        this.loading = true;
+        api
+          .post("/store", this.form)
+          .then((resp) => {
+            // console.log("sasasa", form);
+            this.loading = false;
+            this.clear();
+            if (resp.status === 200) {
+              notifSuccess(resp);
+              this.init();
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            this.loading = false;
+            notifErr(err);
+          });
+      }
+    },
+    cleargantiprovinsi() {
+      this.form.id_kota = null;
+      this.namakota = "-";
+      this.form.id_jenistransaksi = null;
+      const storedewan = useAnggotaDewanStore();
+      storedewan.form.id_dewan = null;
+      this.paramsbiaya.golongan = null;
+      this.paramsbiaya.tingkatan = null;
+    },
+    clearpilihjenisbiaya() {
+      this.form.dewan = null;
+      this.form.biaya = null;
     },
   },
 });

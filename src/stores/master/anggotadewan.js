@@ -69,7 +69,7 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
           if (resp.status === 200) {
             notifSuccess(resp);
             this.init();
-            console.log("OK");
+            // console.log("OK");
           }
         })
         .catch((err) => {
@@ -116,7 +116,7 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
           if (resp.status === 200) {
             notifSuccess(resp);
             this.getData();
-            console.log("OK");
+            // console.log("OK");
           }
         })
         .catch((err) => {

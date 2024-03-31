@@ -2,30 +2,7 @@
   <div>
     <q-card-section>
       <q-select
-        v-model="store.form.id_jenistransaksi"
-        style="margin-bottom: 5px"
-        outlined
-        :options="jenistransaksi"
-        option-label="name"
-        option-value="id"
-        label="Jenis Transaksi"
-        transition-show="scale"
-        transition-hide="scale"
-        emit-value
-        map-options
-        @update:model-value="store.carijenisbiaya"
-      />
-      <!-- <app-autocomplete
-        label="Pilih Anggota Dewan"
-        style="margin-bottom: 5px; background-color: white"
-        :source="anggotadewan"
-        :option-label="(source) => [anggotadewan]"
-        option-value="nik"
-        @selected="pilih"
-        value-field="icon"
-      /> -->
-      <q-select
-        v-model="dewan.dewan"
+        v-model="dewan.form.id_dewan"
         style="margin-bottom: 5px"
         outlined
         :options="dewan.items"
@@ -36,8 +13,7 @@
         transition-hide="scale"
         clearable
         use-input
-        @input-value="dewan.init"
-        @update:model-value="store.caritingkatdangol"
+        @update:model-value="caritingkatdangol"
       >
         <template #option="scope">
           <q-item v-bind="scope.itemProps"
@@ -65,6 +41,30 @@
           </q-item>
         </template>
       </q-select>
+
+      <q-select
+        v-model="store.form.id_jenistransaksi"
+        style="margin-bottom: 5px"
+        outlined
+        :options="jenistransaksi"
+        option-label="name"
+        option-value="id"
+        label="Jenis Transaksi"
+        transition-show="scale"
+        transition-hide="scale"
+        emit-value
+        map-options
+        @update:model-value="store.carijenisbiaya"
+      />
+      <!-- <app-autocomplete
+        label="Pilih Anggota Dewan"
+        style="margin-bottom: 5px; background-color: white"
+        :source="anggotadewan"
+        :option-label="(source) => [anggotadewan]"
+        option-value="nik"
+        @selected="pilih"
+        value-field="icon"
+      /> -->
 
       <q-select
         v-if="store.form.id_jenistransaksi !== 3"
@@ -136,17 +136,19 @@
         input-class="text-right"
       />
       <q-input
+        v-model="store.form.kuantitas"
         type="number"
         style="margin-bottom: 5px"
         outlined
         label="Kuantitas"
       />
-      <q-input style="margin-bottom: 5px" outlined label="No. Transaksi" />
+      <q-btn color="orange" label="SIMPAN" @click="store.simpantransaksi()" />
     </q-card-section>
   </div>
 </template>
 
 <script setup>
+import { notifErrmodip } from "src/boot/notify-defaults";
 import AppAutocomplete from "src/components/~global/AppAutocomplete.vue";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
@@ -213,14 +215,31 @@ const dewan = useAnggotaDewanStore();
 // fetchData();
 const id_propinsi = props;
 
-function carijenisbiaya(val) {
-  const id_jenistransaksi = store.form.id_jenistransaksi;
-  const id_tingkatan = val?.tingkatan_id;
-
-  if (val === 1) {
-    console.log("sa", tingkatan);
+function caritingkatdangol(val) {
+  if (store.form.id_propinsi === null) {
+    notifErrmodip("Provinsi Tidak Boleh Kosong...!!!");
+    dewan.form.id_dewan = "";
+    store.form.nik = "";
+    store.form.id_jenistransaksi = "";
+    store.form.biaya = 0;
+    store.paramsbiaya.tingkatan = "";
+    store.paramsbiaya.golongan = "";
+    store.form.tingkatan = "";
+    store.form.golongan = "";
+  } else {
+    store.form.nik = val?.nik;
+    store.form.id_jenistransaksi = "";
+    store.form.biaya = 0;
+    store.paramsbiaya.tingkatan = val?.tingkatan_id;
+    store.paramsbiaya.golongan = val?.golongan_id;
+    store.form.tingkatan = val?.tingkatan_id;
+    store.form.golongan = val?.golongan_id;
   }
-}
 
-const filteredOptions = ref({});
+  // const idbiaya = store.paramsbiaya.jenisbiaya;
+  // store.carijenisbiaya(idbiaya);
+  // store.getuangSaku();
+  // const jenisbiaya = this.paramsbiaya.jenisbiaya;
+  // this.carijenisbiaya(jenisbiaya);
+}
 </script>

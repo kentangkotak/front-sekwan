@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { api } from "src/boot/axios";
+import { usePerdinStore } from "../transaksi/perdin";
 
 export const usePermenStore = defineStore("master_permen", {
   state: () => ({
@@ -32,11 +33,13 @@ export const usePermenStore = defineStore("master_permen", {
       this.getData();
     },
     caripermen(val) {
-      //console.log("a", val);
+      console.log("a", val);
       this.koderekening = null;
       if (val) {
         this.kode = val?.uraian;
         this.koderekening = val?.kodeall;
+        const transperdin = usePerdinStore();
+        transperdin.form.koderekekning = val?.kodeall;
         this.getData();
       }
     },
