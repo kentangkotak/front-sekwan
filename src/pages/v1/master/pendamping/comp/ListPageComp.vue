@@ -15,7 +15,31 @@
     <tbody>
       <template v-if="store.loading">
         <tr v-for="n in store.params.per_page" :key="n">
-          <div class="fixed-center"><AppLoading /></div>
+          <td>
+            <q-skeleton type="text" width="300px" height="14px" />
+          </td>
+          <td>
+            <q-skeleton type="text" width="200px" height="14px" />
+          </td>
+          <td>
+            <q-skeleton type="text" width="500px" height="14px" />
+          </td>
+          <td>
+            <div class="row q-mb-xs q-col-gutter-sm">
+              <q-skeleton type="text" width="200px" height="14px" />
+            </div>
+            <div class="row q-col-gutter-sm items-center">
+              <q-skeleton type="text" width="200px" height="14px" />
+            </div>
+          </td>
+          <td>
+            <q-skeleton type="text" width="100px" height="14px" />
+          </td>
+          <td class="text-end">
+            <div class="row justify-end">
+              <q-skeleton type="text" width="50px" height="14px" />
+            </div>
+          </td>
         </tr>
       </template>
       <template v-else>
@@ -29,7 +53,7 @@
                 size="40px"
                 class="overlapping"
               >
-                <img src="../../../../../assets/images/female.svg" />
+                <q-img src="../../../../../assets/images/female.svg" />
               </q-avatar>
               <q-avatar v-else size="40px" class="overlapping" glossy
                 ><img src="../../../../../assets/images/male.svg"

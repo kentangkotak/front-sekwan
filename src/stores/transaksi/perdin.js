@@ -38,6 +38,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       kelas: "",
     },
     form: {
+      id: null,
       notrans: null,
       tanggal: Date.now(),
       id_kota: null,
@@ -344,7 +345,8 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
             // this.clear();
             if (resp.status === 200) {
               notifSuccess(resp);
-              this.form.notrans = resp.data.header.no_transaksi;
+              this.form.notrans = resp?.data?.header?.no_transaksi;
+              this.form.id = resp?.data?.header?.id;
               // this.init();
             }
           })

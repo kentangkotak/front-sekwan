@@ -14,42 +14,20 @@
     <tbody>
       <template v-if="store.loading">
         <tr v-for="n in store.params.per_page" :key="n">
-          <!-- <td width="5%">
-            <q-skeleton
-              type="text"
-              width="20px"
-              height="14px"
-            />
+          <td width="5%">
+            <q-skeleton type="text" width="20px" height="14px" />
           </td>
           <td>
-            <q-skeleton
-              type="text"
-              width="50px"
-              height="14px"
-            />
-            <q-skeleton
-              type="text"
-              width="40px"
-              height="10px"
-            />
+            <q-skeleton type="text" width="100px" height="14px" />
+            <q-skeleton type="text" width="100px" height="14px" />
+            <q-skeleton type="text" width="50px" height="14px" />
+            <q-skeleton type="text" width="200px" height="14px" />
           </td>
           <td>
             <div class="row q-mb-xs q-col-gutter-sm">
-              <q-skeleton
-                type="text"
-                width="100px"
-                height="14px"
-              />
+              <q-skeleton type="text" width="100px" height="14px" />
             </div>
             <div class="row q-col-gutter-sm items-center">
-              <q-skeleton
-                type="text"
-                width="40px"
-                height="14px"
-              />
-              <div class="text-grey q-pt-none">
-                ||
-              </div>
               <q-skeleton
                 type="text"
                 width="40px"
@@ -59,28 +37,16 @@
             </div>
           </td>
           <td>
-            <q-skeleton
-              type="text"
-              width="100px"
-              height="14px"
-            />
+            <q-skeleton type="text" width="100px" height="14px" />
           </td>
           <td>
-            <q-skeleton
-              type="text"
-              width="100px"
-              height="14px"
-            />
+            <q-skeleton type="text" width="100px" height="14px" />
           </td>
           <td class="text-end">
             <div class="row justify-end">
-              <q-skeleton
-                type="text"
-                width="100px"
-                height="14px"
-              />
+              <q-skeleton type="text" width="100px" height="14px" />
             </div>
-          </td> -->
+          </td>
         </tr>
       </template>
       <template v-else>
