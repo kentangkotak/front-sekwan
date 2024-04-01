@@ -14,6 +14,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     itemspermen: {},
     metapermen: {},
     meta: {},
+    metaperdin: {},
     loading: false,
     namakota: "-",
     params: {
@@ -56,6 +57,9 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       jabatan: "",
     },
     jabatan: {},
+    payloadx: {
+      id: null,
+    },
   }),
   actions: {
     initpropinsi() {
@@ -244,6 +248,50 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
           console.log(err);
           this.loading = false;
         });
+    },
+    initgehedertransaksi() {
+      this.gethedertransaksi();
+    },
+    async gethedertransaksi() {
+      const hiden = Object.keys(this.params);
+      hiden.forEach((yangdihiden) => {
+        if (
+          this.params[yangdihiden] === null ||
+          this.params[yangdihiden] === ""
+        ) {
+          delete this.params[yangdihiden];
+          // console.log("wew", sasa);
+          // console.log("isi nya", this.form[sasa]);
+        }
+      });
+      this.loading = true;
+      const params = { params: this.params };
+      await api
+        .get("/index", params)
+        .then((resp) => {
+          this.loading = false;
+          if (resp.status === 200) {
+            this.metaperdin = resp.data;
+            this.items = resp.data.data;
+            this.meta.total = resp?.data.total;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading = false;
+        });
+    },
+    refreshTable() {
+      this.params.page = 1;
+      this.gethedertransaksi();
+    },
+    setPerPage(payload) {
+      this.params.per_page = payload;
+      this.gethedertransaksi();
+    },
+    setPage(payload) {
+      this.params.page = payload;
+      this.gethedertransaksi();
     },
     async caribiayataksi() {
       this.loading = true;
