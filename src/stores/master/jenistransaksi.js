@@ -32,7 +32,7 @@ export const useJenisTransaksi = defineStore("master_jenistransaksi", {
           this.loading = false;
           if (resp.status === 200) {
             //this.meta = resp.data;
-            this.items = resp.data;
+            this.items = resp?.data;
             // this.items.unshift({
             //   komisi: "SEMUA",
             //   id: "",

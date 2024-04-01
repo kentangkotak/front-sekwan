@@ -47,9 +47,9 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
           // console.log('sasasa', resp)
           this.loading = false;
           if (resp.status === 200) {
-            this.meta = resp.data;
-            this.items = resp.data.data;
-            this.meta.total = resp?.data.total;
+            this.meta = resp?.data;
+            this.items = resp?.data?.data;
+            this.meta.total = resp?.data?.total;
           }
         })
         .catch((err) => {
