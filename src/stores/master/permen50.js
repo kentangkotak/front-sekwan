@@ -49,8 +49,8 @@ export const usePermenStore = defineStore("master_permen", {
       await api.get("/indexkepmen", params).then((resp) => {
         this.loading = false;
         if (resp.status === 200) {
-          this.meta = resp.data;
-          this.items = resp.data.data;
+          this.meta = resp?.data;
+          this.items = resp?.data?.data;
         }
       });
     },

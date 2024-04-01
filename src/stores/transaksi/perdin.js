@@ -57,6 +57,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       total_biaya: null,
       jabatan: "",
     },
+    itemsrincian: [],
     jabatan: {},
     payloadx: {
       id: null,
@@ -345,6 +346,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
             // this.clear();
             if (resp.status === 200) {
               notifSuccess(resp);
+              this.itemsrincian = resp?.data;
               this.form.notrans = resp?.data?.header?.no_transaksi;
               this.form.id = resp?.data?.header?.id;
               // this.init();

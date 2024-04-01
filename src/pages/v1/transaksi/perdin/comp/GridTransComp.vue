@@ -21,11 +21,11 @@
           </tr>
         </template>
         <template v-else>
-          <template v-for="(item, n) in store.items" :key="n">
+          <template v-for="(item, n) in store.itemsrincian" :key="n">
             <tr :class="item?.flag === '1' ? 'bg-light-blue-2' : ''">
               <td width="5%">{{ n + 1 }}.</td>
               <td>
-                {{ item?.nik }}
+                {{ item }}
               </td>
               <td>
                 {{ item?.nama }}
@@ -73,9 +73,9 @@
 </template>
 
 <script setup>
-import { usePendampingDewanStore } from "src/stores/master/pendampingdewan";
+import { usePerdinStore } from "src/stores/transaksi/perdin";
 
-const store = usePendampingDewanStore();
+const store = usePerdinStore();
 </script>
 
 <style lang="scss" scoped>
