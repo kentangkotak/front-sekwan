@@ -13,12 +13,13 @@
           style="min-width: 200px"
           @keyup.enter="store.initgehedertransaksi()"
         >
-          <template #append>
+          <template v-if="store.params.q" #append>
             <q-icon
               name="close"
               icon="eva-close-outline"
               size="xs"
               class="cursor-pointer"
+              @click="hapuspencarian()"
             />
           </template>
           <template #prepend>
@@ -136,5 +137,10 @@ const selectPerPage = computed({
 
 function formDialogTransaksi() {
   dialogformtrans.value = true;
+}
+
+function hapuspencarian() {
+  store.params.q = "";
+  store.initgehedertransaksi();
 }
 </script>

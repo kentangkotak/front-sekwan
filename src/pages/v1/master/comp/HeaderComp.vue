@@ -13,13 +13,13 @@
           style="min-width: 200px"
           @keyup.enter="store.init()"
         >
-          <template v-if="q" #append>
+          <template v-if="store.params.q" #append>
             <q-icon
               name="close"
               icon="eva-close-outline"
               size="xs"
               class="cursor-pointer"
-              @click.stop.prevent="q = ''"
+              @click.stop.prevent="store.params.q = ''"
             />
           </template>
           <template #prepend>
