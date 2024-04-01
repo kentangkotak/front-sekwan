@@ -249,7 +249,10 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
           this.loading = false;
         });
     },
-    initgehedertransaksi() {
+    initgehedertransaksi(val) {
+      if (val) {
+        this.params.q = val;
+      }
       this.gethedertransaksi();
     },
     async gethedertransaksi() {

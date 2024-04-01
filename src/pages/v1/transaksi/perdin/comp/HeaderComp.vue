@@ -3,6 +3,7 @@
     <div class="row justify-between items-center q-pa-sm bg-indigo text-white">
       <div class="kiri row q-gutter-sm items-center">
         <q-input
+          v-model="store.params.q"
           outlined
           dark
           color="white"
@@ -10,6 +11,7 @@
           placeholder="Cari Transaksi ..."
           debounce="500"
           style="min-width: 200px"
+          @keyup.enter="store.initgehedertransaksi()"
         >
           <template #append>
             <q-icon
@@ -90,10 +92,20 @@
   <formDialog v-model="dialogformtrans" />
 </template>
 <script setup>
+import { usePerdinStore } from "src/stores/transaksi/perdin";
 import { computed, defineAsyncComponent, ref } from "vue";
 
 const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
 const dialogformtrans = ref(false);
+
+const emits = defineEmits([
+  "cari",
+  "refresh",
+  "setPerPage",
+  "setSearch",
+  "dialog",
+  "komisi",
+]);
 const props = defineProps({
   search: { type: String, default: "" },
   labelCari: { type: String, default: "Cari ..." },
@@ -102,14 +114,25 @@ const props = defineProps({
   useFull: { type: Boolean, default: false },
   perPage: { type: Number, default: 5 },
 });
-// const q = computed({
-//   get() {
-//     return props.search;
-//   },
-//   set(newVal) {
-//     emits("setSearch", newVal);
-//   },
-// });
+
+const store = usePerdinStore();
+const q = computed({
+  get() {
+    return props.search;
+  },
+  set(newVal) {
+    emits("setSearch", newVal);
+  },
+});
+const options = ref([5, 10, 20, 50, 100]);
+const selectPerPage = computed({
+  get() {
+    return props.perPage;
+  },
+  set(val) {
+    emits("setPerPage", val);
+  },
+});
 
 function formDialogTransaksi() {
   dialogformtrans.value = true;
