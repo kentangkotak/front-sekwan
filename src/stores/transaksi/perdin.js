@@ -75,9 +75,9 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
         .then((resp) => {
           this.loading = false;
           if (resp.status === 200) {
-            this.meta = resp.data;
-            this.items = resp.data;
-            this.meta.total = resp?.data.total;
+            this.meta = resp?.data;
+            this.items = resp?.data;
+            this.meta.total = resp?.data?.total;
             // this.form.biaya = 0;
           }
         })
@@ -158,10 +158,10 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
         .then((resp) => {
           this.loading = false;
           if (resp.status === 200) {
-            this.meta = resp.data;
-            this.items = resp.data;
-            this.meta.total = resp?.data.total;
-            this.form.biaya = resp.data[0]?.biaya ?? 0;
+            this.meta = resp?.data;
+            this.items = resp?.data;
+            this.meta.total = resp?.data?.total;
+            this.form.biaya = resp?.data[0]?.biaya ?? 0;
           }
         })
         .catch((err) => {
@@ -180,8 +180,8 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
           if (resp.status === 200) {
             this.meta = resp.data;
             // this.items = resp.data;
-            this.meta.total = resp?.data.total;
-            this.form.biaya = resp.data[0]?.biaya ?? 0;
+            this.meta.total = resp?.data?.total;
+            this.form.biaya = resp?.data[0]?.biaya ?? 0;
           }
         })
         .catch((err) => {
@@ -198,20 +198,20 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
         .then((resp) => {
           this.loading = false;
           if (resp.status === 200) {
-            this.meta = resp.data;
-            this.items = resp.data.data;
-            this.meta.total = resp?.data.total;
+            this.meta = resp?.data;
+            this.items = resp?.data?.data;
+            this.meta.total = resp?.data?.total;
             if (
-              resp.data.data[0]?.biaya === "0.00" ||
-              resp.data.data[0]?.biaya === null ||
-              resp.data.data[0]?.biaya === ""
+              resp?.data?.data[0]?.biaya === "0.00" ||
+              resp?.data?.data[0]?.biaya === null ||
+              resp?.data?.data[0]?.biaya === ""
             ) {
               notifErrmodip(
                 "Tidak Ada Biaya Untuk Tujuan Deangan Menggunakan Model Kendaraan Ini...!!!"
               );
               this.form.biaya = 0;
             } else {
-              this.form.biaya = resp.data.data[0]?.biaya;
+              this.form.biaya = resp?.data.data[0]?.biaya;
             }
           }
         })
@@ -235,8 +235,8 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
           this.loading = false;
           if (resp.status === 200) {
             this.meta = resp.data;
-            this.items = resp.data.data;
-            this.meta.total = resp?.data.total;
+            this.items = resp.data?.data;
+            this.meta.total = resp?.data?.total;
             this.form.biaya =
               this.paramspesawat.kelas === null
                 ? 0
@@ -277,7 +277,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
           if (resp.status === 200) {
             this.metaperdin = resp.data;
             this.items = resp.data.data;
-            this.meta.total = resp?.data.total;
+            this.meta.total = resp?.data?.total;
           }
         })
         .catch((err) => {
@@ -306,9 +306,9 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
           this.loading = false;
           if (resp.status === 200) {
             this.meta = resp.data;
-            this.items = resp.data.data;
+            this.items = resp.data?.data;
             this.meta.total = resp?.data.total;
-            this.form.biaya = resp.data.data[0]?.biaya;
+            this.form.biaya = resp?.data?.data[0]?.biaya;
           }
         })
         .catch((err) => {
