@@ -342,7 +342,6 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
         api
           .post("/store", this.form)
           .then((resp) => {
-            console.log("sasasa", resp.status);
             this.loading = false;
             // this.clear();
             if (resp.status === 200) {
@@ -353,6 +352,8 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
               const storerinci = useTranskRinci();
               storerinci.params.id = this.form.id;
               storerinci.inittransrinci();
+              this.cleartransrinci();
+              this.gethedertransaksi();
               // this.init();
             }
           })
@@ -375,6 +376,10 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     clearpilihjenisbiaya() {
       this.form.dewan = null;
       this.form.biaya = null;
+    },
+    cleartransrinci() {
+      this.form.id_jenistransaksi = "";
+      this.form.biaya = "";
     },
   },
 });

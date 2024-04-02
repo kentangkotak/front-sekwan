@@ -190,5 +190,5 @@ function filterFn(val, update) {
 function updateData(val) {
   console.log("num", val);
 }
-store.getData();
+//store.getData();
 </script>

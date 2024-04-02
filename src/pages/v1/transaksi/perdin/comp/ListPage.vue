@@ -5,6 +5,7 @@
         <th>NO. TRANSAKSI</th>
         <th>TANGGAL</th>
         <th>JUDUL PERJALANAN DINAS</th>
+        <th>PERMEN 50</th>
         <th>TUJUAN</th>
         <th>LAMA</th>
         <th></th>
@@ -21,6 +22,14 @@
           </td>
           <td>
             <q-skeleton type="text" width="500px" height="14px" />
+          </td>
+          <td>
+            <div class="row q-mb-xs q-col-gutter-sm">
+              <q-skeleton type="text" width="200px" height="14px" />
+            </div>
+            <div class="row q-col-gutter-sm items-center">
+              <q-skeleton type="text" width="200px" height="14px" />
+            </div>
           </td>
           <td>
             <div class="row q-mb-xs q-col-gutter-sm">
@@ -51,13 +60,14 @@
             <td width="200px" height="14px">{{ item?.tanggal }}</td>
             <td width="500px" height="14px">{{ item?.judul }}</td>
             <td width="200px" height="14px">
+              <div>{{ item?.rekening50 }}</div>
+              <div>{{ item?.kota?.name }}</div>
+            </td>
+            <td width="200px" height="14px">
               <div>Provinsi {{ item?.provinsi?.name }}</div>
               <div>KOTA {{ item?.kota?.name }}</div>
             </td>
             <td width="100px" height="14px">{{ item?.lamaperdin }} Hari</td>
-            <!-- <td>
-              {{ getstatusmu(item?.status) }}
-            </td> -->
             <td width="100px" height="14px">
               <q-btn
                 color="black"
@@ -111,8 +121,16 @@ const store = usePerdinStore();
 // const komisi = ref([]);
 
 function formDialogx(val) {
-  // itemterpilih.value = val;
+  console.log(val);
+  //coitemterpilih.value = val;
   dialog.value = true;
+  store.form.notrans = val?.no_transaksi;
+  store.form.tanggal = val?.tanggal;
+  store.form.lamaperdin = val?.lamaperdin;
+  store.form.judul = val?.judul;
+  store.form.koderekekning = val?.rekening50;
+  store.form.id_propinsi = val?.provinsi?.name;
+  store.namakota = val?.kota?.name;
 }
 
 function getkelamin(val) {
