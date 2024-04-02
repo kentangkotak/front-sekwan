@@ -3,66 +3,104 @@
     <table>
       <thead>
         <tr>
-          <th width="5%">NO.</th>
+          <th width="2%">NO.</th>
           <th>NIK</th>
           <th>NAMA</th>
           <th>STATUS</th>
           <th>KOMISI</th>
+          <th>GOLONGAN</th>
+          <th>TINGKATAN</th>
           <th>JENIS TRANSAKSI</th>
           <th>BIAYA</th>
           <th>JUMLAH</th>
+          <th>TOTAL</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
         <template v-if="store.loading">
           <tr v-for="n in store.params.per_page" :key="n">
-            <div class="fixed-center"></div>
+            <td>
+              <q-skeleton type="text" />
+            </td>
+            <td>
+              <q-skeleton type="text" />
+            </td>
+            <td>
+              <q-skeleton type="text" />
+            </td>
+            <td>
+              <q-skeleton type="text" />
+            </td>
+            <td>
+              <q-skeleton type="text" />
+            </td>
+            <td>
+              <q-skeleton type="text" />
+            </td>
+            <td>
+              <q-skeleton type="text" />
+            </td>
+            <td>
+              <q-skeleton type="text" />
+            </td>
+            <td>
+              <q-skeleton type="text" />
+            </td>
+            <td>
+              <q-skeleton type="text" />
+            </td>
+            <td>
+              <q-skeleton type="text" />
+            </td>
+            <td class="text-end">
+              <div class="row justify-end">
+                <q-skeleton type="text" />
+              </div>
+            </td>
           </tr>
         </template>
         <template v-else>
-          <template v-for="(item, n) in store.itemsrincian" :key="n">
+          <template v-for="(item, n) in store?.items" :key="n">
             <tr :class="item?.flag === '1' ? 'bg-light-blue-2' : ''">
-              <td width="5%">{{ n + 1 }}.</td>
+              <td>{{ n + 1 }}.</td>
               <td>
-                {{ item }}
+                {{ item?.nik }}
               </td>
               <td>
-                {{ item?.nama }}
+                {{ item?.dewan[0]?.nama }}
               </td>
-              <td>asdasdasd</td>
+              <td>{{ item?.dewan[0]?.flag_pegawai?.nama }}</td>
               <td>
-                {{ item?.alamat }}
-              </td>
-              <td>
-                {{ item?.komisi?.komisi }}
+                {{ item?.dewan[0]?.komisi?.komisi }}
               </td>
               <td>
-                <!-- <q-btn
-                  color="black"
-                  size="sm"
-                  round
-                  glossy
-                  icon="eva-edit-2-outline"
-                  @click="formDialogx(item)"
-                >
-                  <q-tooltip class="primary" :offset="[10, 10]">
-                    Edit
-                  </q-tooltip>
-                </q-btn>
+                {{ item?.dewan[0]?.golongan?.name }}
+              </td>
+              <td>
+                {{ item?.dewan[0]?.tingkatan?.name }}
+              </td>
+              <td>
+                {{ item?.jenisbiaya[0]?.name }}
+              </td>
+              <td>Rp. {{ rupiah(item?.biaya) }}</td>
+              <td>
+                {{ item?.berapa_kali }}
+              </td>
+              <td>Rp. {{ rupiah(item?.total_biaya) }}</td>
+              <td>
                 <q-btn
-                  v-model="store.payloadx.id"
                   color="red"
                   size="sm"
                   round
                   glossy
-                  icon="eva-person-delete-outline"
-                  @click="store.lemparDewan(item.id)"
+                  icon="delete_forever"
+                  @click="formDialogx(item)"
                 >
                   <q-tooltip class="primary" :offset="[10, 10]">
                     Delete
                   </q-tooltip>
-                </q-btn> -->
+                </q-btn>
               </td>
             </tr>
           </template>
@@ -73,9 +111,13 @@
 </template>
 
 <script setup>
-import { usePerdinStore } from "src/stores/transaksi/perdin";
+import { useTranskRinci } from "src/stores/transaksi/transrinci";
 
-const store = usePerdinStore();
+const rupiah = (number) => {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+};
+
+const store = useTranskRinci();
 </script>
 
 <style lang="scss" scoped>

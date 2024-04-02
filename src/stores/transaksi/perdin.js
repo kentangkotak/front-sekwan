@@ -7,6 +7,7 @@ import {
   notifSuccess,
 } from "src/boot/notify-defaults";
 import { useAnggotaDewanStore } from "../master/anggotadewan";
+import { useTranskRinci } from "./transrinci";
 
 export const usePerdinStore = defineStore("transaksi_perdin", {
   state: () => ({
@@ -349,6 +350,9 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
               this.itemsrincian = resp?.data;
               this.form.notrans = resp?.data?.header?.no_transaksi;
               this.form.id = resp?.data?.header?.id;
+              const storerinci = useTranskRinci();
+              storerinci.params.id = this.form.id;
+              storerinci.inittransrinci();
               // this.init();
             }
           })
