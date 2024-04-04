@@ -2,7 +2,7 @@
   <div>
     <q-card-section>
       <q-select
-        v-model="dewan.form.id_dewan"
+        v-model="nik"
         style="margin-bottom: 5px"
         outlined
         :options="dewan.items"
@@ -13,6 +13,7 @@
         transition-hide="scale"
         clearable
         use-input
+        @input-value="dewan.init"
         @update:model-value="caritingkatdangol"
       >
         <template #option="scope">
@@ -43,7 +44,7 @@
       </q-select>
 
       <q-select
-        v-model="store.form.id_jenistransaksi"
+        v-model="jenistransaksi_s"
         style="margin-bottom: 5px"
         outlined
         :options="jenistransaksi"
@@ -52,9 +53,7 @@
         label="Jenis Transaksi"
         transition-show="scale"
         transition-hide="scale"
-        emit-value
-        map-options
-        @update:model-value="store.carijenisbiaya"
+        @update:model-value="(val) => carijenisbiaya(val)"
       />
       <!-- <app-autocomplete
         label="Pilih Anggota Dewan"
@@ -74,7 +73,7 @@
       <q-select
         v-else
         v-model="store.form.id_jeniskendaraan"
-        :options="jeniskendaraan"
+        :options="store.form.id_jeniskendaraan"
         option-label="name"
         option-value="id"
         emit-value
@@ -134,6 +133,7 @@
         label="Biaya..."
         disable
         input-class="text-right"
+        :model-value="storegetbiaya.form.biaya"
       />
       <q-input
         v-model="store.form.kuantitas"
@@ -152,8 +152,10 @@ import { notifErrmodip } from "src/boot/notify-defaults";
 import AppAutocomplete from "src/components/~global/AppAutocomplete.vue";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
+import { useGetBiaya } from "src/stores/transaksi/getbiaya";
 import { ref } from "vue";
 
+const storegetbiaya = useGetBiaya();
 const store = usePerdinStore();
 const props = defineProps({
   jenistransaksi: { type: Array, default: () => [] },
@@ -165,7 +167,33 @@ const props = defineProps({
   jeniskendaraan: { type: Array, default: () => [] },
   pesawat: { type: Array, default: () => [] },
 });
+const jenistransaksi_s = ref("");
+const nik = ref("");
+function carijenisbiaya(val) {
+  if (val?.id === 1) {
+    if (store.form.nik === null || store.form.nik === "") {
+      notifErrmodip("Anggota Dewan/Pedamping Harus Diisi...!!!");
+      store.form.id_jenistransaksi = "";
+    } else {
+      storegetbiaya.paramsbiaya.id_propinsi = store.form.id_propinsi;
+      store.form.id_jenistransaksi = val?.id;
+      storegetbiaya.getuangSaku();
+    }
+  }
+}
 
+function caritingkatdangol(val) {
+  store.form.id_jenistransaksi = "";
+  storegetbiaya.form.biaya = 0;
+  if (store.form.id_propinsi === null) {
+    notifErrmodip("Provinsi Tidak Boleh Kosong...!!!");
+    store.form.nik = "";
+  } else {
+    storegetbiaya.paramsbiaya.golongan = val?.golongan_id;
+    storegetbiaya.paramsbiaya.tingkatan = val?.tingkatan_id;
+    store.form.nik = val?.nik;
+  }
+}
 // const stringOptions = props.anggotadewan;
 // const options = ref(stringOptions);
 
@@ -215,7 +243,7 @@ const dewan = useAnggotaDewanStore();
 // fetchData();
 const id_propinsi = props;
 
-function caritingkatdangol(val) {
+function caritingkatdangolx(val) {
   if (store.form.id_propinsi === null) {
     notifErrmodip("Provinsi Tidak Boleh Kosong...!!!");
     dewan.form.id_dewan = "";

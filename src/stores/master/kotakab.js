@@ -2,17 +2,18 @@ import { defineStore } from "pinia";
 import { api } from "src/boot/axios";
 import { notifSuccess } from "src/boot/notify-defaults";
 
-export const usePropinsi = defineStore("master_propinsi", {
+export const useKotaKab = defineStore("master_kotakab", {
   state: () => ({
     items: [],
     meta: {},
     loading: false,
-    // params: {
-    //   q: "",
-    //   page: 1,
-    //   per_page: 10,
-    //   status: "all",
-    // },
+    params: {
+      q: "",
+      page: 1,
+      per_page: 10,
+      status: "all",
+      id_propinsi: null,
+    },
     form: {
       id_propinsi: null,
     },
@@ -27,15 +28,15 @@ export const usePropinsi = defineStore("master_propinsi", {
     },
     async getData() {
       this.loading = true;
-      // const params = { params: this.params };
+      const params = { params: this.params };
       await api
-        .get("/indexprov")
+        .get("/indexkab", params)
         .then((resp) => {
           this.loading = false;
           if (resp.status === 200) {
             //this.meta = resp.data;
             this.items = resp.data;
-            console.log("testx", this.items);
+            console.log("kota", this.items);
             // this.items.unshift({
             //   komisi: "SEMUA",
             //   id: "",

@@ -24,6 +24,7 @@
           v-model="store.form.tanggal"
           label="Tanggal"
           style="margin-right: 5px; width: 25%"
+          :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
         >
           <template v-slot:append>
             <q-icon name="event" class="cursor-pointer">
@@ -48,6 +49,7 @@
           outlined
           label="Lama PerDin"
           type="number"
+          :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
         />
 
         <q-input
@@ -55,6 +57,7 @@
           style="margin-right: 5px; width: 25%"
           outlined
           label="Judul"
+          :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
         />
       </q-card-section>
 
@@ -85,6 +88,7 @@
           hide-dropdown-icon
           @input-value="storepermen.init"
           @update:model-value="storepermen.caripermen"
+          :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
         >
           <template #option="scope">
             <q-item v-bind="scope.itemProps"
@@ -113,7 +117,7 @@
           clearable
           use-input
           @filter="filterFn"
-          @update:model-value="(val) => store.kirimpropinsi(val, 1)"
+          @update:model-value="(val) => kirimpropinsi(val)"
         />
         <template #option="scopex">
           <q-item v-bind="scopex.itemProps"
@@ -124,16 +128,17 @@
         </template>
 
         <q-select
-          v-model="store.namakota"
+          v-model="store.form.id_kota"
           style="margin-right: 5px; width: 25%"
-          :options="store.items"
+          :options="storekotakab.items"
           option-label="name"
           option-value="id"
           outlined
+          emit-value
+          map-options
           transition-show="scale"
           transition-hide="scale"
           label="Tujuan Kota"
-          @update:model-value="(val) => store.kirimkota(val)"
         />
       </q-card-section>
     </q-card>
@@ -141,12 +146,13 @@
 </template>
 
 <script setup>
+import { notifErrmodip } from "src/boot/notify-defaults";
+import { useKotaKab } from "src/stores/master/kotakab";
 import { usePermenStore } from "src/stores/master/permen50";
 import { usePropinsi } from "src/stores/master/propinsi";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
-import { computed, ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 
-const date = ref("YYYY");
 const store = usePerdinStore();
 const storepermen = usePermenStore();
 
@@ -158,7 +164,7 @@ const props = defineProps({
   permen: { type: Array, default: () => [] },
 });
 
-const storepropinsi = usePropinsi();
+const storekotakab = useKotaKab();
 
 const stringOptions = props.propinsi;
 const options = ref(stringOptions);
@@ -179,16 +185,25 @@ function filterFn(val, update) {
     options.value = stringOptions.filter(
       (v) => v.name.toString().toLowerCase().indexOf(needle) > -1
     );
-    store.kirimpropinsi(val);
-    // store.params.id_propinsi = val.id;
-    // this.params.id_propinsi = val.id;
-    // this.form.id_kota = null;
-    // console.log("sasasa", this.params.id_propinsi);
-    // store.getData();
   });
 }
-function updateData(val) {
-  console.log("num", val);
+function kirimpropinsi(val) {
+  if (val !== null) {
+    storekotakab.params.id_propinsi = val;
+    store.form.id_kota = storekotakab.items[0];
+  } else {
+    store.namakota = "-";
+    store.form.id_kota = "";
+    storekotakab.params.id_propinsi = "";
+    store.form.nik = "";
+    store.form.biaya = 0;
+  }
+  storekotakab.init();
 }
+
+// const tanggal = (Date.now) => {
+//   return Date.now.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+// };
+store.formattanggal();
 //store.getData();
 </script>

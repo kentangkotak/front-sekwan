@@ -66,7 +66,7 @@
 import { useJenisTransaksi } from "src/stores/master/jenistransaksi";
 import { usePropinsi } from "src/stores/master/propinsi";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
-import { ref, watchEffect } from "vue";
+import { onBeforeMount, ref, watchEffect } from "vue";
 import HederDialogComp from "./HederDialogComp.vue";
 import GridTransComp from "./GridTransComp.vue";
 import RinciDialogComp from "./RinciDialog.Comp.vue";
@@ -74,6 +74,7 @@ import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 import { usePermenStore } from "src/stores/master/permen50";
 import { useJenisKendaraan } from "src/stores/master/kendaraan";
 import { usePesawatstore } from "src/stores/master/pesawat";
+import { useKotaKab } from "src/stores/master/kotakab";
 //import { useQuasar } from "quasar";
 //import { store } from "quasar/wrappers";
 
@@ -91,12 +92,13 @@ const slide = ref("style");
 // watchEffect(() => {
 //   console.log("asasaa", penyimpanan.form.id_komisi);
 // });
-
-storejenistrans.init();
-strorepropinsi.init();
-storedewan.init();
-storepermen.init();
-storejeniskendaraan.init();
-storepesawat.init();
-store.formattanggal();
+onBeforeMount(() => {
+  storejenistrans.init();
+  strorepropinsi.init();
+  storedewan.init();
+  storepermen.init();
+  // storejeniskendaraan.init();
+  // storepesawat.init();
+  // store.formattanggal();
+});
 </script>

@@ -75,7 +75,7 @@
                 round
                 glossy
                 icon="eva-edit-2-outline"
-                @click="formDialogx(item)"
+                @click="formDialogx(item, item?.id)"
               >
                 <q-tooltip class="primary" :offset="[10, 10]"> Edit </q-tooltip>
               </q-btn>
@@ -110,18 +110,19 @@
 
 <script setup>
 import { usePerdinStore } from "src/stores/transaksi/perdin";
+import { useTranskRinci } from "src/stores/transaksi/transrinci";
 import { defineAsyncComponent, ref } from "vue";
 
 //const itemterpilih = ref({});
 const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
 const dialog = ref(false);
 const store = usePerdinStore();
-
+const storrinci = useTranskRinci();
 // const jabatan = ref([]);
 // const komisi = ref([]);
 
-function formDialogx(val) {
-  console.log(val);
+function formDialogx(val, id) {
+  console.log(id);
   //coitemterpilih.value = val;
   dialog.value = true;
   store.form.notrans = val?.no_transaksi;
@@ -131,6 +132,8 @@ function formDialogx(val) {
   store.form.koderekekning = val?.rekening50;
   store.form.id_propinsi = val?.provinsi?.name;
   store.namakota = val?.kota?.name;
+
+  storrinci.inittransrinci(id);
 }
 
 function getkelamin(val) {

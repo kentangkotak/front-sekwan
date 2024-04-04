@@ -6,13 +6,17 @@ export const useTranskRinci = defineStore("transaksi_rinci", {
     items: [],
     item: {},
     loading: false,
+    subtotal: 0,
+    total_biaya: 0,
     params: {
-      id: "",
+      id: {},
       per_page: 1,
     },
   }),
   actions: {
-    inittransrinci() {
+    inittransrinci(val) {
+      console.log("sa", val);
+      this.params.id = val;
       this.getDataTransRinci();
     },
     async getDataTransRinci() {
@@ -26,7 +30,7 @@ export const useTranskRinci = defineStore("transaksi_rinci", {
             //this.meta = resp.data;
             console.log("asd", resp);
             this.items = resp?.data;
-            console.log("asdfff", this.items);
+            console.log("asdfff", this.subtotal);
           }
         })
         .catch((err) => {
@@ -34,5 +38,11 @@ export const useTranskRinci = defineStore("transaksi_rinci", {
           this.loading = false;
         });
     },
+    // computed: {
+    //   total() {
+    //     this.items.reduce((acc, item) => acc + item.total_biaya, 0);
+    //     console.log("tot", item.total_biaya);
+    //   },
+    // },
   },
 });

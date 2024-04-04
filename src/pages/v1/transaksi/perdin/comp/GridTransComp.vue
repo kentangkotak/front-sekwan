@@ -87,7 +87,7 @@
               <td>
                 {{ item?.berapa_kali }}
               </td>
-              <td>Rp. {{ rupiah(item?.total_biaya) }}</td>
+              <td nowrap>Rp. {{ rupiah(item?.total_biaya) }}</td>
               <td>
                 <q-btn
                   color="red"
@@ -105,6 +105,21 @@
             </tr>
           </template>
         </template>
+        <tr style="background-color: black; color: aliceblue">
+          <td colspan="10" style="text-align: end">Subtotal</td>
+          <td style="text-align: end">
+            Rp.
+            {{
+              rupiah(
+                store.items.reduce(
+                  (total, curr) => (total = total + parseInt(curr.total_biaya)),
+                  0
+                )
+              )
+            }}
+          </td>
+          <td></td>
+        </tr>
       </tbody>
     </table>
   </q-card-section>
@@ -112,12 +127,23 @@
 
 <script setup>
 import { useTranskRinci } from "src/stores/transaksi/transrinci";
+import { computed, onMounted } from "vue";
 
 const rupiah = (number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
 
 const store = useTranskRinci();
+// onMounted(() => {
+//   console.log("sasasaaaaaaaaaaaa");
+//   const grandTotals = store.items.total_biaya
+//     .map((counter) => {
+//       console.log("Subtotals", counter.subtotal);
+//       return counter.subtotal;
+//     })
+//     .reduce((prev, curr) => (prev += curr), 0);
+//   store.subtotal = 5;
+// });
 </script>
 
 <style lang="scss" scoped>

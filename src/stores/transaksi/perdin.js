@@ -17,6 +17,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     meta: {},
     metaperdin: {},
     loading: false,
+    disabled: false,
     namakota: "-",
     params: {
       q: "",
@@ -57,6 +58,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       koderekekning: null,
       total_biaya: null,
       jabatan: "",
+      nik: "",
     },
     itemsrincian: [],
     jabatan: {},
@@ -91,7 +93,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     kirimpropinsi(val, x) {
       this.params.id_propinsi = val;
       this.paramsbiaya.id_propinsi = val;
-      console.log("ijin", x);
+      // console.log("ijin", x);
       if (x === 1) {
         this.initpropinsi();
         this.cleargantiprovinsi();
@@ -321,6 +323,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     formattanggal() {
       const sekarang = Date.now();
       this.form.tanggal = date.formatDate(sekarang, "YYYY-MM-DD");
+      console.log("tanggal", this.form.tanggal);
     },
     simpantransaksi() {
       this.form.total_biaya = this.form.biaya * this.form.kuantitas;

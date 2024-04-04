@@ -32,6 +32,7 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
   actions: {
     init(val) {
       if (val) {
+        console.log("asasa", val);
         this.params.id_flag_pegawai = null;
         this.params.komisi_id = null;
         this.params.q = val;
@@ -193,8 +194,16 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
       this.params.komisi_id = val;
       this.getData();
     },
-    // carianggota(val) {
-
+    // catianggotadewan(val) {
+    //   console.log("a", val);
+    //   this.koderekening = null;
+    //   if (val) {
+    //     this.kode = val?.uraian;
+    //     this.koderekening = val?.kodeall;
+    //     const transperdin = usePerdinStore();
+    //     transperdin.form.koderekekning = val?.kodeall;
+    //     this.getData();
+    //   }
     // },
   },
 });
