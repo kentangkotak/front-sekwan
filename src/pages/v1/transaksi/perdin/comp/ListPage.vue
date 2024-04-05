@@ -123,6 +123,7 @@ const storrinci = useTranskRinci();
 
 function formDialogx(val, id) {
   console.log(id);
+  store.disabled = true;
   //coitemterpilih.value = val;
   dialog.value = true;
   store.form.notrans = val?.no_transaksi;
@@ -130,7 +131,7 @@ function formDialogx(val, id) {
   store.form.lamaperdin = val?.lamaperdin;
   store.form.judul = val?.judul;
   store.form.koderekekning = val?.rekening50;
-  store.form.id_propinsi = val?.provinsi?.name;
+  store.form.id_propinsi = val?.provinsi?.id;
   store.namakota = val?.kota?.name;
 
   storrinci.inittransrinci(id);

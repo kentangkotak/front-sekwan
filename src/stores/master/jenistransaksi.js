@@ -24,6 +24,17 @@ export const useJenisTransaksi = defineStore("master_jenistransaksi", {
       this.getData();
     },
     async getData() {
+      const hiden = Object.keys(this.params);
+      hiden.forEach((yangdihiden) => {
+        if (
+          this.params[yangdihiden] === null ||
+          this.params[yangdihiden] === ""
+        ) {
+          delete this.params[yangdihiden];
+          // console.log("wew", sasa);
+          // console.log("isi nya", this.form[sasa]);
+        }
+      });
       this.loading = true;
       const params = { params: this.params };
       await api

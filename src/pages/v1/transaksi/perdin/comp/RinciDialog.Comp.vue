@@ -44,7 +44,7 @@
       </q-select>
 
       <q-select
-        v-model="jenistransaksi_s"
+        v-model="store.form.id_jenistransaksi"
         style="margin-bottom: 5px"
         outlined
         :options="jenistransaksi"
@@ -53,6 +53,8 @@
         label="Jenis Transaksi"
         transition-show="scale"
         transition-hide="scale"
+        emit-value
+        map-options
         @update:model-value="(val) => carijenisbiaya(val)"
       />
       <!-- <app-autocomplete

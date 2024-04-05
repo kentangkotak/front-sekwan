@@ -68,7 +68,7 @@
 import { useJenisTransaksi } from "src/stores/master/jenistransaksi";
 import { usePropinsi } from "src/stores/master/propinsi";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
-import { onBeforeMount, ref, watchEffect } from "vue";
+import { onBeforeMount, onMounted, ref, watchEffect } from "vue";
 import HederDialogComp from "./HederDialogComp.vue";
 import GridTransComp from "./GridTransComp.vue";
 import RinciDialogComp from "./RinciDialog.Comp.vue";
@@ -95,7 +95,7 @@ const slide = ref("style");
 // watchEffect(() => {
 //   console.log("asasaa", penyimpanan.form.id_komisi);
 // });
-onBeforeMount(() => {
+onMounted(() => {
   storejenistrans.init();
   strorepropinsi.init();
   storedewan.init();
