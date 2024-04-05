@@ -2,7 +2,10 @@
   <div class="q-pa-md row items-start q-gutter-md">
     <q-card flat bordered class="my-card" style="width: 100%">
       <q-card-section style="margin-bottom: 10px; margin-top: 10px">
-        <div class="text-h4 absolute-center">
+        <div v-if="maxx === true" class="text-h4 absolute-center">
+          <b>FORM PERJALANAN DINAS</b>
+        </div>
+        <div v-else class="text-h10 absolute-center">
           <b>FORM PERJALANAN DINAS</b>
         </div>
       </q-card-section>
@@ -42,7 +45,6 @@
             </q-icon>
           </template>
         </q-input>
-
         <q-input
           v-model="store.form.lamaperdin"
           style="margin-right: 5px; width: 25%"
@@ -146,6 +148,7 @@
 </template>
 
 <script setup>
+import { max } from "moment";
 import { notifErrmodip } from "src/boot/notify-defaults";
 import { useKotaKab } from "src/stores/master/kotakab";
 import { usePermenStore } from "src/stores/master/permen50";
@@ -162,6 +165,7 @@ const scopex = ref();
 const props = defineProps({
   propinsi: { type: Array, default: () => [] },
   permen: { type: Array, default: () => [] },
+  maxx: { type: Boolean },
 });
 
 const storekotakab = useKotaKab();

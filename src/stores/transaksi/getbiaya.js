@@ -6,6 +6,7 @@ export const useGetBiaya = defineStore("master_getbiaya", {
   state: () => ({
     items: [],
     loading: false,
+    formrincian: false,
     params: {
       q: "",
       page: 1,

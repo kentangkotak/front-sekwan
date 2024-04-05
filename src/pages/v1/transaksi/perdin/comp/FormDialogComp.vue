@@ -40,7 +40,11 @@
       <HederDialogComp
         :propinsi="strorepropinsi.items"
         :permen="storepermen.items"
+        :maxx="maximizedToggle"
       />
+
+      <JenisBiayaPage :jenistransaksi="storejenistrans.items" />
+      <GridTransComp />
 
       <div class="q-pa-md row items-start q-gutter-md">
         <q-card class="my-card" flat bordered style="width: 100%">
@@ -54,8 +58,6 @@
               />
             </q-card-section>
             <q-separator vertical />
-
-            <GridTransComp />
           </q-card-section>
         </q-card>
       </div>
@@ -74,6 +76,7 @@ import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 import { usePermenStore } from "src/stores/master/permen50";
 import { useJenisKendaraan } from "src/stores/master/kendaraan";
 import { usePesawatstore } from "src/stores/master/pesawat";
+import JenisBiayaPage from "./JenisBiayaPage.vue";
 import { useKotaKab } from "src/stores/master/kotakab";
 //import { useQuasar } from "quasar";
 //import { store } from "quasar/wrappers";
