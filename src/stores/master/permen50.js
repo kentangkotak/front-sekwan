@@ -11,7 +11,7 @@ export const usePermenStore = defineStore("master_permen", {
     koderekening: {},
     params: {
       uraian: "",
-      // kode: "",
+      kode: "",
       page: 1,
       per_page: 10,
       status: "all",
@@ -33,6 +33,17 @@ export const usePermenStore = defineStore("master_permen", {
       this.getData();
     },
     caripermen(val) {
+      const hiden = Object.keys(this.params);
+      hiden.forEach((yangdihiden) => {
+        if (
+          this.params[yangdihiden] === null ||
+          this.params[yangdihiden] === ""
+        ) {
+          delete this.params[yangdihiden];
+          // console.log("wew", sasa);
+          // console.log("isi nya", this.form[sasa]);
+        }
+      });
       console.log("a", val);
       this.koderekening = null;
       if (val) {
@@ -44,6 +55,17 @@ export const usePermenStore = defineStore("master_permen", {
       }
     },
     async getData() {
+      const hiden = Object.keys(this.params);
+      hiden.forEach((yangdihiden) => {
+        if (
+          this.params[yangdihiden] === null ||
+          this.params[yangdihiden] === ""
+        ) {
+          delete this.params[yangdihiden];
+          // console.log("wew", sasa);
+          // console.log("isi nya", this.form[sasa]);
+        }
+      });
       this.loading = true;
       const params = { params: this.params };
       await api.get("/indexkepmen", params).then((resp) => {
