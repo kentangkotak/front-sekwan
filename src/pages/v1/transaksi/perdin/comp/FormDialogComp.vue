@@ -42,7 +42,7 @@
         :permen="storepermen.items"
         :maxx="maximizedToggle"
       />
-
+      <TotalTransPage />
       <JenisBiayaPage :jenistransaksi="storejenistrans.items" />
 
       <!-- <GridTransComp /> -->
@@ -71,6 +71,7 @@ import { usePropinsi } from "src/stores/master/propinsi";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
 import { onBeforeMount, onMounted, ref, watchEffect } from "vue";
 import HederDialogComp from "./HederDialogComp.vue";
+import TotalTransPage from "./TotalTransPage.vue";
 import GridTransComp from "./GridTransComp.vue";
 import RinciDialogComp from "./RinciDialog.Comp.vue";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";

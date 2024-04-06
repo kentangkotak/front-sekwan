@@ -39,6 +39,7 @@ const props = defineProps({
 const jenistransaksix = props.jenistransaksi.map((x) => ({
   label: x.name,
   value: x.id,
+  slot: x.id,
 }));
 
 function gridrinci(val) {

@@ -152,6 +152,7 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
+  {{ id_propinsi }}
 </template>
 <script setup>
 // import { store } from "quasar/wrappers";
@@ -167,14 +168,17 @@ const storebiaya = useGetBiaya();
 const storekotakab = useKotaKab();
 const storetransheder = usePerdinStore();
 const store = usePerdinStore();
-
 const storedewan = useAnggotaDewanStore();
 
+const props = defineProps({
+  id_propinsi: { type: Number },
+});
+
 function caritingkatdangol(val) {
-  console.log("sasa", val?.id_jabatan);
+  console.log("sasa", val);
   storebiaya.paramsbiaya.tingkatan = val?.tingkatan?.id;
   storebiaya.paramsbiaya.golongan = val?.golongan?.id;
-  storebiaya.paramsbiaya.id_propinsi = storekotakab.params.id_propinsi;
+  storebiaya.paramsbiaya.id_propinsi = props.id_propinsi;
   store.form.nik = val?.nik;
   store.form.jabatan = val?.id_jabatan;
   store.form.tingkatan = val?.tingkatan?.id;
