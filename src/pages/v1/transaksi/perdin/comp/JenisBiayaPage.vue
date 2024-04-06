@@ -12,24 +12,26 @@
         color="white"
         text-color="primary"
         :options="jenistransaksix"
-        @update:model-value="formrinci"
+        @update:model-value="gridrinci"
       />
     </div>
   </div>
-  <form-rincianpage v-model="storebiaya.formrincian" />
+  <grid-trans-comp />
+  <!-- <form-rincianpage v-model="storebiaya.formrincian" /> -->
 </template>
 <script setup>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import FormRincianpage from "./FormRincianpage.vue";
+import GridTransComp from "./GridTransComp.vue";
 import { useGetBiaya } from "src/stores/transaksi/getbiaya";
 import { notifErrmodip } from "src/boot/notify-defaults";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
+import { useTranskRinci } from "src/stores/transaksi/transrinci";
 
 const storebiaya = useGetBiaya();
 const transheder = usePerdinStore();
-const wew = ref("");
-
-console.log("wew", wew);
+const storerinci = useTranskRinci();
+const wew = ref(1);
 
 const props = defineProps({
   jenistransaksi: { type: Object },
@@ -37,8 +39,18 @@ const props = defineProps({
 const jenistransaksix = props.jenistransaksi.map((x) => ({
   label: x.name,
   value: x.id,
-  ref: null,
 }));
+
+function gridrinci(val) {
+  if (val === 1) {
+    storerinci.params.jb = val;
+    storerinci.getDataTransRinci();
+  } else if (val === 2) {
+    storebiaya.paramsbiaya.jenisbiaya = val;
+    storerinci.getDataTransRinci();
+    //storebiaya.formrincian = true;
+  }
+}
 
 function formrinci(val) {
   console.log("wew", val);
@@ -54,6 +66,11 @@ function formrinci(val) {
     }
   }
 }
+
+onMounted(() => {
+  storerinci.params.jb = wew;
+  storerinci.getDataTransRinci();
+});
 </script>
 
 <style lang="sass" scoped>

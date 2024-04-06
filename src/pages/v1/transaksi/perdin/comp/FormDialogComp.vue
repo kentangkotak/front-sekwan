@@ -44,9 +44,10 @@
       />
 
       <JenisBiayaPage :jenistransaksi="storejenistrans.items" />
-      <GridTransComp />
 
-      <div class="q-pa-md row items-start q-gutter-md">
+      <!-- <GridTransComp /> -->
+
+      <!-- <div class="q-pa-md row items-start q-gutter-md">
         <q-card class="my-card" flat bordered style="width: 100%">
           <q-card-section horizontal>
             <q-card-section style="width: 30%">
@@ -60,7 +61,7 @@
             <q-separator vertical />
           </q-card-section>
         </q-card>
-      </div>
+      </div> -->
     </q-card>
   </q-dialog>
 </template>

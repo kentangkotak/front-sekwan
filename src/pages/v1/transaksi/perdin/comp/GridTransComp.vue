@@ -133,6 +133,9 @@ const rupiah = (number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
 
+const props = defineProps({
+  jenistransaksi: { type: Array, default: () => [] },
+});
 const store = useTranskRinci();
 // onMounted(() => {
 //   console.log("sasasaaaaaaaaaaaa");

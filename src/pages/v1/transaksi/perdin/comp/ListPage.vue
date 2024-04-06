@@ -109,6 +109,7 @@
 </template>
 
 <script setup>
+import { useGetBiaya } from "src/stores/transaksi/getbiaya";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
 import { useTranskRinci } from "src/stores/transaksi/transrinci";
 import { defineAsyncComponent, ref } from "vue";
@@ -118,11 +119,12 @@ const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
 const dialog = ref(false);
 const store = usePerdinStore();
 const storrinci = useTranskRinci();
+const storegetbiaya = useGetBiaya();
 // const jabatan = ref([]);
 // const komisi = ref([]);
 
 function formDialogx(val, id) {
-  console.log(id);
+  // console.log(id);
   store.disabled = true;
   //coitemterpilih.value = val;
   dialog.value = true;
@@ -133,8 +135,12 @@ function formDialogx(val, id) {
   store.form.koderekekning = val?.rekening50;
   store.form.id_propinsi = val?.provinsi?.id;
   store.namakota = val?.kota?.name;
-
-  storrinci.inittransrinci(id);
+  console.log("propinsiz", val?.provinsi?.id);
+  storegetbiaya.paramsbiaya.id_propinsi = store.form.id_propinsi;
+  console.log("iddarilist", id);
+  storrinci.params.id = id;
+  console.log("inihasilnya", storrinci.params.id);
+  // storrinci.inittransrinci(id);
 }
 
 function getkelamin(val) {

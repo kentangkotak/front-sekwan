@@ -9,7 +9,8 @@ export const useTranskRinci = defineStore("transaksi_rinci", {
     subtotal: 0,
     total_biaya: 0,
     params: {
-      id: {},
+      id: "",
+      jb: "",
       per_page: 1,
     },
   }),
@@ -20,6 +21,8 @@ export const useTranskRinci = defineStore("transaksi_rinci", {
       this.getDataTransRinci();
     },
     async getDataTransRinci() {
+      console.log("jb", this.params.jb);
+      console.log("id", this.params.id);
       this.loading = true;
       const params = { params: this.params };
       await api

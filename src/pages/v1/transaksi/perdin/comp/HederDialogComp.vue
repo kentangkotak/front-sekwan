@@ -27,6 +27,7 @@
           v-model="store.form.tanggal"
           label="Tanggal"
           style="margin-right: 5px; width: 25%"
+          :disable="store.disabled"
           :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
         >
           <template v-slot:append>
@@ -51,6 +52,7 @@
           outlined
           label="Lama PerDin"
           type="number"
+          :disable="store.disabled"
           :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
         />
 
@@ -59,6 +61,7 @@
           style="margin-right: 5px; width: 25%"
           outlined
           label="Judul"
+          :disable="store.disabled"
           :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
         />
       </q-card-section>
@@ -88,6 +91,7 @@
           hide-bottom-space
           behavior="menu"
           hide-dropdown-icon
+          :disable="store.disabled"
           @input-value="storepermen.init"
           @update:model-value="storepermen.caripermen"
           :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
@@ -118,6 +122,7 @@
           map-options
           clearable
           use-input
+          :disable="store.disabled"
           @filter="filterFn"
           @update:model-value="(val) => kirimpropinsi(val)"
         />
@@ -140,6 +145,7 @@
           map-options
           transition-show="scale"
           transition-hide="scale"
+          :disable="store.disabled"
           label="Tujuan Kota"
         />
       </q-card-section>
@@ -158,6 +164,7 @@ import { onBeforeMount, ref } from "vue";
 
 const store = usePerdinStore();
 const storepermen = usePermenStore();
+const storepropinsi = usePropinsi();
 
 const scope = ref();
 const scopex = ref();

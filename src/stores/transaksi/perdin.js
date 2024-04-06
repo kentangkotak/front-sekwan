@@ -19,6 +19,8 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     loading: false,
     disabled: false,
     namakota: "-",
+    nik: "",
+    biaya: "",
     params: {
       q: "",
       page: 1,
@@ -153,26 +155,26 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
         this.caribiayataksi();
       }
     },
-    async getuangSaku() {
-      this.loading = true;
-      const params = { params: this.paramsbiaya };
-      // console.log("asdasdasdda", this.payloadbiaya);
-      await api
-        .get("/uangharian", params)
-        .then((resp) => {
-          this.loading = false;
-          if (resp.status === 200) {
-            this.meta = resp?.data;
-            this.items = resp?.data;
-            this.meta.total = resp?.data?.total;
-            this.form.biaya = resp?.data[0]?.biaya ?? 0;
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          this.loading = false;
-        });
-    },
+    // async getuangSaku() {
+    //   this.loading = true;
+    //   const params = { params: this.paramsbiaya };
+    //   // console.log("asdasdasdda", this.payloadbiaya);
+    //   await api
+    //     .get("/uangharian", params)
+    //     .then((resp) => {
+    //       this.loading = false;
+    //       if (resp.status === 200) {
+    //         this.meta = resp?.data;
+    //         this.items = resp?.data;
+    //         this.meta.total = resp?.data?.total;
+    //         this.form.biaya = resp?.data[0]?.biaya ?? 0;
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //       this.loading = false;
+    //     });
+    // },
     async getPenginapan() {
       this.loading = true;
       const params = { params: this.paramsbiaya };
@@ -352,9 +354,10 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
               this.itemsrincian = resp?.data;
               this.form.notrans = resp?.data?.header?.no_transaksi;
               this.form.id = resp?.data?.header?.id;
+              console.log("grid", this.form.id);
               const storerinci = useTranskRinci();
               storerinci.params.id = this.form.id;
-              storerinci.inittransrinci();
+              storerinci.getDataTransRinci();
               this.cleartransrinci();
               this.gethedertransaksi();
               // this.init();
@@ -381,8 +384,9 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       this.form.biaya = null;
     },
     cleartransrinci() {
-      this.form.id_jenistransaksi = "";
-      this.form.biaya = "";
+      console.log("asdas");
+      this.nik = "";
+      this.biaya = "";
     },
   },
 });

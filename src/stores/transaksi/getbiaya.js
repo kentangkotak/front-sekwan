@@ -30,6 +30,7 @@ export const useGetBiaya = defineStore("master_getbiaya", {
     async getuangSaku() {
       this.loading = true;
       const params = { params: this.paramsbiaya };
+      console.log("aaaaaaaaaaaaaaa", this.paramsbiaya);
       await api
         .get("/uangharian", params)
         .then((resp) => {
