@@ -22,6 +22,7 @@
             clearable
             use-input
             @input-value="storedewan.init"
+            @update:model-value="caritingkatdangol"
           >
             <template #option="scope">
               <q-item v-bind="scope.itemProps"
@@ -50,13 +51,16 @@
             </template>
           </q-select>
           <q-input
+            v-model="storebiaya.form.biaya"
             style="margin-bottom: 5px"
             outlined
             label="Biaya..."
             disable
             input-class="text-right"
+            :model-value="storebiaya.form.biaya"
           />
           <q-input
+            v-model="storetransheder.form.kuantitas"
             type="number"
             style="margin-bottom: 5px"
             outlined
@@ -146,13 +150,27 @@
   </q-dialog>
 </template>
 <script setup>
+import { store } from "quasar/wrappers";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
+import { useKotaKab } from "src/stores/master/kotakab";
 import { useGetBiaya } from "src/stores/transaksi/getbiaya";
+import { usePerdinStore } from "src/stores/transaksi/perdin";
 import { ref } from "vue";
 
 const nik = ref();
 const fixed = ref(false);
 const storebiaya = useGetBiaya();
+const storekotakab = useKotaKab();
+const storetransheder = usePerdinStore();
 
 const storedewan = useAnggotaDewanStore();
+
+function caritingkatdangol(val) {
+  console.log("sasa", storekotakab.params.id_propinsi);
+  storebiaya.paramsbiaya.tingkatan = val?.tingkatan?.id;
+  storebiaya.paramsbiaya.golongan = val?.golongan?.id;
+  storebiaya.paramsbiaya.id_propinsi = storekotakab.params.id_propinsi;
+  console.log("sasa", storebiaya.paramsbiaya.golongan);
+  storebiaya.getuangSaku();
+}
 </script>
