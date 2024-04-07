@@ -44,7 +44,24 @@ const rupiah = (number) => {
 };
 
 function formrinci(val) {
-  if (storeheder.form.id_propinsi === null) {
+  console.log("lama", storeheder.form.lamaperdin);
+  if (storeheder.form.tanggal === "" || storeheder.form.tanggal === null) {
+    notifErrmodip("Tanggal Tidak Boleh Kosong...!!!");
+  } else if (
+    parseInt(storeheder.form.lamaperdin) < 1 ||
+    storebiaya.form.lamaperdin === "" ||
+    storebiaya.form.lamaperdin === null
+  ) {
+    notifErrmodip("Lama Perdin Salah...!!!");
+  } else if (
+    storeheder.form.koderekekning === null ||
+    storeheder.form.koderekekning === ""
+  ) {
+    notifErrmodip("Kode Rekening Tidak Boleh Kosong...!!!");
+  } else if (
+    storeheder.form.id_propinsi === null ||
+    storeheder.form.id_propinsi === ""
+  ) {
     notifErrmodip("Provinsi Tidak Boleh Kosong...!!!");
   } else {
     if (val === 1) {

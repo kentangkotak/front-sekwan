@@ -93,7 +93,9 @@
   <formDialog v-model="dialogformtrans" />
 </template>
 <script setup>
+import { usePermenStore } from "src/stores/master/permen50";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
+import { useTranskRinci } from "src/stores/transaksi/transrinci";
 import { computed, defineAsyncComponent, ref } from "vue";
 
 const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
@@ -117,6 +119,9 @@ const props = defineProps({
 });
 
 const store = usePerdinStore();
+const storerinci = useTranskRinci();
+const storepermen = usePermenStore();
+
 const q = computed({
   get() {
     return props.search;
@@ -137,7 +142,18 @@ const selectPerPage = computed({
 
 function formDialogTransaksi() {
   dialogformtrans.value = true;
+  store.disabled = false;
   store.form.id_jenistransaksi = 1;
+  store.form.id = "";
+  storerinci.params.id = "";
+  store.form.notrans = "";
+  store.form.lamaperdin = 1;
+  store.form.judul = "";
+  store.form.koderekekning = "";
+  storepermen.kode = "";
+  store.form.ko;
+  store.form.id_propinsi = "";
+  store.form.id_kota = "";
 }
 
 function hapuspencarian() {

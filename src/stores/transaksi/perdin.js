@@ -55,7 +55,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       id_tujuanpesawat: null,
       kelas: null,
       kuantitas: 1,
-      lamaperdin: 1,
+      lamaperdin: "",
       judul: "",
       id_propinsi: null,
       koderekekning: null,

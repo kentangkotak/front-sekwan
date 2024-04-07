@@ -141,8 +141,8 @@ function formDialogx(val, id) {
   store.form.judul = val?.judul;
   store.form.koderekekning = val?.rekening50;
   store.form.id_propinsi = val?.provinsi?.id;
-  store.namakota = val?.kota?.name;
-  console.log("propinsiz", val?.provinsi?.id);
+  store.form.id_kota = val?.kota?.name;
+  console.log("kota", val?.kota?.name);
   storegetbiaya.paramsbiaya.id_propinsi = store.form.id_propinsi;
   console.log("iddarilist", id);
   storrinci.params.id = id;

@@ -76,6 +76,7 @@
           outlined
           disable
           label="Kode Rekening 50"
+          :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
         />
 
         <q-select
@@ -151,6 +152,7 @@
       </q-card-section>
     </q-card>
   </div>
+  {{ store.form.id }}
 </template>
 
 <script setup>
