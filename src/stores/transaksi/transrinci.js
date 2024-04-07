@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { api } from "src/boot/axios";
+import { notifSuccess } from "src/boot/notify-defaults";
 
 export const useTranskRinci = defineStore("transaksi_rinci", {
   state: () => ({
@@ -9,6 +10,9 @@ export const useTranskRinci = defineStore("transaksi_rinci", {
     loading: false,
     subtotal: 0,
     total_biaya: 0,
+    payload: {
+      id: "",
+    },
     params: {
       id: "",
       jb: "",
@@ -56,6 +60,29 @@ export const useTranskRinci = defineStore("transaksi_rinci", {
             console.log("asd", resp);
             this.totalall = resp?.data;
             console.log("asdfff", this.subtotal);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading = false;
+        });
+    },
+    inithapus(val) {
+      this.payload.id = val;
+      this.hapus();
+    },
+    hapus() {
+      //this.loading = true;
+      api
+        .post("/hapusperdin", this.payload)
+        .then((resp) => {
+          this.loading = false;
+          if (resp.status === 200) {
+            this.loading = false;
+            notifSuccess(resp);
+            this.items = resp?.data;
+            this.getDataTransRinci();
+            this.getDataTransRinciall();
           }
         })
         .catch((err) => {

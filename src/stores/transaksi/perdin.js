@@ -18,6 +18,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     metaperdin: {},
     loading: false,
     disabled: false,
+    total: 0,
     namakota: "-",
     nik: "",
     biaya: "",

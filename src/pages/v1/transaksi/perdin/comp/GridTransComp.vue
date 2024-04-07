@@ -95,7 +95,7 @@
                   round
                   glossy
                   icon="delete_forever"
-                  @click="formDialogx(item)"
+                  @click="store.inithapus(item.id)"
                 >
                   <q-tooltip class="primary" :offset="[10, 10]">
                     Delete

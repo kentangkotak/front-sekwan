@@ -37,14 +37,23 @@
 </template>
 <script setup>
 import { useStyledStore } from "src/stores/app/styled";
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent, onMounted } from "vue";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
+import { useTranskRinci } from "src/stores/transaksi/transrinci";
 
 const style = useStyledStore();
 const HeaderComp = defineAsyncComponent(() => import("./comp/HeaderComp.vue"));
 const ListPage = defineAsyncComponent(() => import("./comp/ListPage.vue"));
 const BottomComp = defineAsyncComponent(() => import("./comp/BottomPage.vue"));
 const store = usePerdinStore();
+const storrinci = useTranskRinci();
 
-store.gethedertransaksi();
+onMounted(() => {
+  // store.total = storrinci.totalall.reduce(
+  //   (total, curr) => (total = total + parseInt(curr.total_biaya)),
+  //   0
+  // );
+  // console.log("reduce", store.total);
+  store.gethedertransaksi();
+});
 </script>

@@ -8,6 +8,7 @@
         <th>PERMEN 50</th>
         <th>TUJUAN</th>
         <th>LAMA</th>
+        <!-- <th>TOTAL</th> -->
         <th></th>
       </tr>
     </thead>
@@ -112,7 +113,7 @@
 import { useGetBiaya } from "src/stores/transaksi/getbiaya";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
 import { useTranskRinci } from "src/stores/transaksi/transrinci";
-import { defineAsyncComponent, ref } from "vue";
+import { defineAsyncComponent, onMounted, onUnmounted, ref } from "vue";
 
 //const itemterpilih = ref({});
 const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
@@ -122,6 +123,10 @@ const storrinci = useTranskRinci();
 const storegetbiaya = useGetBiaya();
 // const jabatan = ref([]);
 // const komisi = ref([]);
+
+const rupiah = (number) => {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+};
 
 function formDialogx(val, id) {
   // console.log(id);
@@ -169,6 +174,13 @@ const props = defineProps({
 });
 
 // store.initgehedertransaksi();
+
+// onUnmounted(() => {
+//   store.items.reduce(
+//     (total, curr) => (total = total + parseInt(curr.total_biaya)),
+//     0
+//   );
+// });
 </script>
 
 <style lang="scss" scoped>
