@@ -137,6 +137,7 @@ const selectPerPage = computed({
 
 function formDialogTransaksi() {
   dialogformtrans.value = true;
+  store.form.id_jenistransaksi = 1;
 }
 
 function hapuspencarian() {

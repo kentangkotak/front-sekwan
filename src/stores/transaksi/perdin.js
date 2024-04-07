@@ -46,7 +46,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       notrans: null,
       tanggal: Date.now(),
       id_kota: null,
-      id_jenistransaksi: null,
+      id_jenistransaksi: "",
       tingkatan: null,
       golongan: null,
       biaya: 0,
@@ -358,6 +358,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
               const storerinci = useTranskRinci();
               storerinci.params.id = this.form.id;
               storerinci.getDataTransRinci();
+              storerinci.getDataTransRinciall();
               this.cleartransrinci();
               this.gethedertransaksi();
               // this.init();
@@ -385,6 +386,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     },
     cleartransrinci() {
       console.log("asdas");
+      this.form.nik = "";
       this.nik = "";
       this.biaya = "";
     },

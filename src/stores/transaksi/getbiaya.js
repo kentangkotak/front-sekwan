@@ -50,5 +50,28 @@ export const useGetBiaya = defineStore("master_getbiaya", {
           this.loading = false;
         });
     },
+    async getuangPenginapan() {
+      this.loading = true;
+      const params = { params: this.paramsbiaya };
+      console.log("aaaaaaaaaaaaaaa", this.paramsbiaya);
+      await api
+        .get("/penginapan", params)
+        .then((resp) => {
+          this.loading = false;
+          if (resp.status === 200) {
+            this.meta = resp?.data;
+            this.items = resp?.data;
+            this.meta.total = resp?.data?.total;
+            this.form.biaya = resp?.data[0]?.biaya ?? 0;
+            const biayasimpan = usePerdinStore();
+            biayasimpan.form.biaya = this.form.biaya;
+            console.log("get", this.form.biaya);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading = false;
+        });
+    },
   },
 });

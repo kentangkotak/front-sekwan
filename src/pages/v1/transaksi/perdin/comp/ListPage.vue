@@ -128,6 +128,8 @@ function formDialogx(val, id) {
   store.disabled = true;
   //coitemterpilih.value = val;
   dialog.value = true;
+  store.form.id_jenistransaksi = 1;
+  store.form.id = val?.id;
   store.form.notrans = val?.no_transaksi;
   store.form.tanggal = val?.tanggal;
   store.form.lamaperdin = val?.lamaperdin;

@@ -44,7 +44,6 @@ const rupiah = (number) => {
 };
 
 function formrinci(val) {
-  console.log("wew", val);
   if (storeheder.form.id_propinsi === null) {
     notifErrmodip("Provinsi Tidak Boleh Kosong...!!!");
   } else {
@@ -52,9 +51,11 @@ function formrinci(val) {
       console.log("asdasdadasdasdas", val);
       storebiaya.paramsbiaya.jenisbiaya = val;
       storebiaya.formrincian = true;
+      console.log("wew", storebiaya.formrincian);
     } else if (val === 2) {
       storebiaya.paramsbiaya.jenisbiaya = val;
       storebiaya.formrincian = true;
+      console.log("wew", storebiaya.formrincian);
     }
   }
 }

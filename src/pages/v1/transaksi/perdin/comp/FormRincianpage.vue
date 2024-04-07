@@ -1,8 +1,11 @@
 <template>
   <q-dialog v-model="fixed">
+    {{ storetransheder.form.id }}
     <q-card v-if="storebiaya.paramsbiaya.jenisbiaya === 1" style="width: 100%">
-      <q-card-section>
-        <div class="text-h6">UANG HARIAN PERJALANAN DINAS</div>
+      <q-card-section class="row items-center q-pb-none">
+        <div class="text-h6 items-center">UANG HARIAN PERJALANAN DINAS</div>
+        <q-space />
+        <q-btn icon="close" flat round dense v-close-popup />
       </q-card-section>
 
       <q-separator />
@@ -73,13 +76,14 @@
 
       <q-card-actions align="right">
         <q-btn color="orange" label="SIMPAN" @click="store.simpantransaksi()" />
-        <q-btn color="orange" label="KELUAR" v-close-popup />
       </q-card-actions>
     </q-card>
 
     <q-card v-if="storebiaya.paramsbiaya.jenisbiaya === 2" style="width: 100%">
-      <q-card-section>
+      <q-card-section class="row items-center q-pb-none">
         <div class="text-h6">UANG PENGINAPAN</div>
+        <q-space />
+        <q-btn icon="close" flat round dense v-close-popup />
       </q-card-section>
 
       <q-separator />
@@ -148,11 +152,9 @@
 
       <q-card-actions align="right">
         <q-btn color="orange" label="SIMPAN" @click="store.simpantransaksi()" />
-        <q-btn color="orange" label="KELUAR" v-close-popup />
       </q-card-actions>
     </q-card>
   </q-dialog>
-  {{ id_propinsi }}
 </template>
 <script setup>
 // import { store } from "quasar/wrappers";
@@ -175,7 +177,7 @@ const props = defineProps({
 });
 
 function caritingkatdangol(val) {
-  console.log("sasa", val);
+  console.log("sasasasa", val);
   storebiaya.paramsbiaya.tingkatan = val?.tingkatan?.id;
   storebiaya.paramsbiaya.golongan = val?.golongan?.id;
   storebiaya.paramsbiaya.id_propinsi = props.id_propinsi;
@@ -183,6 +185,10 @@ function caritingkatdangol(val) {
   store.form.jabatan = val?.id_jabatan;
   store.form.tingkatan = val?.tingkatan?.id;
   store.form.golongan = val?.golongan?.id;
-  storebiaya.getuangSaku();
+  if (storebiaya.paramsbiaya.jenisbiaya === 1) {
+    storebiaya.getuangSaku();
+  } else if (storebiaya.paramsbiaya.jenisbiaya === 2) {
+    storebiaya.getuangPenginapan();
+  }
 }
 </script>

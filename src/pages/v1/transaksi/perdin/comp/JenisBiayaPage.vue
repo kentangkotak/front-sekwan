@@ -16,6 +16,7 @@
       />
     </div>
   </div>
+
   <grid-trans-comp />
   <!-- <form-rincianpage v-model="storebiaya.formrincian" /> -->
 </template>
@@ -45,10 +46,13 @@ const jenistransaksix = props.jenistransaksi.map((x) => ({
 function gridrinci(val) {
   if (val === 1) {
     storerinci.params.jb = val;
+    transheder.form.id_jenistransaksi = val;
     storerinci.getDataTransRinci();
   } else if (val === 2) {
-    storebiaya.paramsbiaya.jenisbiaya = val;
+    storebiaya.params.jb = val;
+    transheder.form.id_jenistransaksi = val;
     storerinci.getDataTransRinci();
+
     //storebiaya.formrincian = true;
   }
 }
@@ -71,6 +75,7 @@ function formrinci(val) {
 onMounted(() => {
   storerinci.params.jb = wew;
   storerinci.getDataTransRinci();
+  // storerinci.getDataTransRinciall();
 });
 </script>
 
