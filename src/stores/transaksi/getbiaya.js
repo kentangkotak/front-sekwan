@@ -23,6 +23,10 @@ export const useGetBiaya = defineStore("master_getbiaya", {
       provinsi: null,
       kendaraan: null,
     },
+    paramspesawat: {
+      tujuan: null,
+      kelas: "",
+    },
     form: {
       biaya: 0,
     },
@@ -99,6 +103,33 @@ export const useGetBiaya = defineStore("master_getbiaya", {
               const biayasimpan = usePerdinStore();
               biayasimpan.form.biaya = this.form.biaya;
             }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading = false;
+        });
+    },
+    async caribiayapesawat() {
+      this.loading = true;
+      const params = { params: this.paramspesawat };
+      console.log("para", this.paramspesawat);
+      await api
+        .get("/pesawat", params)
+        .then((resp) => {
+          this.loading = false;
+          if (resp.status === 200) {
+            this.meta = resp.data;
+            this.items = resp.data?.data;
+            this.meta.total = resp?.data?.total;
+            this.form.biaya =
+              this.paramspesawat.kelas === null
+                ? 0
+                : this.paramspesawat.kelas === "Bisnis"
+                ? this.items[0]?.bisnis
+                : this.items[0]?.ekonomi;
+            const biayasimpan = usePerdinStore();
+            biayasimpan.form.biaya = this.form.biaya;
           }
         })
         .catch((err) => {

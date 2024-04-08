@@ -294,6 +294,35 @@
             </q-item>
           </template>
         </q-select>
+
+        <q-select
+          v-model="store.form.id_tujuanpesawat"
+          style="margin-bottom: 5px; visibility: visible"
+          :options="pesawat"
+          option-label="tujuan"
+          option-value="id"
+          transition-show="scale"
+          transition-hide="scale"
+          emit-value
+          map-options
+          outlined
+          label="Tujuan Peswat..."
+          @update:model-value="initcaribiayapesawat"
+        />
+
+        <q-select
+          v-model="store.form.kelas"
+          style="margin-bottom: 5px; visibility: visible"
+          :options="kelas"
+          transition-show="scale"
+          transition-hide="scale"
+          emit-value
+          map-options
+          outlined
+          label="Kelas..."
+          @update:model-value="initcaribiayapesawat"
+        />
+
         <q-input
           v-model="store.biaya"
           style="margin-bottom: 5px"
@@ -413,9 +442,12 @@ const storetransheder = usePerdinStore();
 const store = usePerdinStore();
 const storedewan = useAnggotaDewanStore();
 
+const kelas = ref(["Bisnis", "Ekonomi"]);
+
 const props = defineProps({
   id_propinsi: { type: Number },
   id_jeniskendaraan: { type: Array, default: () => [] },
+  pesawat: { type: Array, default: () => [] },
 });
 
 function caritingkatdangol(val) {
@@ -444,6 +476,38 @@ function kirimkendaraan(val) {
     storebiaya.paramsbiaya.kota = store.form.id_kota;
     // this.carijenisbiaya();
     storebiaya.getTransport();
+  }
+}
+
+function initcaribiayapesawat(val) {
+  console.log("wew", val);
+  if (store.form.nik === null || store.form.nik === "") {
+    notifErrmodip("Dewan/Pedamping Harus Diisi...!!!");
+    storebiaya.paramspesawat.tujuan = "";
+    store.form.id_tujuanpesawat = "";
+  } else if (
+    store.form.id_tujuanpesawat === null ||
+    store.form.id_tujuanpesawat === ""
+  ) {
+    notifErrmodip("Dewan/Pedamping Harus Diisi...!!!");
+    storebiaya.paramspesawat.kelas = "";
+    store.form.kelas = "";
+  } else {
+    if (val === "Bisnis" || val === "Ekonomi") {
+      storebiaya.paramspesawat.kelas = val;
+      store.form.kelas = val;
+    } else {
+      storebiaya.paramspesawat.tujuan = val;
+      store.form.id_tujuanpesawat = val;
+    }
+
+    if (
+      storebiaya.paramspesawat.tujuan === "" ||
+      storebiaya.paramspesawat.kelas === ""
+    ) {
+    } else {
+      storebiaya.caribiayapesawat();
+    }
   }
 }
 </script>

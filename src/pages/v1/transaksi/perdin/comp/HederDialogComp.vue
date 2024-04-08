@@ -28,7 +28,6 @@
           label="Tanggal"
           style="margin-right: 5px; width: 25%"
           :disable="store.disabled"
-          :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
         >
           <template v-slot:append>
             <q-icon name="event" class="cursor-pointer">
@@ -53,7 +52,6 @@
           label="Lama PerDin"
           type="number"
           :disable="store.disabled"
-          :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
         />
 
         <q-input
@@ -62,7 +60,6 @@
           outlined
           label="Judul"
           :disable="store.disabled"
-          :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
         />
       </q-card-section>
 
@@ -76,7 +73,6 @@
           outlined
           disable
           label="Kode Rekening 50"
-          :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
         />
 
         <q-select
@@ -95,7 +91,6 @@
           :disable="store.disabled"
           @input-value="storepermen.init"
           @update:model-value="storepermen.caripermen"
-          :rules="[(val) => !!val || 'Tidak Boleh Kosong...!!!']"
         >
           <template #option="scope">
             <q-item v-bind="scope.itemProps"

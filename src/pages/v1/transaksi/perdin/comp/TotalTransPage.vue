@@ -25,6 +25,7 @@
       v-model="storebiaya.formrincian"
       :id_propinsi="storeheder.form.id_propinsi"
       :id_jeniskendaraan="storejeniskendaraan.items"
+      :pesawat="storepesawat.items"
     />
   </div>
 </template>
@@ -36,11 +37,13 @@ import { useTranskRinci } from "src/stores/transaksi/transrinci";
 import { onMounted } from "vue";
 import FormRincianpage from "./FormRincianpage.vue";
 import { useJenisKendaraan } from "src/stores/master/kendaraan";
+import { usePesawatstore } from "src/stores/master/pesawat";
 
 const storerinci = useTranskRinci();
 const storeheder = usePerdinStore();
 const storebiaya = useGetBiaya();
 const storejeniskendaraan = useJenisKendaraan();
+const storepesawat = usePesawatstore();
 
 const rupiah = (number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -96,5 +99,6 @@ function formrinci(val) {
 onMounted(() => {
   storerinci.getDataTransRinciall();
   storejeniskendaraan.getData();
+  storepesawat.init();
 });
 </script>

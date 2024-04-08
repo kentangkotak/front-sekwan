@@ -44,13 +44,15 @@ export const usePermenStore = defineStore("master_permen", {
           // console.log("isi nya", this.form[sasa]);
         }
       });
-      console.log("a", val);
+
       this.koderekening = null;
+      console.log("a", val);
       if (val) {
         this.kode = val?.uraian;
         this.koderekening = val?.kodeall;
         const transperdin = usePerdinStore();
         transperdin.form.koderekekning = val?.kodeall;
+        transperdin.form.uraian50 = val?.uraian;
         this.getData();
       }
     },
@@ -73,6 +75,11 @@ export const usePermenStore = defineStore("master_permen", {
         if (resp.status === 200) {
           this.meta = resp?.data;
           this.items = resp?.data?.data;
+          // this.kode = this.items.map((el) => el.kodeall == "5.1.02.04.01.0005");
+          // console.log("a", this.kode);
+          // this.kode = resp?.data?.data[0]?.uraian;
+          // const store = usePerdinStore();
+          // store.form.koderekekning = resp?.data?.data[0]?.kodeall;
         }
       });
     },

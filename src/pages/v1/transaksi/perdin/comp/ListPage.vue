@@ -62,7 +62,7 @@
             <td width="500px" height="14px">{{ item?.judul }}</td>
             <td width="200px" height="14px">
               <div>{{ item?.rekening50 }}</div>
-              <div>{{ item?.kota?.name }}</div>
+              <div>{{ item?.uraian50 }}</div>
             </td>
             <td width="200px" height="14px">
               <div>Provinsi {{ item?.provinsi?.name }}</div>
@@ -105,6 +105,7 @@
 
 <script setup>
 import { useKotaKab } from "src/stores/master/kotakab";
+import { usePermenStore } from "src/stores/master/permen50";
 import { useGetBiaya } from "src/stores/transaksi/getbiaya";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
 import { useTranskRinci } from "src/stores/transaksi/transrinci";
@@ -117,6 +118,7 @@ const store = usePerdinStore();
 const storrinci = useTranskRinci();
 const storegetbiaya = useGetBiaya();
 const storekota = useKotaKab();
+const storePermen = usePermenStore();
 // const jabatan = ref([]);
 // const komisi = ref([]);
 
@@ -136,13 +138,16 @@ function formDialogx(val, id) {
   store.form.lamaperdin = val?.lamaperdin;
   store.form.judul = val?.judul;
   store.form.koderekekning = val?.rekening50;
+  store.form.uraian50 = val?.uraian50;
   store.form.id_propinsi = val?.provinsi?.id;
   store.form.id_kota = val?.kota?.id;
+  storePermen.kode = val?.uraian50;
   // store.form.namakota = val?.kota?.name;
   storegetbiaya.paramsbiaya.id_propinsi = store.form.id_propinsi;
   storrinci.params.id = id;
 
   storekota.kirimpropinsix(val?.provinsi?.id);
+  // storePermen.caripermen(val?.rekening50);
   // storrinci.inittransrinci(id);
 }
 
