@@ -14,38 +14,38 @@
     </thead>
     <tbody>
       <template v-if="store.loading">
-        <tr v-for="n in store.params.per_page" :key="n">
+        <tr v-for="n in store.items" :key="n">
           <td>
-            <q-skeleton type="text" width="300px" height="14px" />
+            <q-skeleton type="text" width="15%" height="14px" />
           </td>
           <td>
-            <q-skeleton type="text" width="200px" height="14px" />
+            <q-skeleton type="text" width="13%" height="14px" />
           </td>
           <td>
-            <q-skeleton type="text" width="500px" height="14px" />
-          </td>
-          <td>
-            <div class="row q-mb-xs q-col-gutter-sm">
-              <q-skeleton type="text" width="200px" height="14px" />
-            </div>
-            <div class="row q-col-gutter-sm items-center">
-              <q-skeleton type="text" width="200px" height="14px" />
-            </div>
+            <q-skeleton type="text" width="14%" height="14px" />
           </td>
           <td>
             <div class="row q-mb-xs q-col-gutter-sm">
-              <q-skeleton type="text" width="200px" height="14px" />
+              <q-skeleton type="text" width="30%" height="14px" />
             </div>
             <div class="row q-col-gutter-sm items-center">
-              <q-skeleton type="text" width="200px" height="14px" />
+              <q-skeleton type="text" width="14%" height="14px" />
             </div>
           </td>
           <td>
-            <q-skeleton type="text" width="100px" height="14px" />
+            <div class="row q-mb-xs q-col-gutter-sm">
+              <q-skeleton type="text" width="14%" height="14px" />
+            </div>
+            <div class="row q-col-gutter-sm items-center">
+              <q-skeleton type="text" width="14%" height="14px" />
+            </div>
+          </td>
+          <td>
+            <q-skeleton type="text" width="14%" height="14px" />
           </td>
           <td class="text-end">
             <div class="row justify-end">
-              <q-skeleton type="text" width="50px" height="14px" />
+              <q-skeleton type="text" width="10%" height="14px" />
             </div>
           </td>
         </tr>
@@ -53,23 +53,21 @@
       <template v-else>
         <template v-for="(item, n) in store.items" :key="n">
           <tr :class="item?.flag === '1' ? 'bg-light-blue-2' : ''">
-            <td width="400px" height="14px">
-              <b
-                ><u>{{ item?.no_transaksi }}</u></b
-              >
+            <td width="15%" height="14px">
+              <b>{{ item?.no_transaksi }}</b>
             </td>
-            <td width="200px" height="14px">{{ item?.tanggal }}</td>
-            <td width="500px" height="14px">{{ item?.judul }}</td>
-            <td width="200px" height="14px">
+            <td width="13%" height="14px">{{ item?.tanggal }}</td>
+            <td width="14%" height="14px">{{ item?.judul }}</td>
+            <td width="18%" height="14px">
               <div>{{ item?.rekening50 }}</div>
               <div>{{ item?.uraian50 }}</div>
             </td>
-            <td width="200px" height="14px">
+            <td width="14%" height="14px">
               <div>Provinsi {{ item?.provinsi?.name }}</div>
               <div>KOTA {{ item?.kota?.name }}</div>
             </td>
-            <td width="100px" height="14px">{{ item?.lamaperdin }} Hari</td>
-            <td width="100px" height="14px">
+            <td width="14%" height="14px">{{ item?.lamaperdin }} Hari</td>
+            <td width="10%" height="14px">
               <q-btn
                 color="black"
                 size="sm"

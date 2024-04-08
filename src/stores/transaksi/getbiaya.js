@@ -47,7 +47,6 @@ export const useGetBiaya = defineStore("master_getbiaya", {
             this.form.biaya = resp?.data[0]?.biaya ?? 0;
             const biayasimpan = usePerdinStore();
             biayasimpan.form.biaya = this.form.biaya;
-            console.log("get", this.form.biaya);
           }
         })
         .catch((err) => {
@@ -130,6 +129,29 @@ export const useGetBiaya = defineStore("master_getbiaya", {
                 : this.items[0]?.ekonomi;
             const biayasimpan = usePerdinStore();
             biayasimpan.form.biaya = this.form.biaya;
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading = false;
+        });
+    },
+    async getuangTaksi() {
+      this.loading = true;
+      const params = { params: this.paramsbiaya };
+      await api
+        .get("/taksi", params)
+        .then((resp) => {
+          this.loading = false;
+          if (resp.status === 200) {
+            this.meta = resp?.data;
+            this.items = resp?.data?.data;
+            this.meta.total = resp?.data?.total;
+            console.log("asd", this.items);
+            this.form.biaya = this.items[0]?.biaya ?? 0;
+            const biayasimpan = usePerdinStore();
+            biayasimpan.form.biaya = this.form.biaya;
+            console.log("get", this.form.biaya);
           }
         })
         .catch((err) => {

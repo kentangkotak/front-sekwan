@@ -19,7 +19,7 @@
       </thead>
       <tbody>
         <template v-if="store.loading">
-          <tr v-for="n in store.params.per_page" :key="n">
+          <tr v-for="n in store.items" :key="n">
             <td>
               <q-skeleton type="text" />
             </td>
@@ -61,9 +61,9 @@
           </tr>
         </template>
         <template v-else>
-          <template v-for="(item, n) in store?.items" :key="n">
+          <template v-for="(item, x) in store?.items" :key="x">
             <tr :class="item?.flag === '1' ? 'bg-light-blue-2' : ''">
-              <td>{{ n + 1 }}.</td>
+              <td>{{ x + 1 }}.</td>
               <td>
                 {{ item?.nik }}
               </td>

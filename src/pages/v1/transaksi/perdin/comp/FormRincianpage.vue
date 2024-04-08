@@ -462,6 +462,8 @@ function caritingkatdangol(val) {
     storebiaya.getuangSaku();
   } else if (storebiaya.paramsbiaya.jenisbiaya === 2) {
     storebiaya.getuangPenginapan();
+  } else if (storebiaya.paramsbiaya.jenisbiaya === 5) {
+    storebiaya.getuangTaksi();
   }
 }
 

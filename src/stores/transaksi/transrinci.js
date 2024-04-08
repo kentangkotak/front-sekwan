@@ -16,7 +16,7 @@ export const useTranskRinci = defineStore("transaksi_rinci", {
     params: {
       id: "",
       jb: "",
-      per_page: 1,
+      //per_page: 1,
     },
   }),
   actions: {
