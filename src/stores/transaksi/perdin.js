@@ -8,6 +8,7 @@ import {
 } from "src/boot/notify-defaults";
 import { useAnggotaDewanStore } from "../master/anggotadewan";
 import { useTranskRinci } from "./transrinci";
+import { useGetBiaya } from "./getbiaya";
 
 export const usePerdinStore = defineStore("transaksi_perdin", {
   state: () => ({
@@ -20,7 +21,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     disabled: false,
     total: 0,
     nik: "",
-    biaya: "",
+    biaya: 0,
     params: {
       q: "",
       page: 1,
@@ -353,11 +354,11 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
               this.itemsrincian = resp?.data;
               this.form.notrans = resp?.data?.header?.no_transaksi;
               this.form.id = resp?.data?.header?.id;
-              console.log("grid", this.form.id);
               const storerinci = useTranskRinci();
               storerinci.params.id = this.form.id;
               storerinci.getDataTransRinci();
               storerinci.getDataTransRinciall();
+              this.disabled = true;
               this.cleartransrinci();
               this.gethedertransaksi();
               // this.init();
@@ -384,10 +385,14 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       this.form.biaya = null;
     },
     cleartransrinci() {
-      console.log("asdas");
       this.form.nik = "";
       this.nik = "";
-      this.biaya = "";
+      this.biaya = 0;
+      this.form.biaya = 0;
+      this.form.total_biaya = 0;
+      this.form.id_jeniskendaraan = "";
+      const storebiaya = useGetBiaya();
+      storebiaya.form.biaya = 0;
     },
   },
 });

@@ -85,7 +85,7 @@ export const useGetBiaya = defineStore("master_getbiaya", {
             this.meta = resp?.data;
             this.items = resp?.data?.data;
             this.meta.total = resp?.data?.total;
-            console.log("res", this.items);
+            this.form.biaya = resp?.data?.data[0]?.biaya;
             if (
               resp?.data?.data[0]?.biaya === "0.00" ||
               resp?.data?.data[0]?.biaya === null ||
@@ -97,7 +97,7 @@ export const useGetBiaya = defineStore("master_getbiaya", {
               this.form.biaya = 0;
             } else {
               const biayasimpan = usePerdinStore();
-              biayasimpan.form.biaya = resp?.data.data[0]?.biaya;
+              biayasimpan.form.biaya = this.form.biaya;
             }
           }
         })
