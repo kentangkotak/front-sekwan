@@ -125,7 +125,7 @@
           use-input
           :disable="store.disabled"
           @filter="filterFn"
-          @update:model-value="(val) => kirimpropinsi(val)"
+          @update:model-value="(val) => storekotakab.kirimpropinsix(val)"
         />
         <template #option="scopex">
           <q-item v-bind="scopex.itemProps"
@@ -152,7 +152,8 @@
       </q-card-section>
     </q-card>
   </div>
-  {{ store.form.id }}
+  id {{ store.form.id_kota }} nama {{ store.form.namakota }} <br />
+  id {{ store.form.id_propinsi }} nama {{ store.paramsbiaya.provinsi }}
 </template>
 
 <script setup>
@@ -173,6 +174,7 @@ const scopex = ref();
 
 const props = defineProps({
   propinsi: { type: Array, default: () => [] },
+  // kota: { type: Array, default: () => [] },
   permen: { type: Array, default: () => [] },
   maxx: { type: Boolean },
 });
@@ -200,10 +202,11 @@ function filterFn(val, update) {
     );
   });
 }
+
 function kirimpropinsi(val) {
   if (val !== null) {
     storekotakab.params.id_propinsi = val;
-    store.form.id_kota = storekotakab.items[0];
+    //store.form.id_kota = storekotakab.items[0];
   } else {
     store.namakota = "-";
     store.form.id_kota = "";

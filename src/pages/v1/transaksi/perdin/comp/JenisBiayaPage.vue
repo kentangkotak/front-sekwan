@@ -44,21 +44,25 @@ const jenistransaksix = props.jenistransaksi.map((x) => ({
 }));
 
 function gridrinci(val) {
-  if (val === 1) {
-    storerinci.params.jb = val;
-    transheder.form.id_jenistransaksi = val;
-    storerinci.getDataTransRinci();
-  } else if (val === 2) {
-    storebiaya.params.jb = val;
-    transheder.form.id_jenistransaksi = val;
-    storerinci.getDataTransRinci();
-
-    //storebiaya.formrincian = true;
-  }
+  storerinci.params.jb = val;
+  transheder.form.id_jenistransaksi = val;
+  storerinci.getDataTransRinci();
+  // if (val === 1) {
+  //   storerinci.params.jb = val;
+  //   transheder.form.id_jenistransaksi = val;
+  //   storerinci.getDataTransRinci();
+  // } else if (val === 2) {
+  //   storebiaya.params.jb = val;
+  //   transheder.form.id_jenistransaksi = val;
+  //   storerinci.getDataTransRinci();
+  // } else if (val === 3) {
+  //   storerinci.params.jb = val;
+  //   transheder.form.id_jenistransaksi = val;
+  //   storerinci.getDataTransRinci();
+  // }
 }
 
 function formrinci(val) {
-  console.log("wew", val);
   if (transheder.form.id_propinsi === null) {
     notifErrmodip("Provinsi Tidak Boleh Kosong...!!!");
   } else {
@@ -74,6 +78,7 @@ function formrinci(val) {
 
 onMounted(() => {
   storerinci.params.jb = wew;
+  transheder.form.id_jenistransaksi = wew;
   storerinci.getDataTransRinci();
   // storerinci.getDataTransRinciall();
 });

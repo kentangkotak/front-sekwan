@@ -21,13 +21,10 @@ export const useTranskRinci = defineStore("transaksi_rinci", {
   }),
   actions: {
     inittransrinci(val) {
-      console.log("sa", val);
       this.params.id = val;
       this.getDataTransRinci();
     },
     async getDataTransRinci() {
-      console.log("jb", this.params.jb);
-      console.log("id", this.params.id);
       this.loading = true;
       const params = { params: this.params };
       await api
@@ -36,9 +33,8 @@ export const useTranskRinci = defineStore("transaksi_rinci", {
           this.loading = false;
           if (resp.status === 200) {
             //this.meta = resp.data;
-            console.log("asd", resp);
+
             this.items = resp?.data;
-            console.log("asdfff", this.subtotal);
           }
         })
         .catch((err) => {
@@ -47,8 +43,6 @@ export const useTranskRinci = defineStore("transaksi_rinci", {
         });
     },
     async getDataTransRinciall() {
-      console.log("jb", this.params.jb);
-      console.log("id", this.params.id);
       this.loading = true;
       const params = { params: this.params };
       await api
@@ -57,9 +51,8 @@ export const useTranskRinci = defineStore("transaksi_rinci", {
           this.loading = false;
           if (resp.status === 200) {
             //this.meta = resp.data;
-            console.log("asd", resp);
+
             this.totalall = resp?.data;
-            console.log("asdfff", this.subtotal);
           }
         })
         .catch((err) => {

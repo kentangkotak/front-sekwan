@@ -99,17 +99,12 @@
         </template>
       </template>
     </tbody>
-    <formDialog
-      v-model="dialog"
-      :jabatan="jabatan"
-      :komisi="komisi"
-      :golongan="golongan"
-      :tingkatan="tingkatan"
-    />
+    <formDialog v-model="dialog" />
   </table>
 </template>
 
 <script setup>
+import { useKotaKab } from "src/stores/master/kotakab";
 import { useGetBiaya } from "src/stores/transaksi/getbiaya";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
 import { useTranskRinci } from "src/stores/transaksi/transrinci";
@@ -121,6 +116,7 @@ const dialog = ref(false);
 const store = usePerdinStore();
 const storrinci = useTranskRinci();
 const storegetbiaya = useGetBiaya();
+const storekota = useKotaKab();
 // const jabatan = ref([]);
 // const komisi = ref([]);
 
@@ -141,12 +137,12 @@ function formDialogx(val, id) {
   store.form.judul = val?.judul;
   store.form.koderekekning = val?.rekening50;
   store.form.id_propinsi = val?.provinsi?.id;
-  store.form.id_kota = val?.kota?.name;
-  console.log("kota", val?.kota?.name);
+  store.form.id_kota = val?.kota?.id;
+  // store.form.namakota = val?.kota?.name;
   storegetbiaya.paramsbiaya.id_propinsi = store.form.id_propinsi;
-  console.log("iddarilist", id);
   storrinci.params.id = id;
-  console.log("inihasilnya", storrinci.params.id);
+
+  storekota.kirimpropinsix(val?.provinsi?.id);
   // storrinci.inittransrinci(id);
 }
 

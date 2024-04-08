@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { api } from "src/boot/axios";
 import { usePerdinStore } from "./perdin";
+import { notifErrmodip } from "src/boot/notify-defaults";
 
 export const useGetBiaya = defineStore("master_getbiaya", {
   state: () => ({
@@ -53,7 +54,6 @@ export const useGetBiaya = defineStore("master_getbiaya", {
     async getuangPenginapan() {
       this.loading = true;
       const params = { params: this.paramsbiaya };
-      console.log("aaaaaaaaaaaaaaa", this.paramsbiaya);
       await api
         .get("/penginapan", params)
         .then((resp) => {
@@ -66,6 +66,39 @@ export const useGetBiaya = defineStore("master_getbiaya", {
             const biayasimpan = usePerdinStore();
             biayasimpan.form.biaya = this.form.biaya;
             console.log("get", this.form.biaya);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          this.loading = false;
+        });
+    },
+    async getTransport() {
+      this.loading = true;
+      const params = { params: this.paramsbiaya };
+      // console.log("aaa", params);
+      await api
+        .get("/transport", params)
+        .then((resp) => {
+          this.loading = false;
+          if (resp.status === 200) {
+            this.meta = resp?.data;
+            this.items = resp?.data?.data;
+            this.meta.total = resp?.data?.total;
+            console.log("res", this.items);
+            if (
+              resp?.data?.data[0]?.biaya === "0.00" ||
+              resp?.data?.data[0]?.biaya === null ||
+              resp?.data?.data[0]?.biaya === ""
+            ) {
+              notifErrmodip(
+                "Tidak Ada Biaya Untuk Tujuan Deangan Menggunakan Model Kendaraan Ini...!!!"
+              );
+              this.form.biaya = 0;
+            } else {
+              const biayasimpan = usePerdinStore();
+              biayasimpan.form.biaya = resp?.data.data[0]?.biaya;
+            }
           }
         })
         .catch((err) => {

@@ -19,7 +19,6 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     loading: false,
     disabled: false,
     total: 0,
-    namakota: "-",
     nik: "",
     biaya: "",
     params: {
@@ -47,6 +46,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       notrans: null,
       tanggal: Date.now(),
       id_kota: null,
+      namakota: null,
       id_jenistransaksi: "",
       tingkatan: null,
       golongan: null,
@@ -230,7 +230,6 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     initcaribiayapesawat() {
       this.paramspesawat.tujuan = this.form.id_tujuanpesawat;
       this.paramspesawat.kelas = this.form.kelas;
-      console.log("sasa", this.paramspesawat.tujuan);
       this.caribiayapesawat();
     },
     async caribiayapesawat() {
@@ -326,7 +325,6 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     formattanggal() {
       const sekarang = Date.now();
       this.form.tanggal = date.formatDate(sekarang, "YYYY-MM-DD");
-      console.log("tanggal", this.form.tanggal);
     },
     simpantransaksi() {
       this.form.total_biaya = this.form.biaya * this.form.kuantitas;

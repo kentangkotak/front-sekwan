@@ -152,7 +152,7 @@ function formDialogTransaksi() {
   store.form.koderekekning = "";
   storepermen.kode = "";
   store.form.ko;
-  store.form.id_propinsi = "";
+  store.form.id_propinsi = null;
   store.form.id_kota = "";
 }
 

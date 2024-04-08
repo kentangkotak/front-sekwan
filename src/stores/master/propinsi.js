@@ -35,7 +35,6 @@ export const usePropinsi = defineStore("master_propinsi", {
           if (resp.status === 200) {
             //this.meta = resp.data;
             this.items = resp?.data;
-            console.log("testx", this.items);
             this.form.id_propinsi = resp?.data?.id;
             // this.items.unshift({
             //   komisi: "SEMUA",

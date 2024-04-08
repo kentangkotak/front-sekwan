@@ -88,9 +88,10 @@ const storejenistrans = useJenisTransaksi();
 const strorepropinsi = usePropinsi();
 const storedewan = useAnggotaDewanStore();
 const storepermen = usePermenStore();
-const storejeniskendaraan = useJenisKendaraan();
-const storepesawat = usePesawatstore();
-const store = usePerdinStore();
+
+// const storejeniskendaraan = useJenisKendaraan();
+// const storepesawat = usePesawatstore();
+// const store = usePerdinStore();
 
 const date = ref("YYYY");
 const slide = ref("style");
@@ -100,8 +101,9 @@ const slide = ref("style");
 onMounted(() => {
   storejenistrans.init();
   strorepropinsi.init();
-  storedewan.init();
   storepermen.init();
+  storedewan.init();
+
   // storejeniskendaraan.init();
   // storepesawat.init();
   // store.formattanggal();

@@ -1,6 +1,5 @@
 <template>
   <q-dialog v-model="fixed">
-    {{ storetransheder.form.id }}
     <q-card v-if="storebiaya.paramsbiaya.jenisbiaya === 1" style="width: 100%">
       <q-card-section class="row items-center q-pb-none">
         <div class="text-h6 items-center">UANG HARIAN PERJALANAN DINAS</div>
@@ -154,10 +153,252 @@
         <q-btn color="orange" label="SIMPAN" @click="store.simpantransaksi()" />
       </q-card-actions>
     </q-card>
+
+    <q-card v-if="storebiaya.paramsbiaya.jenisbiaya === 3" style="width: 100%">
+      <q-card-section class="row items-center q-pb-none">
+        <div class="text-h6">BIAYA TRANSPORTASI PERJALANAN DINAS</div>
+        <q-space />
+        <q-btn icon="close" flat round dense v-close-popup />
+      </q-card-section>
+
+      <q-separator />
+
+      <q-card-section>
+        <q-select
+          v-model="store.nik"
+          style="margin-bottom: 5px"
+          outlined
+          :options="storedewan.items"
+          option-label="nama"
+          option-value="nik"
+          label="Anggota Dewan/Pendamping"
+          transition-show="scale"
+          transition-hide="scale"
+          clearable
+          use-input
+          @input-value="storedewan.init"
+          @update:model-value="caritingkatdangol"
+        >
+          <template #option="scope">
+            <q-item v-bind="scope.itemProps"
+              ><q-item-section avatar>
+                <q-item-label
+                  ><q-avatar
+                    v-if="scope.opt.jns_kelamin === 'P'"
+                    glossy
+                    size="40px"
+                    class="overlapping"
+                  >
+                    <img src="../../../../../assets/images/female.svg" />
+                  </q-avatar>
+                  <q-avatar v-else size="40px" class="overlapping" glossy
+                    ><img src="../../../../../assets/images/male.svg"
+                  /></q-avatar>
+                  NIK : {{ scope.opt.nik }} <br />
+                  Nama : {{ scope.opt.nama }} ({{ scope.opt.jabatan.jenis }}
+                  {{ scope.opt.komisi.komisi }})<br />
+                  Status :
+                  {{ scope.opt.flag_pegawai.nama }}<br />
+                  Alamat : {{ scope.opt.alamat }}
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
+        <q-select
+          v-model="store.form.id_jeniskendaraan"
+          :options="id_jeniskendaraan"
+          option-label="name"
+          option-value="id"
+          emit-value
+          map-options
+          transition-show="scale"
+          transition-hide="scale"
+          outlined
+          label="Jenis Kendaraan"
+          @update:model-value="(val) => kirimkendaraan(val)"
+        />
+        <q-input
+          v-model="store.biaya"
+          style="margin-bottom: 5px"
+          outlined
+          label="Biaya..."
+          disable
+          input-class="text-right"
+          :model-value="storebiaya.form.biaya"
+        />
+        <q-input
+          v-model="storetransheder.form.kuantitas"
+          type="number"
+          style="margin-bottom: 5px"
+          outlined
+          label="Kuantitas"
+        />
+      </q-card-section>
+
+      <q-separator />
+
+      <q-card-actions align="right">
+        <q-btn color="orange" label="SIMPAN" @click="store.simpantransaksi()" />
+      </q-card-actions>
+    </q-card>
+
+    <q-card v-if="storebiaya.paramsbiaya.jenisbiaya === 4" style="width: 100%">
+      <q-card-section class="row items-center q-pb-none">
+        <div class="text-h6">BIAYA PESAWAT</div>
+        <q-space />
+        <q-btn icon="close" flat round dense v-close-popup />
+      </q-card-section>
+
+      <q-separator />
+
+      <q-card-section>
+        <q-select
+          v-model="store.nik"
+          style="margin-bottom: 5px"
+          outlined
+          :options="storedewan.items"
+          option-label="nama"
+          option-value="nik"
+          label="Anggota Dewan/Pendamping"
+          transition-show="scale"
+          transition-hide="scale"
+          clearable
+          use-input
+          @input-value="storedewan.init"
+          @update:model-value="caritingkatdangol"
+        >
+          <template #option="scope">
+            <q-item v-bind="scope.itemProps"
+              ><q-item-section avatar>
+                <q-item-label
+                  ><q-avatar
+                    v-if="scope.opt.jns_kelamin === 'P'"
+                    glossy
+                    size="40px"
+                    class="overlapping"
+                  >
+                    <img src="../../../../../assets/images/female.svg" />
+                  </q-avatar>
+                  <q-avatar v-else size="40px" class="overlapping" glossy
+                    ><img src="../../../../../assets/images/male.svg"
+                  /></q-avatar>
+                  NIK : {{ scope.opt.nik }} <br />
+                  Nama : {{ scope.opt.nama }} ({{ scope.opt.jabatan.jenis }}
+                  {{ scope.opt.komisi.komisi }})<br />
+                  Status :
+                  {{ scope.opt.flag_pegawai.nama }}<br />
+                  Alamat : {{ scope.opt.alamat }}
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
+        <q-input
+          v-model="store.biaya"
+          style="margin-bottom: 5px"
+          outlined
+          label="Biaya..."
+          disable
+          input-class="text-right"
+          :model-value="storebiaya.form.biaya"
+        />
+        <q-input
+          v-model="storetransheder.form.kuantitas"
+          type="number"
+          style="margin-bottom: 5px"
+          outlined
+          label="Kuantitas"
+        />
+      </q-card-section>
+
+      <q-separator />
+
+      <q-card-actions align="right">
+        <q-btn color="orange" label="SIMPAN" @click="store.simpantransaksi()" />
+      </q-card-actions>
+    </q-card>
+
+    <q-card v-if="storebiaya.paramsbiaya.jenisbiaya === 5" style="width: 100%">
+      <q-card-section class="row items-center q-pb-none">
+        <div class="text-h6">BIAYA TAKSI</div>
+        <q-space />
+        <q-btn icon="close" flat round dense v-close-popup />
+      </q-card-section>
+
+      <q-separator />
+
+      <q-card-section>
+        <q-select
+          v-model="store.nik"
+          style="margin-bottom: 5px"
+          outlined
+          :options="storedewan.items"
+          option-label="nama"
+          option-value="nik"
+          label="Anggota Dewan/Pendamping"
+          transition-show="scale"
+          transition-hide="scale"
+          clearable
+          use-input
+          @input-value="storedewan.init"
+          @update:model-value="caritingkatdangol"
+        >
+          <template #option="scope">
+            <q-item v-bind="scope.itemProps"
+              ><q-item-section avatar>
+                <q-item-label
+                  ><q-avatar
+                    v-if="scope.opt.jns_kelamin === 'P'"
+                    glossy
+                    size="40px"
+                    class="overlapping"
+                  >
+                    <img src="../../../../../assets/images/female.svg" />
+                  </q-avatar>
+                  <q-avatar v-else size="40px" class="overlapping" glossy
+                    ><img src="../../../../../assets/images/male.svg"
+                  /></q-avatar>
+                  NIK : {{ scope.opt.nik }} <br />
+                  Nama : {{ scope.opt.nama }} ({{ scope.opt.jabatan.jenis }}
+                  {{ scope.opt.komisi.komisi }})<br />
+                  Status :
+                  {{ scope.opt.flag_pegawai.nama }}<br />
+                  Alamat : {{ scope.opt.alamat }}
+                </q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
+        <q-input
+          v-model="store.biaya"
+          style="margin-bottom: 5px"
+          outlined
+          label="Biaya..."
+          disable
+          input-class="text-right"
+          :model-value="storebiaya.form.biaya"
+        />
+        <q-input
+          v-model="storetransheder.form.kuantitas"
+          type="number"
+          style="margin-bottom: 5px"
+          outlined
+          label="Kuantitas"
+        />
+      </q-card-section>
+
+      <q-separator />
+
+      <q-card-actions align="right">
+        <q-btn color="orange" label="SIMPAN" @click="store.simpantransaksi()" />
+      </q-card-actions>
+    </q-card>
   </q-dialog>
 </template>
 <script setup>
 // import { store } from "quasar/wrappers";
+import { notifErrmodip } from "src/boot/notify-defaults";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 import { useKotaKab } from "src/stores/master/kotakab";
 import { useGetBiaya } from "src/stores/transaksi/getbiaya";
@@ -174,10 +415,10 @@ const storedewan = useAnggotaDewanStore();
 
 const props = defineProps({
   id_propinsi: { type: Number },
+  id_jeniskendaraan: { type: Array, default: () => [] },
 });
 
 function caritingkatdangol(val) {
-  console.log("sasasasa", val);
   storebiaya.paramsbiaya.tingkatan = val?.tingkatan?.id;
   storebiaya.paramsbiaya.golongan = val?.golongan?.id;
   storebiaya.paramsbiaya.id_propinsi = props.id_propinsi;
@@ -189,6 +430,20 @@ function caritingkatdangol(val) {
     storebiaya.getuangSaku();
   } else if (storebiaya.paramsbiaya.jenisbiaya === 2) {
     storebiaya.getuangPenginapan();
+  }
+}
+
+function kirimkendaraan(val) {
+  console.log("idkota", store.form.id_kota);
+  if (store.form.id_propinsi === null || store.form.id_propinsi === "") {
+    notifErrmodip("Provinsi Harus Diisi...!!!");
+  } else if (store.form.id_kota === null || store.form.id_kota === "") {
+    notifErrmodip("Kota Harus Diisi...!!!");
+  } else {
+    storebiaya.paramsbiaya.kendaraan = val;
+    storebiaya.paramsbiaya.kota = store.form.id_kota;
+    // this.carijenisbiaya();
+    storebiaya.getTransport();
   }
 }
 </script>
