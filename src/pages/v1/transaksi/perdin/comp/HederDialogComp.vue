@@ -152,8 +152,6 @@
       </q-card-section>
     </q-card>
   </div>
-  id {{ store.form.id_kota }} nama {{ store.form.namakota }} <br />
-  id {{ store.form.id_propinsi }} nama {{ store.paramsbiaya.provinsi }}
 </template>
 
 <script setup>
