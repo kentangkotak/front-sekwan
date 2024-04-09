@@ -6,7 +6,8 @@
       LAPORAN PERTANGGUNGJAWABAN PENGELUARAN (SPJ)
     </div>
   </div>
-  <q-separator />
+  <br />
+  <!-- <q-separator /> -->
   <div class="row justify-center" style="margin-top: 30px">
     <q-markup-table separator="vertical" flat bordered dense wrap-cells>
       <thead width="50%">
@@ -18,7 +19,7 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{ transheder.form.tanggal }}</td>
+          <td>{{ transheder.form.tanggal }} {{ tglx }}</td>
           <td>{{ transheder.form.judul }}</td>
           <td>
             Rp.
@@ -36,24 +37,35 @@
     </q-markup-table>
   </div>
   <br />
-  <div class="row justify-center text-weight-bold">
-    <div class="col-8"></div>
-    <div class="col">Probolinggo, {{ tgl }} {{}} {{ bln }} {{ thn }}</div>
-  </div>
-  <div class="row justify-center text-weight-bold">
-    <div class="col justify-center" style="margin-left: 70px">Mengetauhi,</div>
-    <div class="col"></div>
-  </div>
-  <div class="row text-weight-bold">
-    <div class="col-9">Sekretaris DPRD Kota Probolinggo</div>
-    <div class="col justify-center">PPK Sekretariat DPRD</div>
-  </div>
-  <div class="row justify-center text-weight-bold">Kota Probolinggo</div>
-  <br />
-  <br />
-  <div class="row text-weight-bold">
-    <div class="col-9"><u> TEGUH BAGUS S., M.Pd </u></div>
-    <div class="col justify-center"><u>SUMARDI, S. Sos</u></div>
+  <div style="margin-left: 70px" class="q-mt-md">
+    <div class="row">
+      <div class="col"></div>
+      <div class="col text-weight-bold text-center">
+        Probolinggo, {{ tgl }} {{ bln }} {{ thn }}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col text-weight-bold text-center">Mengetauhi,</div>
+      <div class="col"></div>
+    </div>
+    <div class="row text-weight-bold">
+      <div class="col text-center">Sekretaris DPRD Kota Probolinggo</div>
+      <div class="col text-center">PPK Sekretariat DPRD</div>
+    </div>
+    <div class="row text-weight-bold">
+      <div class="col"></div>
+      <div class="col text-center">Kota Probolinggo</div>
+    </div>
+    <br />
+    <br />
+    <div class="row text-weight-bold">
+      <div class="col text-center">
+        <u> TEGUH BAGUS S., M.Pd </u>
+      </div>
+      <div class="col text-center">
+        <u>SUMARDI, S. Sos</u>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -84,10 +96,11 @@ const namabulan = [
 ];
 
 const tglnow = new Date();
-const tgl = tglnow.getDay();
+const tgl = tglnow.getDate();
+const tglx = tglnow.getDate() + parseInt(transheder.form.lama);
 const bln = namabulan[tglnow.getMonth()];
 const thn = tglnow.getFullYear();
-console.log("The current month is " + namabulan[tglnow.getMonth()]);
+console.log("The current month is ", tglnow);
 
 // var month_name = function (dt) {
 //   // Define an array containing names of months
