@@ -2,7 +2,7 @@
   <table>
     <thead width="100%">
       <tr>
-        <th width="5%">AVATAR</th>
+        <th>AVATAR</th>
         <th>IDENTITAS</th>
         <th>JABATAN</th>
         <th>GOLONGAN</th>
@@ -14,7 +14,7 @@
     <tbody>
       <template v-if="store.loading">
         <tr v-for="n in store.params.per_page" :key="n">
-          <td width="5%">
+          <td>
             <q-skeleton type="text" width="20px" height="14px" />
           </td>
           <td>
@@ -57,12 +57,12 @@
                 <q-img
                   v-if="item?.jns_kelamin === 'P'"
                   src="../../../../assets/images/female.svg"
-                  class="q-mx-lg q-my-none"
+                  class="q-pa-sm q-gutter-sm"
                 />
                 <q-img
                   v-else
                   src="../../../../assets/images/male.svg"
-                  class="q-mx-lg q-my-none"
+                  class="q-pa-sm q-gutter-sm"
                 />
               </div>
             </td>
