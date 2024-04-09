@@ -35,8 +35,25 @@
       </tbody>
     </q-markup-table>
   </div>
-  <div class="row justify-end" style="margin-right: 200px">
-    Probolinggo, {{ Date.now() }}
+  <br />
+  <div class="row justify-center text-weight-bold">
+    <div class="col-8"></div>
+    <div class="col">Probolinggo, {{ tgl }} {{}} {{ bln }} {{ thn }}</div>
+  </div>
+  <div class="row justify-center text-weight-bold">
+    <div class="col justify-center" style="margin-left: 70px">Mengetauhi,</div>
+    <div class="col"></div>
+  </div>
+  <div class="row text-weight-bold">
+    <div class="col-9">Sekretaris DPRD Kota Probolinggo</div>
+    <div class="col justify-center">PPK Sekretariat DPRD</div>
+  </div>
+  <div class="row justify-center text-weight-bold">Kota Probolinggo</div>
+  <br />
+  <br />
+  <div class="row text-weight-bold">
+    <div class="col-9"><u> TEGUH BAGUS S., M.Pd </u></div>
+    <div class="col justify-center"><u>SUMARDI, S. Sos</u></div>
   </div>
 </template>
 
@@ -51,24 +68,46 @@ const rupiah = (number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };
 
-// const namabulan = function (dt) {
-//   mlist = [
-//     "Januari",
-//     "Februari",
-//     "Maret",
+const namabulan = [
+  "Januari",
+  "Febru",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const tglnow = new Date();
+const tgl = tglnow.getDay();
+const bln = namabulan[tglnow.getMonth()];
+const thn = tglnow.getFullYear();
+console.log("The current month is " + namabulan[tglnow.getMonth()]);
+
+// var month_name = function (dt) {
+//   // Define an array containing names of months
+//   const mlist = [
+//     "January",
+//     "February",
+//     "March",
 //     "April",
-//     "Mei",
-//     "Juni",
-//     "Juli",
-//     "Augustus",
+//     "May",
+//     "June",
+//     "July",
+//     "August",
 //     "September",
 //     "October",
 //     "November",
-//     "Desember",
+//     "December",
 //   ];
+//   // Return the name of the month corresponding to the month index of the provided date
 //   return mlist[dt.getMonth()];
 // };
-
 onMounted(() => {
   storerinci.getDataTransRinciall();
 });

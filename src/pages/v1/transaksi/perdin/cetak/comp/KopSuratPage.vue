@@ -11,12 +11,12 @@
     </div>
     <div class="col-8">
       <div class="row justify-center">
-        <div class="text-weight-bold" style="font-size: 2em">
+        <div class="text-weight-bold" style="font-size: 18px">
           PEMERINTAH KOTA PROBOLINGGO
         </div>
       </div>
       <div class="row justify-center">
-        <div class="text-weight-bold" style="font-size: 2em">
+        <div class="text-weight-bold" style="font-size: 18px">
           SEKRETARIAT DEWAN PERWAKILAN RAKYAT DAERAH
         </div>
       </div>
