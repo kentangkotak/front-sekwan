@@ -8,18 +8,29 @@
     <q-card class="bg-white">
       <div class="row justify-end">
         <q-space />
-        <q-btn unelevated round size="sm" icon="print">
-          <q-tooltip class="primary" :offset="[10, 10]"> Print </q-tooltip>
+        <q-btn
+          unelevated
+          round
+          size="sm"
+          icon="print"
+          ref="refPrint"
+          v-print="printObj"
+        >
+          <q-tooltip class="primary"> Print </q-tooltip>
         </q-btn>
         <q-btn color="black" dense flat icon="close" v-close-popup>
-          <q-tooltip class="bg-white text-black">Close</q-tooltip>
+          <q-tooltip class="primary">Close</q-tooltip>
         </q-btn>
       </div>
       <q-separator />
-
-      <KopSuratPage />
-      <div v-if="modelcetak === 1">
-        <ModelSatuPage />
+      <div id="printMe" class="full-width">
+        <KopSuratPage />
+        <div v-if="modelcetak === 1">
+          <ModelSatuPage />
+        </div>
+        <div v-if="modelcetak === 2">
+          <ModelDuaPage />
+        </div>
       </div>
     </q-card>
   </q-dialog>
@@ -41,4 +52,9 @@ const props = defineProps({
   modelcetak: { type: Number },
   maximized: { type: Boolean },
 });
+
+const printObj = {
+  id: "printMe",
+  popTitle: "Sekretariat DPRD Kota Probolinggo",
+};
 </script>

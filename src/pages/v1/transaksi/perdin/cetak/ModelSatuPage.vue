@@ -12,14 +12,18 @@
     <q-markup-table separator="vertical" flat bordered dense wrap-cells>
       <thead width="50%">
         <tr>
-          <th>Tanggal</th>
+          <th width="20%">Tanggal</th>
           <th>Uraian</th>
-          <th>Jumlah</th>
+          <th width="20%">Jumlah</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td>{{ transheder.form.tanggal }} {{ tglx }}</td>
+          <td>
+            {{ tgl }} {{ bln }} {{ thn }} <br />
+            Sampai Dengan <br />
+            {{ tglx }} {{ blnx }} {{ thnx }}
+          </td>
           <td>{{ transheder.form.judul }}</td>
           <td>
             Rp.
@@ -70,6 +74,7 @@
 </template>
 
 <script setup>
+import { store } from "quasar/wrappers";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
 import { useTranskRinci } from "src/stores/transaksi/transrinci";
 import { onMounted } from "vue";
@@ -97,9 +102,16 @@ const namabulan = [
 
 const tglnow = new Date();
 const tgl = tglnow.getDate();
-const tglx = tglnow.getDate() + parseInt(transheder.form.lama);
 const bln = namabulan[tglnow.getMonth()];
 const thn = tglnow.getFullYear();
+
+const tglnowx = new Date(
+  new Date().getTime() + transheder.form.lamaperdin * 24 * 60 * 60 * 1000
+);
+
+const tglx = tglnowx.getDate();
+const blnx = namabulan[tglnowx.getMonth()];
+const thnx = tglnowx.getFullYear();
 console.log("The current month is ", tglnow);
 
 // var month_name = function (dt) {

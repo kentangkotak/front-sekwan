@@ -4,7 +4,7 @@
   >
     <div class="col-2">
       <q-img
-        src="/src/assets/images/logo-kota-grey.png"
+        src="../../../../../../assets/images/logo-kota-grey.png"
         spinner-color="white"
         style="height: 2cm; max-width: 1.6cm"
       />
