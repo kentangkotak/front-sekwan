@@ -42,7 +42,7 @@
         :permen="storepermen.items"
         :maxx="maximizedToggle"
       />
-      <TotalTransPage />
+      <TotalTransPage :jenistransaksi="storejenistrans.items" />
       <JenisBiayaPage :jenistransaksi="storejenistrans.items" />
 
       <!-- <GridTransComp /> -->

@@ -34,9 +34,7 @@ const transheder = usePerdinStore();
 const storerinci = useTranskRinci();
 const wew = ref(1);
 
-const props = defineProps({
-  jenistransaksi: { type: Object },
-});
+const props = defineProps({});
 const jenistransaksix = props.jenistransaksi.map((x) => ({
   label: x.name,
   value: x.id,

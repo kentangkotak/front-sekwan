@@ -29,7 +29,7 @@
           <ModelSatuPage />
         </div>
         <div v-if="modelcetak === 2">
-          <ModelDuaPage />
+          <ModelDuaPage :jenistransaksi="jenistransaksi" />
         </div>
       </div>
     </q-card>
@@ -51,6 +51,7 @@ const maximizedToggle = ref(true);
 const props = defineProps({
   modelcetak: { type: Number },
   maximized: { type: Boolean },
+  jenistransaksi: { type: Object },
 });
 
 const printObj = {

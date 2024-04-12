@@ -44,7 +44,11 @@
       :id_jeniskendaraan="storejeniskendaraan.items"
       :pesawat="storepesawat.items"
     />
-    <cetak-page v-model="dialogcetak" :modelcetak="modelcetak" />
+    <cetak-page
+      v-model="dialogcetak"
+      :modelcetak="modelcetak"
+      :jenistransaksi="jenistransaksi"
+    />
   </div>
 </template>
 <script setup>
@@ -65,6 +69,10 @@ const storejeniskendaraan = useJenisKendaraan();
 const storepesawat = usePesawatstore();
 
 const modelcetak = ref();
+
+const props = defineProps({
+  jenistransaksi: { type: Object },
+});
 
 const dialogcetak = ref(false);
 const rupiah = (number) => {

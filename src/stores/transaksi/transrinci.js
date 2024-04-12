@@ -5,8 +5,10 @@ import { notifSuccess } from "src/boot/notify-defaults";
 export const useTranskRinci = defineStore("transaksi_rinci", {
   state: () => ({
     items: [],
+    itemsall: [],
     item: {},
     totalall: [],
+    totalanggota: [],
     loading: false,
     subtotal: 0,
     total_biaya: 0,
@@ -51,8 +53,9 @@ export const useTranskRinci = defineStore("transaksi_rinci", {
           this.loading = false;
           if (resp.status === 200) {
             //this.meta = resp.data;
-
             this.totalall = resp?.data;
+            this.itemsall = resp?.data;
+            this.totalanggota = Object.groupBy(this.itemsall, ({ nik }) => nik);
           }
         })
         .catch((err) => {
