@@ -36,7 +36,7 @@
                 trans[0]?.jenis_biaya === transx?.jenis_biaya
               "
             >
-              {{ (xxx = transx.find((s) => s.jenis_biaya === "1")) }}
+              <!-- {{ (xxx = transx.find((s) => s.jenis_biaya === "1")) }} -->
             </td>
           </div>
           <!-- <div>
