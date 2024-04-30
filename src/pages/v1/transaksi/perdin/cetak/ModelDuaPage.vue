@@ -27,18 +27,23 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(trans, n) in namaanggota" :key="n">
-          <td>{{ trans[0]?.dewan[0]?.nama }}</td>
-          <div v-for="(transx, x) in transrinci.itemsall" :key="x">
-            <td
-              v-if="
-                trans[0]?.nik === transx?.nik &&
-                trans[0]?.jenis_biaya === transx?.jenis_biaya
-              "
-            >
-              <!-- {{ (xxx = transx.find((s) => s.jenis_biaya === "1")) }} -->
-            </td>
-          </div>
+        <tr v-for="(trans, n) in datamateng" :key="n">
+          <td>{{ trans?.dewan?.dewan[0]?.nama }}</td>
+          <td style="text-align: right">
+            Rp. {{ rupiah(parseInt(trans?.biaya1?.total_biaya ?? 0)) }}
+          </td>
+          <td style="text-align: right">
+            Rp. {{ rupiah(parseInt(trans?.biaya2?.total_biaya ?? 0)) }}
+          </td>
+          <td style="text-align: right">
+            Rp. {{ rupiah(parseInt(trans?.biaya3?.total_biaya ?? 0)) }}
+          </td>
+          <td style="text-align: right">
+            Rp. {{ rupiah(parseInt(trans?.biaya4?.total_biaya ?? 0)) }}
+          </td>
+          <td style="text-align: right">
+            Rp. {{ rupiah(parseInt(trans?.biaya5?.total_biaya ?? 0)) }}
+          </td>
           <!-- <div>
             <td v-for="(transx, x) in namaanggota?.jenis_biaya" :key="x">
               {{ transx }}
@@ -77,9 +82,48 @@ const xxx = ref();
 const transheder = usePerdinStore();
 const transrinci = useTranskRinci();
 
+const datamateng = [];
+const datamentah = transrinci.itemsall;
+const niks = datamentah.map((x) => x.nik);
+const filteredNik = niks.filter((value, index, wew) => {
+  return wew.indexOf(value) === index;
+});
+
+const rupiah = (number) => {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+};
+
+if (filteredNik.length) {
+  filteredNik.forEach((nik) => {
+    const temp = {
+      dewan: datamentah.find((f) => f.nik === nik) ?? {},
+      biaya1:
+        datamentah.find((f) => f.nik === nik && f.jenis_biaya === "1") ?? 0,
+      biaya2:
+        datamentah.find((f) => f.nik === nik && f.jenis_biaya === "2") ?? 0,
+      biaya3:
+        datamentah.find((f) => f.nik === nik && f.jenis_biaya === "3") ?? 0,
+      biaya4:
+        datamentah.find((f) => f.nik === nik && f.jenis_biaya === "4") ?? 0,
+      biaya5:
+        datamentah.find((f) => f.nik === nik && f.jenis_biaya === "5") ?? 0,
+    };
+    datamateng.push(temp);
+    console.log("datamateng", datamateng);
+  });
+}
+console.log("nik", datamentah);
+
 const i = 1;
 const namaanggota = Object.groupBy(transrinci.itemsall, ({ nik }) => nik);
-// console.log("xx", xxx);
+// const nik = Object.keys(namaanggota);
+// console.log("nik", nik);
+
+// const wew1 = transrinci.items.filter(
+//   nik.forEach((element) => {
+//     (x) => x.jenis_biaya === "1" && x.nik === nik;
+//   })
+// );
 
 const namabulan = [
   "Januari",
