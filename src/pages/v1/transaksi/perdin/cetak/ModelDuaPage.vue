@@ -109,13 +109,13 @@ if (filteredNik.length) {
         datamentah.find((f) => f.nik === nik && f.jenis_biaya === "5") ?? 0,
     };
     datamateng.push(temp);
-    console.log("datamateng", datamateng);
+    // console.log("datamateng", datamateng);
   });
 }
-console.log("nik", datamentah);
+// console.log("nik", datamentah);
 
-const i = 1;
-const namaanggota = Object.groupBy(transrinci.itemsall, ({ nik }) => nik);
+// const i = 1;
+// const namaanggota = Object.groupBy(transrinci.itemsall, ({ nik }) => nik);
 // const nik = Object.keys(namaanggota);
 // console.log("nik", nik);
 

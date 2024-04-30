@@ -74,7 +74,6 @@
 </template>
 
 <script setup>
-import { store } from "quasar/wrappers";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
 import { useTranskRinci } from "src/stores/transaksi/transrinci";
 import { onMounted } from "vue";
@@ -87,17 +86,17 @@ const rupiah = (number) => {
 
 const namabulan = [
   "Januari",
-  "Febru",
-  "March",
+  "Februari",
+  "Maret",
   "April",
-  "May",
-  "June",
-  "July",
-  "August",
+  "Mei",
+  "Juni",
+  "Juli",
+  "Augustus",
   "September",
-  "October",
+  "Oktober",
   "November",
-  "December",
+  "Desember",
 ];
 
 const tglnow = new Date();
