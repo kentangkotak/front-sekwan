@@ -2,9 +2,15 @@ const routes = [
   {
     path: "/login",
     meta: { requireAuth: false },
-    component: () => import("../layouts/v1/utama/FormLogin.vue"),
+    component: () => import("../layouts/v1/login/FormLogin.vue"),
     children: [{ path: "", component: () => import("pages/IndexPage.vue") }],
   },
+  // {
+  //   path: "/login",
+  //   meta: { requireAuth: false },
+  //   component: () => import("../layouts/v1/utama/FormLogin.vue"),
+  //   children: [{ path: "", component: () => import("pages/IndexPage.vue") }],
+  // },
   {
     path: "/",
     meta: { requireAuth: true },
