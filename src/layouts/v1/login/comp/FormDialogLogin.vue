@@ -3,10 +3,28 @@
     <div class="screen">
       <div class="screen__content">
         <q-form ref="myForm" class="login" @submit="onSubmit">
-          <label style="color: indigo">
-            Selamat Datang di.... <br />
-            <b>Sekretariat Dewan Kota Probolinggo</b>
-          </label>
+          <!-- <q-img
+            src="public/icons/sekwan.png"
+            style="height: 100px; max-width: 100px"
+            :ratio="1"
+            class="items-center"
+          /> -->
+          <div class="column items-center text-bold">
+            <div style="color: orangered; font-size: x-large">
+              <em>SEKRETARIAT DEWAN</em>
+            </div>
+          </div>
+          <div class="column items-center text-bold">
+            <div style="color: orangered; font-size: x-large">
+              <em>KOTA PROBOLINGGO</em>
+            </div>
+          </div>
+          <!-- <label style="color: white; font-size: large">
+            <b
+              >Sekretariat Dewan Kota <br />
+              Probolinggo</b
+            >
+          </label> -->
           <div class="login__field">
             <!-- <q-icon name="person" /> -->
             <q-input
@@ -47,11 +65,7 @@
           />
         </q-form>
       </div>
-      <div class="screen__background">
-        <span
-          class="screen__background__shape screen__background__shape1"
-        ></span>
-      </div>
+      <div class="screen__background"></div>
     </div>
   </div>
 </template>
@@ -116,18 +130,19 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  min-height: 110vh;
 }
 
 .screen {
   background: linear-gradient(90deg, #5d54a4, #7c78b8);
   position: relative;
-  height: 600px;
+  height: 500px;
   width: 360px;
   box-shadow: 0px 0px 24px #5c5696;
 }
 
 .screen__content {
+  margin-top: -100px;
   z-index: 1;
   position: relative;
   height: 100%;
