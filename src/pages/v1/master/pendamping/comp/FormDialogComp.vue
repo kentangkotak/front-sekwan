@@ -104,7 +104,7 @@
           label="SIMPAN"
           class="bg-orange"
           :loading="store.loading"
-          @click="store.editdewan"
+          @click="store.simpanpedamping"
         />
         <q-btn
           v-else

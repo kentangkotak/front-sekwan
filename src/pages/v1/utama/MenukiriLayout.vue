@@ -83,7 +83,7 @@
                   PERJALANAN DINAS
                 </q-item-section>
               </q-item>
-              <q-item
+              <!-- <q-item
                 v-ripple
                 clickable
                 active-class="my-menu-link"
@@ -94,8 +94,8 @@
                   <q-icon name="work_outline" />
                 </q-item-section>
                 <q-item-section class="text-bold"> KOMISI </q-item-section>
-              </q-item>
-              <q-item
+              </q-item> -->
+              <!-- <q-item
                 v-ripple
                 clickable
                 active-class="my-menu-link"
@@ -108,7 +108,7 @@
                 <q-item-section class="text-bold">
                   ANGGOTA DEWAN
                 </q-item-section>
-              </q-item>
+              </q-item> -->
             </q-list>
           </q-expansion-item>
         </q-list>
