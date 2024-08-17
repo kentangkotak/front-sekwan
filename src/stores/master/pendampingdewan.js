@@ -17,6 +17,7 @@ export const usePendampingDewanStore = defineStore("master_pedamping_dewan", {
     form: {
       id_flag_pegawai: "2",
       id_komisi: null,
+      id_jabatan: "3",
       komisi_id: "1",
     },
     payloadx: {

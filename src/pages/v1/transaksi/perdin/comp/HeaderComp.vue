@@ -90,7 +90,7 @@
       </div>
     </div>
   </div>
-  <formDialog v-model="dialogformtrans" />
+  <formDialog v-model="dialogformtrans" :komisix="props.komisix" />
 </template>
 <script setup>
 import { usePermenStore } from "src/stores/master/permen50";
@@ -116,6 +116,7 @@ const props = defineProps({
   adaRefresh: { type: Boolean, default: false },
   useFull: { type: Boolean, default: false },
   perPage: { type: Number, default: 5 },
+  komisix: { type: Array, default: () => [] },
 });
 
 const store = usePerdinStore();
@@ -142,16 +143,17 @@ const selectPerPage = computed({
 
 function formDialogTransaksi() {
   dialogformtrans.value = true;
+
   store.disabled = false;
-  store.form.id_jenistransaksi = 1;
+  store.form.id_jenistransaksi = "1";
   store.form.id = "";
   storerinci.params.id = "";
   store.form.notrans = "";
-  store.form.lamaperdin = 1;
+  store.form.lamaperdin = "1";
   store.form.judul = "";
   store.form.koderekekning = "";
   storepermen.kode = "";
-  store.form.ko;
+  //store.form.ko;
   store.form.id_propinsi = null;
   store.form.id_kota = "";
 }

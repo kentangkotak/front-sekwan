@@ -17,11 +17,12 @@
         @refresh="store.refresh"
         @set-per-page="store.setPerPage"
         :komisi="komisiStore.items"
+        :golongan="storegolongan.items"
       />
     </div>
 
     <q-card flat no-shadow square class="my-flex-1 scroll">
-      <ListPage :komisi="komisiStore.items" />
+      <ListPage :komisi="komisiStore.items" :golongan="storegolongan.items" />
 
       <div
         v-if="Object.keys(store.meta).length"
@@ -44,6 +45,8 @@ import { useStyledStore } from "src/stores/app/styled";
 import ListPage from "src/pages/v1/master/pendamping/comp/ListPageComp.vue";
 import HeaderComp from "src/pages/v1/master/pendamping/comp/HeaderComp.vue";
 import BottomComp from "src/pages/v1/master/pendamping/comp/BottomComp.vue";
+import { useGolonganStore } from "src/stores/master/golongan";
+import { onMounted } from "vue";
 
 //const HeaderComp = defineAsyncComponent(() => import("./comp/HeaderComp.vue"));
 //const ListPage = defineAsyncComponent(() => import("./comp/ListPageComp.vue"));
@@ -52,9 +55,13 @@ import BottomComp from "src/pages/v1/master/pendamping/comp/BottomComp.vue";
 const komisiStore = useKomisiStore();
 
 const store = usePendampingDewanStore();
+const storegolongan = useGolonganStore();
 
 const style = useStyledStore();
 
-store.getData();
-komisiStore.getData();
+onMounted(() => {
+  storegolongan.getData();
+  store.getData();
+  komisiStore.getData();
+});
 </script>

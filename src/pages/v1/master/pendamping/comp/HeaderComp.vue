@@ -106,7 +106,7 @@
       </div>
     </div>
   </div>
-  <formDialog v-model="dialog" :komisi="komisi" />
+  <formDialog v-model="dialog" :komisi="komisi" :golongan="golongan" />
 </template>
 <script setup>
 import { computed, defineAsyncComponent, ref } from "vue";
@@ -137,6 +137,7 @@ const props = defineProps({
   perPage: { type: Number, default: 5 },
   // jabatan: { type: Array, default: () => [] },
   komisi: { type: Array, default: () => [] },
+  golongan: { type: Array, default: () => [] },
 });
 
 const store = usePendampingDewanStore();

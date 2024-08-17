@@ -9,6 +9,7 @@
   >
     <div class="heder" style="margin-top: 5px">
       <HeaderComp
+        :komisix="komisi.items"
         ada-per-page
         ada-refresh
         use-full
@@ -19,7 +20,7 @@
       />
     </div>
     <q-card flat no-shadow square class="my-flex-1 scroll">
-      <ListPage />
+      <ListPage :komisix="komisi.items" />
 
       <div
         v-if="Object.keys(store.metaperdin).length"
@@ -40,6 +41,7 @@ import { useStyledStore } from "src/stores/app/styled";
 import { defineAsyncComponent, onMounted } from "vue";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
 import { useTranskRinci } from "src/stores/transaksi/transrinci";
+import { useKomisiStore } from "src/stores/master/komisi";
 
 const style = useStyledStore();
 const HeaderComp = defineAsyncComponent(() => import("./comp/HeaderComp.vue"));
@@ -47,6 +49,7 @@ const ListPage = defineAsyncComponent(() => import("./comp/ListPage.vue"));
 const BottomComp = defineAsyncComponent(() => import("./comp/BottomPage.vue"));
 const store = usePerdinStore();
 const storrinci = useTranskRinci();
+const komisi = useKomisiStore();
 
 onMounted(() => {
   // store.total = storrinci.totalall.reduce(
@@ -55,5 +58,6 @@ onMounted(() => {
   // );
   // console.log("reduce", store.total);
   store.gethedertransaksi();
+  komisi.init();
 });
 </script>

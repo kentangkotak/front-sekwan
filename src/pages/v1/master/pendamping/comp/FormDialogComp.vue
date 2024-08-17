@@ -95,6 +95,17 @@
               map-options
             />
           </div>
+          <div>
+            <q-select
+              v-model="store.form.golongan_id"
+              :options="golongan"
+              label="Golongan"
+              option-label="name"
+              option-value="id"
+              emit-value
+              map-options
+            />
+          </div>
         </q-card-section>
       </div>
       <q-card-actions>
@@ -104,7 +115,7 @@
           label="SIMPAN"
           class="bg-orange"
           :loading="store.loading"
-          @click="store.editdewan"
+          @click="store.simpanpedamping"
         />
         <q-btn
           v-else
@@ -136,6 +147,7 @@ const maximizedToggle = ref(true);
 const store = usePendampingDewanStore();
 const props = defineProps({
   komisi: { type: Array, default: () => [] },
+  golongan: { type: Array, default: () => [] },
 });
 
 // watchEffect(() => {

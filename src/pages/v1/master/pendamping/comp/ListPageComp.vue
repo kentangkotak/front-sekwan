@@ -47,12 +47,7 @@
           <tr :class="item?.flag === '1' ? 'bg-light-blue-2' : ''">
             <!-- <td width="5%">{{ n + 1 }}.</td> -->
             <td>
-              <q-avatar
-                v-if="item?.jns_kelamin === 'P'"
-                glossy
-                size="40px"
-                class="overlapping"
-              >
+              <q-avatar v-if="item?.jns_kelamin === 'P'" class="overlapping">
                 <q-img src="../../../../../assets/images/female.svg" />
               </q-avatar>
               <q-avatar v-else size="40px" class="overlapping" glossy
@@ -106,7 +101,7 @@
         </template>
       </template>
     </tbody>
-    <formDialog v-model="dialog" :komisi="komisi" />
+    <formDialog v-model="dialog" :komisi="komisi" :golongan="golongan" />
   </table>
 </template>
 
@@ -156,6 +151,7 @@ function getstatusmu(val) {
 const props = defineProps({
   // jabatan: { type: Array, default: () => [] },
   komisi: { type: Array, default: () => [] },
+  golongan: { type: Array, default: () => [] },
 });
 </script>
 

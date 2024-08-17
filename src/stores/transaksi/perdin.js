@@ -45,8 +45,10 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     form: {
       id: null,
       notrans: null,
-      tanggal: Date.now(),
+      tanggal: "",
+      tanggalsampai: "",
       id_kota: null,
+      id_kotax: null,
       namakota: null,
       id_jenistransaksi: "",
       tingkatan: null,
@@ -64,12 +66,14 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       total_biaya: null,
       jabatan: "",
       nik: "",
+      komisi: "",
     },
     itemsrincian: [],
     jabatan: {},
     payloadx: {
       id: null,
     },
+    // tanggal: Date.now(),
   }),
   actions: {
     initpropinsi() {
@@ -327,6 +331,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     formattanggal() {
       const sekarang = Date.now();
       this.form.tanggal = date.formatDate(sekarang, "YYYY-MM-DD");
+      this.form.tanggalsampai = date.formatDate(sekarang, "YYYY-MM-DD");
     },
     simpantransaksi() {
       this.form.total_biaya = this.form.biaya * this.form.kuantitas;

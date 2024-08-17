@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-md row items-start q-gutter-md">
+  <div class="q-pa-md row items-start q-gutter-md" ref="refhederdialog">
     <q-card flat bordered class="my-card" style="width: 100%">
       <q-card-section style="margin-bottom: 10px; margin-top: 10px">
         <div v-if="maxx === true" class="text-h4 absolute-center">
@@ -23,13 +23,14 @@
           disable
         />
         <q-input
+          ref="reftanggal"
           outlined
           v-model="store.form.tanggal"
-          label="Tanggal"
+          label="Tanggal Berangkat"
           style="margin-right: 5px; width: 25%"
           :disable="store.disabled"
         >
-          <template v-slot:append>
+          <template v-slot:prepend>
             <q-icon name="event" class="cursor-pointer">
               <q-popup-proxy
                 cover
@@ -45,16 +46,33 @@
             </q-icon>
           </template>
         </q-input>
-        <q-input
-          v-model="store.form.lamaperdin"
-          style="margin-right: 5px; width: 25%"
-          outlined
-          label="Lama PerDin"
-          type="number"
-          :disable="store.disabled"
-        />
 
         <q-input
+          outlined
+          v-model="store.form.tanggalsampai"
+          label="Tanggal Sampai"
+          style="margin-right: 5px; width: 25%"
+          :disable="store.disabled"
+        >
+          <template v-slot:prepend>
+            <q-icon name="event" class="cursor-pointer">
+              <q-popup-proxy
+                cover
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <q-date v-model="store.form.tanggalsampai" mask="YYYY-MM-DD">
+                  <div class="row items-center justify-end">
+                    <q-btn v-close-popup label="Close" color="primary" flat />
+                  </div>
+                </q-date>
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </q-input>
+
+        <q-input
+          ref="refjudul"
           v-model="store.form.judul"
           style="margin-right: 5px; width: 25%"
           outlined
@@ -62,20 +80,28 @@
           :disable="store.disabled"
         />
       </q-card-section>
-
-      <q-card-section
-        horizontal
-        style="margin-top: 10px; margin-left: 5px; margin-bottom: 10px"
-      >
-        <q-input
+      <q-card-section horizontal style="margin-left: 5px; margin-bottom: 10px">
+        <q-select
+          ref="refkomisi"
+          v-model="store.form.komisi"
+          label="Komisi"
+          outlined
+          style="margin-right: 5px; width: 25%"
+          :options="props.komisix"
+          option-label="komisi"
+          option-value="id"
+          emit-value
+          map-options
+        />
+        <!-- <q-input
           v-model="store.form.koderekekning"
           style="margin-right: 5px; width: 25%"
           outlined
           disable
           label="Kode Rekening 50"
-        />
+        /> -->
 
-        <q-select
+        <!-- <q-select
           v-model="storepermen.kode"
           :options="storepermen.items"
           option-label="uraian"
@@ -102,7 +128,7 @@
               </q-item-section>
             </q-item>
           </template>
-        </q-select>
+        </q-select> -->
 
         <q-select
           v-model="store.form.id_propinsi"
@@ -143,6 +169,23 @@
           transition-hide="scale"
           :disable="store.disabled"
           label="Tujuan Kota"
+          clearable
+        />
+
+        <q-select
+          v-model="store.form.id_kotax"
+          style="margin-right: 5px; width: 25%"
+          :options="storekotakab.items"
+          option-label="name"
+          option-value="id"
+          outlined
+          emit-value
+          map-options
+          transition-show="scale"
+          transition-hide="scale"
+          :disable="store.disabled"
+          label="Tujuan Kota"
+          clearable
         />
       </q-card-section>
     </q-card>
@@ -167,6 +210,7 @@ const scopex = ref();
 
 const props = defineProps({
   propinsi: { type: Array, default: () => [] },
+  komisix: { type: Array, default: () => [] },
   // kota: { type: Array, default: () => [] },
   permen: { type: Array, default: () => [] },
   maxx: { type: Boolean },

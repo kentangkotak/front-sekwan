@@ -83,16 +83,18 @@ function formrinci(val) {
   if (storeheder.form.tanggal === "" || storeheder.form.tanggal === null) {
     notifErrmodip("Tanggal Tidak Boleh Kosong...!!!");
   } else if (
-    parseInt(storeheder.form.lamaperdin) < 1 ||
-    storebiaya.form.lamaperdin === "" ||
-    storebiaya.form.lamaperdin === null
+    storeheder.form.tanggalsampai === "" ||
+    storeheder.form.tanggalsampai === null
   ) {
-    notifErrmodip("Lama Perdin Salah...!!!");
-  } else if (
-    storeheder.form.koderekekning === null ||
-    storeheder.form.koderekekning === ""
-  ) {
-    notifErrmodip("Kode Rekening Tidak Boleh Kosong...!!!");
+    notifErrmodip("Tanggal Sampai Tidak Boleh Kosong...!!!");
+  } else if (storeheder.form.tanggalsampai < storeheder.form.tanggal) {
+    notifErrmodip(
+      "Tanggal Sampai Lebih Kecil Daripada Tanggal Berangkat....!!!"
+    );
+  } else if (storeheder.form.judul === "" || storeheder.form.judul === null) {
+    notifErrmodip("Judul Tidak Boleh Kosong...!!!");
+  } else if (storeheder.form.komisi === "" || storeheder.form.komisi === null) {
+    notifErrmodip("Komisi Tidak Boleh Kosong...!!!");
   } else if (
     storeheder.form.id_propinsi === null ||
     storeheder.form.id_propinsi === ""

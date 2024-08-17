@@ -167,7 +167,7 @@ function getstatusmu(val) {
 
 const props = defineProps({
   jabatan: { type: Array, default: () => [] },
-  komisi: { type: Array, default: () => [] },
+  komisix: { type: Array, default: () => [] },
   golongan: { type: Array, default: () => [] },
   tingkatan: { type: Array, default: () => [] },
 });

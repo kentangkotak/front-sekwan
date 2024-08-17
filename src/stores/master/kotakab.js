@@ -51,16 +51,13 @@ export const useKotaKab = defineStore("master_kotakab", {
         });
     },
     kirimpropinsix(val) {
-      console.log("sa", val);
+      const storetrans = usePerdinStore();
+      storetrans.form.id_kota = "";
+      storetrans.form.id_kotax = "";
+
       if (val !== null) {
         this.params.id_propinsi = val;
         //store.form.id_kota = storekotakab.items[0];
-      } else {
-        // store.namakota = "-";
-        // store.form.id_kota = "";
-        this.params.id_propinsi = "";
-        // store.form.nik = "";
-        // store.form.biaya = 0;
       }
       this.init();
     },

@@ -41,6 +41,7 @@
         :propinsi="strorepropinsi.items"
         :permen="storepermen.items"
         :maxx="maximizedToggle"
+        :komisix="props.komisix"
       />
       <TotalTransPage :jenistransaksi="storejenistrans.items" />
       <JenisBiayaPage :jenistransaksi="storejenistrans.items" />
@@ -82,6 +83,10 @@ import JenisBiayaPage from "./JenisBiayaPage.vue";
 import { useKotaKab } from "src/stores/master/kotakab";
 //import { useQuasar } from "quasar";
 //import { store } from "quasar/wrappers";
+
+const props = defineProps({
+  komisix: { type: Array, default: () => [] },
+});
 
 const maximizedToggle = ref(true);
 const storejenistrans = useJenisTransaksi();

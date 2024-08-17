@@ -106,7 +106,7 @@
               map-options
             />
           </div>
-          <div>
+          <!-- <div>
             <q-select
               v-model="penyimpanan.form.golongan_id"
               :options="golongan"
@@ -116,8 +116,8 @@
               emit-value
               map-options
             />
-          </div>
-          <div>
+          </div> -->
+          <!-- <div>
             <q-select
               v-model="penyimpanan.form.tingkatan_id"
               :options="tingkatan"
@@ -127,7 +127,7 @@
               emit-value
               map-options
             />
-          </div>
+          </div> -->
         </q-card-section>
       </div>
       <q-card-actions>
