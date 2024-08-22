@@ -337,8 +337,8 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       this.form.total_biaya = this.form.biaya * this.form.kuantitas;
       if (this.form.judul === "") {
         notifErrmodip("Judul Harus Di Isi ...!!!");
-      } else if (this.form.koderekekning === "") {
-        notifErrmodip("Kode Rekening Harus Di Isi ...!!!");
+        // } else if (this.form.koderekekning === "") {
+        //   notifErrmodip("Kode Rekening Harus Di Isi ...!!!");
       } else {
         const wew = Object.keys(this.form);
         wew.forEach((sasa) => {

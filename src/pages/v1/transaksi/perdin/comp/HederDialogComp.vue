@@ -92,6 +92,7 @@
           option-value="id"
           emit-value
           map-options
+          @update:model-value="(val) => storedewan.gantikomisi(val)"
         />
         <!-- <q-input
           v-model="store.form.koderekekning"
@@ -195,6 +196,7 @@
 <script setup>
 // import { max } from "moment";
 import { notifErrmodip } from "src/boot/notify-defaults";
+import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 import { useKotaKab } from "src/stores/master/kotakab";
 import { usePermenStore } from "src/stores/master/permen50";
 import { usePropinsi } from "src/stores/master/propinsi";
@@ -204,6 +206,7 @@ import { onBeforeMount, ref } from "vue";
 const store = usePerdinStore();
 const storepermen = usePermenStore();
 const storepropinsi = usePropinsi();
+const storedewan = useAnggotaDewanStore();
 
 const scope = ref();
 const scopex = ref();
@@ -252,6 +255,10 @@ function kirimpropinsi(val) {
     store.form.biaya = 0;
   }
   storekotakab.init();
+}
+
+function isikomisi(val) {
+  storedewan.params.komisi_id = val;
 }
 
 // const tanggal = (Date.now) => {

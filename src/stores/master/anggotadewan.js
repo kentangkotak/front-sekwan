@@ -6,10 +6,12 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
   state: () => ({
     isOpen: false,
     items: [],
+    dewans: [],
     meta: {},
     loading: false,
     dewan: null,
     tingkatan_id: null,
+    komisi: "",
     params: {
       q: "",
       page: 1,
@@ -32,9 +34,8 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
   actions: {
     init(val) {
       if (val) {
-        console.log("asasa", val);
-        this.params.id_flag_pegawai = null;
-        this.params.komisi_id = null;
+        this.params.id_flag_pegawai = 1;
+        //this.params.komisi_id = this.params.komisi_id;
         this.params.q = val;
       }
       this.getData();
@@ -51,6 +52,7 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
             this.meta = resp?.data;
             this.items = resp?.data?.data;
             this.meta.total = resp?.data?.total;
+            console.log("wew", this.items);
           }
         })
         .catch((err) => {

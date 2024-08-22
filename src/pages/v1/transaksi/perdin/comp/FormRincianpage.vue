@@ -362,7 +362,7 @@
           v-model="store.nik"
           style="margin-bottom: 5px"
           outlined
-          :options="storedewan.items"
+          :options="storedewan.dewans"
           option-label="nama"
           option-value="nik"
           label="Anggota Dewan/Pendamping"
