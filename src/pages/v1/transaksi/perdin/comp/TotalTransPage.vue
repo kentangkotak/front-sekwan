@@ -25,16 +25,28 @@
 
       <q-fab color="orange" push icon="print" label="Cetak" direction="right">
         <q-fab-action
-          color="indigo"
-          @click="cetak(1)"
+          color="amber"
+          @click="cetak(0)"
           icon="mail"
-          label="Model 1"
+          label="Cover"
         />
         <q-fab-action
-          color="black"
+          color="secondary"
+          @click="cetak(1)"
+          icon="mail"
+          label="Page 1"
+        />
+        <q-fab-action
+          color="secondary"
           @click="cetak(2)"
+          icon="mail"
+          label="Page 2"
+        />
+        <q-fab-action
+          color="primary"
+          @click="cetak(3)"
           icon="airplay"
-          label="Model 2"
+          label="Page 3"
         />
       </q-fab>
     </div>
@@ -129,7 +141,6 @@ function formrinci(val) {
 }
 
 function cetak(val) {
-  console.log("cetak", val);
   modelcetak.value = val;
   dialogcetak.value = true;
 }

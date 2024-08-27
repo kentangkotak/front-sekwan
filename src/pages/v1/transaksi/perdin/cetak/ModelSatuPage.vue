@@ -9,7 +9,14 @@
   <br />
   <!-- <q-separator /> -->
   <div class="row justify-center" style="margin-top: 30px">
-    <q-markup-table separator="vertical" flat bordered dense wrap-cells>
+    <q-markup-table
+      separator="vertical"
+      flat
+      bordered
+      dense
+      wrap-cells
+      style="width: 100%"
+    >
       <thead width="50%">
         <tr>
           <th width="20%">Tanggal</th>

@@ -24,12 +24,16 @@
       </div>
       <q-separator />
       <div id="printMe" class="full-width">
-        <KopSuratPage />
-        <div v-if="modelcetak === 1">
-          <ModelSatuPage />
-        </div>
-        <div v-if="modelcetak === 2">
-          <ModelDuaPage :jenistransaksi="jenistransaksi" />
+        <div v-if="modelcetak === 0"><CoverPage /></div>
+        <div v-else-if="modelcetak === 2"><ModelDuaxPage /></div>
+        <div v-else>
+          <KopSuratPage />
+          <div v-if="modelcetak === 1">
+            <ModelSatuPage />
+          </div>
+          <div v-if="modelcetak === 3">
+            <ModelDuaPage :jenistransaksi="jenistransaksi" />
+          </div>
         </div>
       </div>
     </q-card>
@@ -39,6 +43,8 @@
 import KopSuratPage from "./comp/KopSuratPage.vue";
 import ModelSatuPage from "./ModelSatuPage.vue";
 import ModelDuaPage from "./ModelDuaPage.vue";
+import CoverPage from "./CoverPage.vue";
+import ModelDuaxPage from "./ModelDuaxPage.vue";
 import { ref } from "vue";
 
 const maximizedToggle = ref(true);
