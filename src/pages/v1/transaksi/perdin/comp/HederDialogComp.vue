@@ -264,6 +264,8 @@ function isikomisi(val) {
 // const tanggal = (Date.now) => {
 //   return Date.now.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 // };
-store.formattanggal();
+if (store.form.notrans === "") {
+  store.formattanggal();
+}
 //store.getData();
 </script>

@@ -73,6 +73,7 @@ import FormRincianpage from "./FormRincianpage.vue";
 import CetakPage from "../cetak/CetakPage.vue";
 import { useJenisKendaraan } from "src/stores/master/kendaraan";
 import { usePesawatstore } from "src/stores/master/pesawat";
+import { store } from "quasar/wrappers";
 
 const storerinci = useTranskRinci();
 const storeheder = usePerdinStore();
