@@ -48,6 +48,12 @@
           icon="airplay"
           label="Page 3"
         />
+        <q-fab-action
+          color="primary"
+          @click="cetak(4)"
+          icon="airplay"
+          label="Page 4"
+        />
       </q-fab>
     </div>
     <form-rincianpage
@@ -106,6 +112,11 @@ function formrinci(val) {
     );
   } else if (storeheder.form.judul === "" || storeheder.form.judul === null) {
     notifErrmodip("Judul Tidak Boleh Kosong...!!!");
+  } else if (
+    storeheder.form.instansi_tujuan === "" ||
+    storeheder.form.instansi_tujuan === null
+  ) {
+    notifErrmodip("Instansi Yang Dituju Tidak Boleh Kosong...!!!");
   } else if (storeheder.form.komisi === "" || storeheder.form.komisi === null) {
     notifErrmodip("Komisi Tidak Boleh Kosong...!!!");
   } else if (
@@ -116,6 +127,7 @@ function formrinci(val) {
   } else {
     storebiaya.paramsbiaya.jenisbiaya = val;
     storebiaya.formrincian = true;
+    console.log("komisi", storeheder.form.komisi);
     // if (val === 1) {
     //   console.log("asdasdadasdasdas", val);
     //   storebiaya.paramsbiaya.jenisbiaya = val;

@@ -34,6 +34,9 @@
           <div v-if="modelcetak === 3">
             <ModelDuaPage :jenistransaksi="jenistransaksi" />
           </div>
+          <div v-if="modelcetak === 4">
+            <ModelEmpatPage :jenistransaksi="jenistransaksi" />
+          </div>
         </div>
       </div>
     </q-card>
@@ -45,6 +48,7 @@ import ModelSatuPage from "./ModelSatuPage.vue";
 import ModelDuaPage from "./ModelDuaPage.vue";
 import CoverPage from "./CoverPage.vue";
 import ModelDuaxPage from "./ModelDuaxPage.vue";
+import ModelEmpatPage from "./ModelEmpatPage.vue";
 import { ref } from "vue";
 
 const maximizedToggle = ref(true);

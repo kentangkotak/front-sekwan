@@ -67,6 +67,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       jabatan: "",
       nik: "",
       komisi: "",
+      instansi_tujuan: "",
     },
     itemsrincian: [],
     jabatan: {},
@@ -344,11 +345,8 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
         wew.forEach((sasa) => {
           if (this.form[sasa] === null) {
             delete this.form[sasa];
-            // console.log("wew", sasa);
-            // console.log("isi nya", this.form[sasa]);
           }
         });
-        // console.log("aaaaaaaaaaaaaaaaa", this.form);
         this.loading = true;
         api
           .post("/store", this.form)

@@ -19,12 +19,14 @@
           v-model="store.form.notrans"
           style="margin-right: 5px; width: 25%"
           outlined
+          dense
           label="No. Transaksi"
           disable
         />
         <q-input
           ref="reftanggal"
           outlined
+          dense
           v-model="store.form.tanggal"
           label="Tanggal Berangkat"
           style="margin-right: 5px; width: 25%"
@@ -46,11 +48,11 @@
             </q-icon>
           </template>
         </q-input>
-
         <q-input
           outlined
           v-model="store.form.tanggalsampai"
           label="Tanggal Sampai"
+          dense
           style="margin-right: 5px; width: 25%"
           :disable="store.disabled"
         >
@@ -76,7 +78,18 @@
           v-model="store.form.judul"
           style="margin-right: 5px; width: 25%"
           outlined
+          dense
           label="Judul"
+          :disable="store.disabled"
+        />
+
+        <q-input
+          ref="refinstansitujuan"
+          v-model="store.form.instansi_tujuan"
+          style="margin-right: 5px; width: 25%"
+          outlined
+          dense
+          label="Instansi Tujuan"
           :disable="store.disabled"
         />
       </q-card-section>
@@ -86,50 +99,16 @@
           v-model="store.form.komisi"
           label="Komisi"
           outlined
+          dense
           style="margin-right: 5px; width: 25%"
           :options="props.komisix"
           option-label="komisi"
           option-value="id"
+          :disable="store.disabled"
           emit-value
           map-options
           @update:model-value="(val) => storedewan.gantikomisi(val)"
         />
-        <!-- <q-input
-          v-model="store.form.koderekekning"
-          style="margin-right: 5px; width: 25%"
-          outlined
-          disable
-          label="Kode Rekening 50"
-        /> -->
-
-        <!-- <q-select
-          v-model="storepermen.kode"
-          :options="storepermen.items"
-          option-label="uraian"
-          option-value="kodeall"
-          style="margin-right: 5px; width: 25%"
-          outlined
-          label="Uraian Rekening 50"
-          clearable
-          use-input
-          hide-bottom-space
-          behavior="menu"
-          hide-dropdown-icon
-          :disable="store.disabled"
-          @input-value="storepermen.init"
-          @update:model-value="storepermen.caripermen"
-        >
-          <template #option="scope">
-            <q-item v-bind="scope.itemProps"
-              ><q-item-section avatar>
-                <q-item-label>
-                  KODE REKENING : {{ scope.opt.kodeall }} <br />
-                  URAIAN : {{ scope.opt.uraian }}
-                </q-item-label>
-              </q-item-section>
-            </q-item>
-          </template>
-        </q-select> -->
 
         <q-select
           v-model="store.form.id_propinsi"
@@ -138,6 +117,7 @@
           option-label="name"
           option-value="id"
           outlined
+          dense
           label="Tujuan Propinsi"
           transition-show="scale"
           transition-hide="scale"
@@ -164,6 +144,7 @@
           option-label="name"
           option-value="id"
           outlined
+          dense
           emit-value
           map-options
           transition-show="scale"
@@ -172,7 +153,6 @@
           label="Tujuan Kota"
           clearable
         />
-
         <q-select
           v-model="store.form.id_kotax"
           style="margin-right: 5px; width: 25%"
@@ -180,6 +160,7 @@
           option-label="name"
           option-value="id"
           outlined
+          dense
           emit-value
           map-options
           transition-show="scale"
@@ -267,5 +248,9 @@ function isikomisi(val) {
 if (store.form.notrans === "") {
   store.formattanggal();
 }
+
+onBeforeMount(() => {
+  storedewan.params.komisi_id = "";
+});
 //store.getData();
 </script>

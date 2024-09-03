@@ -14,6 +14,7 @@ export const useTranskRinci = defineStore("transaksi_rinci", {
     total_biaya: 0,
     payload: {
       id: "",
+      jenisbiaya: "",
     },
     params: {
       id: "",
@@ -63,8 +64,9 @@ export const useTranskRinci = defineStore("transaksi_rinci", {
           this.loading = false;
         });
     },
-    inithapus(val) {
+    inithapus(val, valx) {
       this.payload.id = val;
+      this.payload.jenisbiaya = valx;
       this.hapus();
     },
     hapus() {

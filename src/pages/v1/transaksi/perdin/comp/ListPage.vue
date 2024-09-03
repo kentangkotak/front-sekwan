@@ -5,9 +5,9 @@
         <th>NO. TRANSAKSI</th>
         <th>TANGGAL</th>
         <th>JUDUL PERJALANAN DINAS</th>
-        <th>PERMEN 50</th>
-        <th>TUJUAN</th>
-        <th>LAMA</th>
+        <th>Komisi</th>
+        <th>Tujuan</th>
+        <th>Instansi Tujuan</th>
         <!-- <th>TOTAL</th> -->
         <th></th>
       </tr>
@@ -26,22 +26,14 @@
           </td>
           <td>
             <div class="row q-mb-xs q-col-gutter-sm">
-              <q-skeleton type="text" width="30%" height="14px" />
-            </div>
-            <div class="row q-col-gutter-sm items-center">
-              <q-skeleton type="text" width="14%" height="14px" />
-            </div>
-          </td>
-          <td>
-            <div class="row q-mb-xs q-col-gutter-sm">
               <q-skeleton type="text" width="14%" height="14px" />
             </div>
             <div class="row q-col-gutter-sm items-center">
               <q-skeleton type="text" width="14%" height="14px" />
             </div>
-          </td>
-          <td>
-            <q-skeleton type="text" width="14%" height="14px" />
+            <div class="row q-col-gutter-sm items-center">
+              <q-skeleton type="text" width="14%" height="14px" />
+            </div>
           </td>
           <td class="text-end">
             <div class="row justify-end">
@@ -56,17 +48,23 @@
             <td width="15%" height="14px">
               <b>{{ item?.no_transaksi }}</b>
             </td>
-            <td width="13%" height="14px">{{ item?.tanggal }}</td>
-            <td width="14%" height="14px">{{ item?.judul }}</td>
-            <td width="18%" height="14px">
-              <div>{{ item?.rekening50 }}</div>
-              <div>{{ item?.uraian50 }}</div>
+            <td width="13%" height="14px">
+              {{ item?.tanggal }} <br />
+              SAMPAI <br />
+              {{ item?.tanggal_sampai }}
             </td>
+            <td width="14%" height="14px">{{ item?.judul }}</td>
+            <td width="14%" height="14px">{{ item?.komisi?.komisi }}</td>
             <td width="14%" height="14px">
               <div>Provinsi {{ item?.provinsi?.name }}</div>
-              <div>KOTA {{ item?.kota?.name }}</div>
+              <div v-if="item?.kota !== null">
+                - KOTA {{ item?.kota?.name }}
+              </div>
+              <div v-if="item?.kota2 !== null">
+                - KOTA {{ item?.kota2?.name }}
+              </div>
             </td>
-            <td width="14%" height="14px">{{ item?.lamaperdin }} Hari</td>
+            <td width="14%" height="14px">{{ item?.instansi_tujuan }}</td>
             <td width="10%" height="14px">
               <q-btn
                 color="black"
@@ -102,6 +100,7 @@
 </template>
 
 <script setup>
+import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 import { useKotaKab } from "src/stores/master/kotakab";
 import { usePermenStore } from "src/stores/master/permen50";
 import { useGetBiaya } from "src/stores/transaksi/getbiaya";
@@ -117,6 +116,7 @@ const storrinci = useTranskRinci();
 const storegetbiaya = useGetBiaya();
 const storekota = useKotaKab();
 const storePermen = usePermenStore();
+const storedewan = useAnggotaDewanStore();
 // const jabatan = ref([]);
 // const komisi = ref([]);
 
@@ -125,7 +125,6 @@ const rupiah = (number) => {
 };
 
 function formDialogx(val, id) {
-  // console.log(id);
   store.disabled = true;
   //coitemterpilih.value = val;
   dialog.value = true;
@@ -133,18 +132,23 @@ function formDialogx(val, id) {
   store.form.id = val?.id;
   store.form.notrans = val?.no_transaksi;
   store.form.tanggal = val?.tanggal;
+  store.form.tanggalsampai = val?.tanggal_sampai;
   store.form.lamaperdin = val?.lamaperdin;
   store.form.judul = val?.judul;
   store.form.koderekekning = val?.rekening50;
   store.form.uraian50 = val?.uraian50;
   store.form.id_propinsi = val?.provinsi?.id;
-  store.form.id_kota = val?.kota?.id;
+  store.form.id_kota = val?.kota?.name;
+  store.form.komisi = val?.komisi?.komisi;
+  storedewan.gantikomisi(val?.komisi?.id);
+  store.form.instansi_tujuan = val?.instansi_tujuan;
+  store.form.id_kotax = val?.kota2?.name;
   storePermen.kode = val?.uraian50;
   // store.form.namakota = val?.kota?.name;
   storegetbiaya.paramsbiaya.id_propinsi = store.form.id_propinsi;
   storrinci.params.id = id;
 
-  storekota.kirimpropinsix(val?.provinsi?.id);
+  //storekota.kirimpropinsix(val?.provinsi?.id);
   // storePermen.caripermen(val?.rekening50);
   // storrinci.inittransrinci(id);
 }
