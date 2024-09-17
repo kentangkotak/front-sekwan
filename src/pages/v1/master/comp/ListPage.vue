@@ -14,7 +14,7 @@
     <tbody>
       <template v-if="store.loading">
         <tr v-for="n in store.params.per_page" :key="n">
-          <td>
+          <!-- <td>
             <q-skeleton type="text" width="20px" height="14px" />
           </td>
           <td>
@@ -46,7 +46,7 @@
             <div class="row justify-end">
               <q-skeleton type="text" width="100px" height="14px" />
             </div>
-          </td>
+          </td> -->
         </tr>
       </template>
       <template v-else>

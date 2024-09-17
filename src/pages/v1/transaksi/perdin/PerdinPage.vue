@@ -20,18 +20,19 @@
       />
     </div>
     <q-card flat no-shadow square class="my-flex-1 scroll">
-      <ListPage :komisix="komisi.items" />
-
-      <div
-        v-if="Object.keys(store.metaperdin).length"
-        class="absolute-bottom bg-primary text-white"
-      >
-        <BottomComp
-          v-if="store.metaperdin !== null"
-          :key="store.metaperdin"
-          :meta="store.metaperdin"
-          @go-to="store.setPage"
-        />
+      <div>
+        <ListPage :komisix="komisi.items" />
+        <div
+          v-if="Object.keys(store.metaperdin).length"
+          class="absolute-bottom bg-primary text-white"
+        >
+          <BottomComp
+            v-if="store.metaperdin !== null"
+            :key="store.metaperdin"
+            :meta="store.metaperdin"
+            @go-to="store.setPage"
+          />
+        </div>
       </div>
     </q-card>
   </q-page>

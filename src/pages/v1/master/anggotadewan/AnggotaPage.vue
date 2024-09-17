@@ -23,23 +23,32 @@
       />
     </div>
     <q-card flat no-shadow square class="my-flex-1 scroll">
-      <ListPage
-        :jabatan="jabatanStore.items"
-        :komisi="komisiStore.items"
-        :golongan="storegolongan.items"
-        :tingkatan="storetingkatan.items"
-      />
-
       <div
-        v-if="Object.keys(wew.meta).length"
-        class="absolute-bottom bg-primary text-white"
+        v-if="store.loading === true"
+        class="q-gutter-xl q-pt-xl row justify-center"
+        style="font-size: 20em"
       >
-        <BottomComp
-          v-if="wew.meta !== null"
-          :key="wew.meta"
-          :meta="wew.meta"
-          @go-to="wew.setPage"
+        <q-spinner-gears color="blue-grey" />
+      </div>
+      <div v-else>
+        <ListPage
+          :jabatan="jabatanStore.items"
+          :komisi="komisiStore.items"
+          :golongan="storegolongan.items"
+          :tingkatan="storetingkatan.items"
         />
+
+        <div
+          v-if="Object.keys(wew.meta).length"
+          class="absolute-bottom bg-primary text-white"
+        >
+          <BottomComp
+            v-if="wew.meta !== null"
+            :key="wew.meta"
+            :meta="wew.meta"
+            @go-to="wew.setPage"
+          />
+        </div>
       </div>
     </q-card>
   </q-page>
