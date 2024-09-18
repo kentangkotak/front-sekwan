@@ -7,7 +7,7 @@
         : 'container--q-header q-pa-xs'
     "
   >
-    <div class="header" style="margin-top: 5px">
+    <div class="header bg-primary text-white">
       <HeaderComp
         ada-per-page
         ada-refresh
@@ -22,34 +22,25 @@
         :tingkatan="storetingkatan.items"
       />
     </div>
-    <q-card flat no-shadow square class="my-flex-1 scroll">
-      <div
-        v-if="store.loading === true"
-        class="q-gutter-xl q-pt-xl row justify-center"
-        style="font-size: 20em"
-      >
-        <q-spinner-gears color="blue-grey" />
-      </div>
-      <div v-else>
-        <ListPage
-          :jabatan="jabatanStore.items"
-          :komisi="komisiStore.items"
-          :golongan="storegolongan.items"
-          :tingkatan="storetingkatan.items"
-        />
+    <div
+      v-if="Object.keys(wew.meta).length"
+      class="footer absolute-bottom text-white z-top"
+    >
+      <BottomComp
+        v-if="wew.meta !== null"
+        :key="wew.meta"
+        :meta="wew.meta"
+        @go-to="wew.setPage"
+      />
+    </div>
 
-        <div
-          v-if="Object.keys(wew.meta).length"
-          class="absolute-bottom bg-primary text-white"
-        >
-          <BottomComp
-            v-if="wew.meta !== null"
-            :key="wew.meta"
-            :meta="wew.meta"
-            @go-to="wew.setPage"
-          />
-        </div>
-      </div>
+    <q-card flat no-shadow class="my-flex-1 scroll">
+      <ListPage
+        :jabatan="jabatanStore.items"
+        :komisi="komisiStore.items"
+        :golongan="storegolongan.items"
+        :tingkatan="storetingkatan.items"
+      />
     </q-card>
   </q-page>
 </template>

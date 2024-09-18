@@ -2,7 +2,7 @@
   <q-page>
     <Suspense>
       <AsyncComp />
-      <template #fallback> <AppLoadingx /> </template>
+      <template #fallback> </template>
     </Suspense>
   </q-page>
 </template>
@@ -11,7 +11,7 @@ import { defineAsyncComponent } from "vue";
 
 const AsyncComp = defineAsyncComponent(() => import("./AnggotaPage.vue"));
 import AnggotaPage from "./AnggotaPage.vue";
-import AppLoadingx from "src/components/~global/AppLoadingx.vue";
+//import AppLoadingx from "src/components/~global/AppLoadingx.vue";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 
 const store = useAnggotaDewanStore();

@@ -1,133 +1,101 @@
 <template>
-  <table>
-    <thead width="100%">
-      <tr>
-        <th>AVATAR</th>
-        <th>IDENTITAS</th>
-        <th>JABATAN</th>
-        <th>GOLONGAN</th>
-        <th>TINGKATAN</th>
-        <!-- <th>STATUS</th> -->
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <template v-if="store.loading">
-        <tr v-for="n in store.params.per_page" :key="n">
-          <!-- <td>
-            <q-skeleton type="text" width="20px" height="14px" />
-          </td>
-          <td>
-            <q-skeleton type="text" width="100px" height="14px" />
-            <q-skeleton type="text" width="100px" height="14px" />
-            <q-skeleton type="text" width="50px" height="14px" />
-            <q-skeleton type="text" width="200px" height="14px" />
-          </td>
-          <td>
-            <div class="row q-mb-xs q-col-gutter-sm">
-              <q-skeleton type="text" width="100px" height="14px" />
-            </div>
-            <div class="row q-col-gutter-sm items-center">
-              <q-skeleton
-                type="text"
-                width="40px"
-                height="14px"
-                class="q-ml-xs"
-              />
-            </div>
-          </td>
-          <td>
-            <q-skeleton type="text" width="100px" height="14px" />
-          </td>
-          <td>
-            <q-skeleton type="text" width="100px" height="14px" />
-          </td>
-          <td class="text-end">
-            <div class="row justify-end">
-              <q-skeleton type="text" width="100px" height="14px" />
-            </div>
-          </td> -->
-        </tr>
-      </template>
-      <template v-else>
-        <template v-for="(item, n) in store.items" :key="n">
-          <tr :class="item?.flag === '1' ? 'bg-light-blue-2' : ''">
-            <td>
-              <div>
-                <q-img
-                  v-if="item?.jns_kelamin === 'P'"
-                  src="../../../../assets/images/female.svg"
-                  class="q-pa-sm q-gutter-sm"
-                />
-                <q-img
-                  v-else
-                  src="../../../../assets/images/male.svg"
-                  class="q-pa-sm q-gutter-sm"
-                />
+  <div>
+    <div class="q-pb-xl">
+      <LoadingList v-if="store.loading" />
+      <empty-data v-else-if="!store.items.length && !store.loading" />
+      <!-- <q-scroll-area :visible="visible" style="height: 800px"> -->
+      <!-- <div class="row q-pa-SM">
+        <div class="col-12"> -->
+      <q-list v-else separator>
+        <q-item v-for="(item, n) in store.items" :key="n">
+          <q-item-section>
+            <div class="row">
+              <div class="col-2">
+                <q-avatar>
+                  <img
+                    v-if="item?.jns_kelamin === 'P'"
+                    src="../../../../assets/images/female.svg"
+                  />
+                  <img v-else src="../../../../assets/images/male.svg" />
+                </q-avatar>
               </div>
-            </td>
-            <td>
-              <div>
-                <b
-                  ><u>NIK : {{ item?.nik }}</u></b
+              <div class="col-10 text-weight-bold">
+                <q-item-label class="text-red-10"
+                  >NIK : {{ item?.nik }}
+                </q-item-label>
+                <q-item-label class="text-orange"
+                  >NAMA : {{ item?.nama }}</q-item-label
+                >
+                <q-item-label
+                  >KELAMIN : {{ getkelamin(item?.jns_kelamin) }}</q-item-label
                 >
               </div>
-              <div>NAMA : {{ item?.nama }}</div>
-              <div>KELAMIN : {{ getkelamin(item?.jns_kelamin) }}</div>
-              <div>{{ item?.alamat }}</div>
-            </td>
-            <td>
-              <div>{{ item?.jabatan?.jenis }}</div>
-              <div>{{ item?.komisi?.komisi }}</div>
-            </td>
-            <td>{{ item?.golongan?.name }}</td>
-            <td>{{ item?.tingkatan?.name }}</td>
-            <!-- <td>
-              {{ getstatusmu(item?.status) }}
-            </td> -->
-            <td>
-              <q-btn
-                color="black"
-                size="sm"
-                round
-                glossy
-                icon="eva-edit-2-outline"
-                @click="formDialogx(item)"
+              <q-item-label caption lines="2"
+                >ALAMAT : {{ item?.alamat }}</q-item-label
               >
-                <q-tooltip class="primary" :offset="[10, 10]"> Edit </q-tooltip>
-              </q-btn>
+            </div>
+          </q-item-section>
+          <q-separator vertical inset color="orange" />
+          <q-item-section>
+            <div class="row">
+              <div class="col-10 text-weight-bold q-ml-md">
+                <q-item-label class="text-red-10"
+                  >JABATAN : {{ item?.jabatan?.jenis }}
+                </q-item-label>
+                <q-item-label class="text-orange"
+                  >KOMISI : {{ item?.komisi?.komisi }}</q-item-label
+                >
+                <q-item-label
+                  >GOLONGAN : {{ item?.golongan?.name }}</q-item-label
+                >
+                <q-item-label
+                  >TINGKATAN : {{ item?.tingkatan?.name }}</q-item-label
+                >
+              </div>
+            </div>
+          </q-item-section>
+          <q-item-section side top>
+            <q-btn
+              color="black"
+              size="sm"
+              round
+              glossy
+              :loading="store.loading"
+              icon="eva-edit-2-outline"
+              @click="formDialogx(item)"
+            >
+              <q-tooltip class="primary" :offset="[10, 10]"> Edit </q-tooltip>
+            </q-btn>
 
-              <q-btn
-                v-model="store.payloadx.id"
-                color="red"
-                size="sm"
-                round
-                glossy
-                icon="eva-person-delete-outline"
-                :loading="store.loading"
-                @click="store.lemparDewan(item.id)"
-              >
-                <q-tooltip class="primary" :offset="[10, 10]">
-                  Delete
-                </q-tooltip>
-              </q-btn>
-            </td>
-          </tr>
-        </template>
-      </template>
-    </tbody>
-    <formDialog
-      v-model="dialog"
-      :jabatan="jabatan"
-      :komisi="komisi"
-      :golongan="golongan"
-      :tingkatan="tingkatan"
-    />
-  </table>
+            <q-btn
+              v-model="store.payloadx.id"
+              color="red"
+              size="sm"
+              round
+              glossy
+              icon="eva-person-delete-outline"
+              :loading="store.loading"
+              @click="store.lemparDewan(item.id)"
+            >
+              <q-tooltip class="primary" :offset="[10, 10]"> Delete </q-tooltip>
+            </q-btn>
+          </q-item-section>
+        </q-item>
+        <q-separator />
+      </q-list>
+      <div class="q-pb-xl" />
+      <div class="q-pb-xl" />
+      <!-- </div> -->
+      <!-- </div> -->
+      <!-- </q-scroll-area> -->
+    </div>
+  </div>
 </template>
 
 <script setup>
 import { useQuasar } from "quasar";
+import LoadingList from "./LoadingList.vue";
+import EmptyData from "./EmptyData.vue";
 import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
 import { useJabatanStore } from "src/stores/master/jabatan";
 import { defineAsyncComponent, ref } from "vue";
@@ -286,4 +254,33 @@ tr:nth-child(odd) {
 // th[scope="row"] {
 //   min-width: 20em;
 // }
+
+.fixed_header {
+  width: 400px;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.fixed_header tbody {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  height: 100px;
+}
+
+.fixed_header thead tr {
+  display: block;
+}
+
+.fixed_header thead {
+  background: black;
+  color: #fff;
+}
+
+.fixed_header th,
+.fixed_header td {
+  padding: 5px;
+  text-align: left;
+  width: 200px;
+}
 </style>

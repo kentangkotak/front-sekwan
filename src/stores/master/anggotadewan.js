@@ -15,7 +15,7 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
     params: {
       q: "",
       page: 1,
-      per_page: 10,
+      per_page: 5,
       id_flag_pegawai: "1",
     },
     form: {
