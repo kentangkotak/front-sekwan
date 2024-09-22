@@ -1,102 +1,101 @@
 <template>
-  <table>
-    <thead width="100%">
-      <tr>
-        <th>NO. TRANSAKSI</th>
-        <th>TANGGAL</th>
-        <th>JUDUL PERJALANAN DINAS</th>
-        <th>Komisi</th>
-        <th>Tujuan</th>
-        <th>Instansi Tujuan</th>
-        <!-- <th>TOTAL</th> -->
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <template v-if="store.loading">
-        <tr v-for="n in store.items" :key="n">
-          <td>
-            <q-skeleton type="text" width="15%" height="14px" />
-          </td>
-          <td>
-            <q-skeleton type="text" width="13%" height="14px" />
-          </td>
-          <td>
-            <q-skeleton type="text" width="14%" height="14px" />
-          </td>
-          <td>
-            <div class="row q-mb-xs q-col-gutter-sm">
-              <q-skeleton type="text" width="14%" height="14px" />
-            </div>
-            <div class="row q-col-gutter-sm items-center">
-              <q-skeleton type="text" width="14%" height="14px" />
-            </div>
-            <div class="row q-col-gutter-sm items-center">
-              <q-skeleton type="text" width="14%" height="14px" />
-            </div>
-          </td>
-          <td class="text-end">
-            <div class="row justify-end">
-              <q-skeleton type="text" width="10%" height="14px" />
-            </div>
-          </td>
-        </tr>
-      </template>
-      <template v-else>
-        <template v-for="(item, n) in store.items" :key="n">
-          <tr :class="item?.flag === '1' ? 'bg-light-blue-2' : ''">
-            <td width="15%" height="14px">
-              <b>{{ item?.no_transaksi }}</b>
-            </td>
-            <td width="13%" height="14px">
-              {{ item?.tanggal }} <br />
-              SAMPAI <br />
-              {{ item?.tanggal_sampai }}
-            </td>
-            <td width="14%" height="14px">{{ item?.judul }}</td>
-            <td width="14%" height="14px">{{ item?.komisi?.komisi }}</td>
-            <td width="14%" height="14px">
-              <div>Provinsi {{ item?.provinsi?.name }}</div>
-              <div v-if="item?.kota !== null">
-                - KOTA {{ item?.kota?.name }}
+  <div>
+    <div class="q-pb-xl">
+      <LoadingList v-if="store.loading" />
+      <empty-data v-else-if="!store.items.length && !store.loading" />
+      <q-list v-else separator>
+        <q-item v-for="(item, x) in store.items" :key="x">
+          <q-item-section>
+            <div class="row">
+              <div class="col-2">
+                <q-avatar>
+                  <img
+                    v-if="item?.jns_kelamin === 'P'"
+                    src="../../../../../assets/images/female.svg"
+                  />
+                  <img v-else src="../../../../../assets/images/male.svg" />
+                </q-avatar>
               </div>
-              <div v-if="item?.kota2 !== null">
-                - KOTA {{ item?.kota2?.name }}
+              <div class="col-10 text-weight-bold">
+                <q-item-label class="text-red-10"
+                  >No. Transaksi : {{ item?.no_transaksi }}
+                </q-item-label>
+                <q-item-label class="text-orange"
+                  >Tanggal : {{ item.tanggal }} Sampai
+                  {{ item.tanggal_sampai }}</q-item-label
+                >
+                <q-item-label
+                  >KOMISI : {{ item?.komisi?.komisi }}
+                </q-item-label>
               </div>
-            </td>
-            <td width="14%" height="14px">{{ item?.instansi_tujuan }}</td>
-            <td width="10%" height="14px">
-              <q-btn
-                color="black"
-                size="sm"
-                round
-                glossy
-                icon="eva-edit-2-outline"
-                @click="formDialogx(item, item?.id)"
+              <q-item-label caption lines="2" class="text-primary"
+                >JUDUL : {{ item?.judul }}</q-item-label
               >
-                <q-tooltip class="primary" :offset="[10, 10]"> Edit </q-tooltip>
-              </q-btn>
-
-              <q-btn
-                color="red"
-                size="sm"
-                round
-                glossy
-                icon="eva-person-delete-outline"
-                :loading="store.loading"
-                @click="store.lemparDewan(item.id)"
-              >
-                <q-tooltip class="primary" :offset="[10, 10]">
-                  Delete
-                </q-tooltip>
-              </q-btn>
-            </td>
-          </tr>
-        </template>
-      </template>
-    </tbody>
-    <formDialog v-model="dialog" />
-  </table>
+            </div>
+          </q-item-section>
+          <q-separator vertical inset color="orange" />
+          <q-item-section>
+            <div class="row">
+              <div class="col-10 text-weight-bold q-ml-md">
+                <q-item-label class="text-purple-10"
+                  >TUJUAN : {{ item?.provinsi?.name }}
+                  <span v-if="item?.kota2 !== null">
+                    - {{ item?.kota2?.name }}
+                  </span>
+                </q-item-label>
+                <q-item-label class="text-purple"
+                  >INSTANSI YANG DITUJU :
+                  {{ item?.instansi_tujuan }}</q-item-label
+                >
+              </div>
+            </div>
+          </q-item-section>
+          <q-item-section side>
+            <div class="row">
+              <div class="col-7">
+                <q-btn
+                  color="primary"
+                  size="sm"
+                  round
+                  glossy
+                  :loading="store.loading"
+                  icon="eva-edit-2-outline"
+                  @click="formDialogx(item, item?.id)"
+                >
+                  <q-tooltip class="primary" :offset="[10, 10]">
+                    Edit
+                  </q-tooltip>
+                </q-btn>
+              </div>
+              <div class="col-1">
+                <q-btn
+                  v-model="store.payloadx.id"
+                  color="red"
+                  size="sm"
+                  round
+                  glossy
+                  icon="eva-person-delete-outline"
+                  :loading="store.loading"
+                  @click="store.lemparDewan(item.id)"
+                >
+                  <q-tooltip class="primary" :offset="[10, 10]">
+                    Delete
+                  </q-tooltip>
+                </q-btn>
+              </div>
+            </div>
+          </q-item-section>
+        </q-item>
+        <q-separator />
+      </q-list>
+      <div class="q-pb-xl" />
+      <div class="q-pb-xl" />
+      <!-- </div> -->
+      <!-- </div> -->
+      <!-- </q-scroll-area> -->
+      <formDialog v-model="dialog" />
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -176,14 +175,38 @@ const props = defineProps({
   tingkatan: { type: Array, default: () => [] },
 });
 
-// store.initgehedertransaksi();
+// function namabulan(val) {
+//   if (val === "01") {
+//     return "Januari";
+//   } else if (val === "02") {
+//     return "Februari";
+//   } else if (val === "03") {
+//     return "Maret";
+//   } else if (val === "04") {
+//     return "April";
+//   } else if (val === "05") {
+//     return "Mei";
+//   } else if (val === "06") {
+//     return "Juni";
+//   } else if (val === "07") {
+//     return "Juli";
+//   } else if (val === "08") {
+//     return "Augustus";
+//   } else if (val === "09") {
+//     return "September";
+//   } else if (val === "10") {
+//     return "Oktober";
+//   } else if (val === "11") {
+//     return "November";
+//   } else {
+//     return "Desember";
+//   }
+// }
 
-// onUnmounted(() => {
-//   store.items.reduce(
-//     (total, curr) => (total = total + parseInt(curr.total_biaya)),
-//     0
-//   );
-// });
+// const tglnow = store.form.tanggal.split("-");
+// const tgl = tglnow[2];
+// const bln = tglnow[1];
+// const thn = tglnow[0];
 </script>
 
 <style lang="scss" scoped>

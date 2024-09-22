@@ -7,7 +7,7 @@
         : 'container--q-header q-pa-xs'
     "
   >
-    <div class="heder" style="margin-top: 5px">
+    <div class="header bg-primary text-white">
       <HeaderComp
         :komisix="komisi.items"
         ada-per-page
@@ -19,21 +19,22 @@
         @set-per-page="store.setPerPage"
       />
     </div>
-    <q-card flat no-shadow square class="my-flex-1 scroll">
-      <div>
-        <ListPage :komisix="komisi.items" />
-        <div
-          v-if="Object.keys(store.metaperdin).length"
-          class="absolute-bottom bg-primary text-white"
-        >
-          <BottomComp
-            v-if="store.metaperdin !== null"
-            :key="store.metaperdin"
-            :meta="store.metaperdin"
-            @go-to="store.setPage"
-          />
-        </div>
+    <div
+      v-if="Object.keys(store.metaperdin).length"
+      class="footer absolute-bottom text-white z-top"
+    >
+      <div v-if="store.dialog === false">
+        <BottomComp
+          v-if="store.metaperdin !== null"
+          :key="store.metaperdin"
+          :meta="store.metaperdin"
+          @go-to="store.setPage"
+        />
       </div>
+    </div>
+
+    <q-card flat no-shadow class="my-flex-1 scroll">
+      <ListPage :komisix="komisi.items" />
     </q-card>
   </q-page>
 </template>

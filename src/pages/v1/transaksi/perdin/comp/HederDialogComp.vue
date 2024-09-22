@@ -251,6 +251,7 @@ if (store.form.notrans === "") {
 
 onBeforeMount(() => {
   storedewan.params.komisi_id = "";
+  store.form.komisi = "";
 });
 //store.getData();
 </script>

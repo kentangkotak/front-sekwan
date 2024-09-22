@@ -10,7 +10,7 @@ import { getLocalToken } from "src/modules/storage";
 // for each client)
 const api = axios.create({
   baseURL: "http://localhost/sekwan/sekwan/sekwan/public/api",
-  //baseURL: "http://116.193.190.222/api",
+  // baseURL: "http://116.193.190.222/api",
   // baseURL: "http://localhost:8080/sekwan/sekwan/sekwan/public/api",
 });
 //  api.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
