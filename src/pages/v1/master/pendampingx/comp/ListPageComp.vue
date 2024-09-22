@@ -45,9 +45,6 @@
                 <q-item-label
                   >GOLONGAN : {{ item?.golongan?.name }}</q-item-label
                 >
-                <q-item-label class="text-primary"
-                  >TINGKATAN : {{ item?.tingkatan?.name }}</q-item-label
-                >
               </div>
             </div>
           </q-item-section>
@@ -68,7 +65,7 @@
                   </q-tooltip>
                 </q-btn>
               </div>
-              <div class="col">
+              <div class="col-1">
                 <q-btn
                   v-model="store.payloadx.id"
                   color="red"
@@ -101,19 +98,23 @@
 <script setup>
 import { usePendampingDewanStorex } from "src/stores/master/pendampingdewanx";
 import { defineAsyncComponent, ref } from "vue";
+import LoadingList from "./LoadingList.vue";
+import EmptyData from "./EmptyData.vue";
 
+//const itemterpilih = ref({});
 const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
 const dialog = ref(false);
 const store = usePendampingDewanStorex();
 
 function formDialogx(val) {
-  dialog.value = true;
+  store.dialog = true;
   store.form.id = val.id;
   store.form.nik = val.nik;
   store.form.nama = val.nama;
   store.form.jns_kelamin = val.jns_kelamin;
   store.form.alamat = val.alamat;
   store.form.id_komisi = parseInt(val.id_komisi);
+  store.form.golongan_id = val?.golongan_id;
 }
 
 function getkelamin(val) {

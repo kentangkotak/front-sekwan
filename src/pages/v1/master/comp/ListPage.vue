@@ -48,37 +48,46 @@
                 <q-item-label
                   >GOLONGAN : {{ item?.golongan?.name }}</q-item-label
                 >
-                <q-item-label
+                <q-item-label class="text-primary"
                   >TINGKATAN : {{ item?.tingkatan?.name }}</q-item-label
                 >
               </div>
             </div>
           </q-item-section>
-          <q-item-section side top>
-            <q-btn
-              color="black"
-              size="sm"
-              round
-              glossy
-              :loading="store.loading"
-              icon="eva-edit-2-outline"
-              @click="formDialogx(item)"
-            >
-              <q-tooltip class="primary" :offset="[10, 10]"> Edit </q-tooltip>
-            </q-btn>
-
-            <q-btn
-              v-model="store.payloadx.id"
-              color="red"
-              size="sm"
-              round
-              glossy
-              icon="eva-person-delete-outline"
-              :loading="store.loading"
-              @click="store.lemparDewan(item.id)"
-            >
-              <q-tooltip class="primary" :offset="[10, 10]"> Delete </q-tooltip>
-            </q-btn>
+          <q-item-section side>
+            <div class="row">
+              <div class="col-7">
+                <q-btn
+                  color="primary"
+                  size="sm"
+                  round
+                  glossy
+                  :loading="store.loading"
+                  icon="eva-edit-2-outline"
+                  @click="formDialogx(item)"
+                >
+                  <q-tooltip class="primary" :offset="[10, 10]">
+                    Edit
+                  </q-tooltip>
+                </q-btn>
+              </div>
+              <div class="col">
+                <q-btn
+                  v-model="store.payloadx.id"
+                  color="red"
+                  size="sm"
+                  round
+                  glossy
+                  icon="eva-person-delete-outline"
+                  :loading="store.loading"
+                  @click="store.lemparDewan(item.id)"
+                >
+                  <q-tooltip class="primary" :offset="[10, 10]">
+                    Delete
+                  </q-tooltip>
+                </q-btn>
+              </div>
+            </div>
           </q-item-section>
         </q-item>
         <q-separator />
@@ -90,6 +99,7 @@
       <!-- </q-scroll-area> -->
     </div>
   </div>
+  <formDialog v-model="store.dialog" :komisi="komisi" :golongan="golongan" />
 </template>
 
 <script setup>
@@ -103,7 +113,6 @@ import { useRouter } from "vue-router";
 
 //const itemterpilih = ref({});
 const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
-const dialog = ref(false);
 const store = useAnggotaDewanStore();
 const jabatanStore = useJabatanStore();
 
@@ -112,7 +121,7 @@ const jabatanStore = useJabatanStore();
 
 function formDialogx(val) {
   // itemterpilih.value = val;
-  dialog.value = true;
+  store.dialog = true;
 
   store.form.id = val.id;
   store.form.nik = val.nik;

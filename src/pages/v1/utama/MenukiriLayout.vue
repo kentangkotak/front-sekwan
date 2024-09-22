@@ -50,7 +50,7 @@
                 v-ripple
                 clickable
                 active-class="my-menu-link"
-                @click="masterpendampingdewan()"
+                @click="masterpendampingdewanx()"
                 class="bg-indigo-1 text-dark"
               >
                 <q-item-section avatar>
@@ -118,21 +118,26 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useQuasar } from "quasar";
-import toggleLeftDrawer from "./HederLayout.vue";
+// import { ref } from "vue";
+// import { useQuasar } from "quasar";
+// import toggleLeftDrawer from "./HederLayout.vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 
 function masteranggotadewan() {
-  console.log("wew", router);
   router.push({ path: "/master/anggotadewan" });
   // return { panggil }
 }
 
 function masterpendampingdewan() {
+  // console.log("wew", router);
   router.push({ path: "/master/pendampingdewan" });
+}
+
+function masterpendampingdewanx() {
+  // console.log("wew", router);
+  router.push({ path: "/master/pendampingdewanx" });
 }
 
 function transaksi() {

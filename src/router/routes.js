@@ -36,6 +36,12 @@ const routes = [
         component: () => import("pages/v1/master/anggotadewan/IndexLayout.vue"),
       },
       {
+        path: "/master/pendampingdewanx",
+        meta: { requireAuth: true },
+        name: "masterpendampingx",
+        component: () => import("pages/v1/master/pendampingx/IndexLayout.vue"),
+      },
+      {
         path: "/master/pendampingdewan",
         meta: { requireAuth: true },
         name: "masterpendamping",

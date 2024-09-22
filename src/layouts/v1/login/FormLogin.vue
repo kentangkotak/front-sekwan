@@ -11,4 +11,5 @@
 <script setup>
 import BackgroundLogin from "./comp/BackgroundLogin.vue";
 //import FormDialogLoginVue from "./comp/FormDialogLogin.vue";
+import FormDialogLogin from "./comp/FormDialogLogin.vue";
 </script>

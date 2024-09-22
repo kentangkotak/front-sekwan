@@ -1,0 +1,69 @@
+<div class="container">
+    <div class="screen">
+      <div class="screen__content">
+        <q-form ref="myForm" class="login" @submit="onSubmit">
+          <!-- <q-img
+            src="public/icons/sekwan.png"
+            style="height: 100px; max-width: 100px"
+            :ratio="1"
+            class="items-center"
+          /> -->
+          <div class="column items-center text-bold">
+            <div style="color: orangered; font-size: x-large">
+              <em>SEKRETARIAT DEWAN</em>
+            </div>
+          </div>
+          <div class="column items-center text-bold">
+            <div style="color: orangered; font-size: x-large">
+              <em>KOTA PROBOLINGGO</em>
+            </div>
+          </div>
+          <!-- <label style="color: white; font-size: large">
+            <b
+              >Sekretariat Dewan Kota <br />
+              Probolinggo</b
+            >
+          </label> -->
+          <div class="login__field">
+            <!-- <q-icon name="person" /> -->
+            <q-input
+              v-model="form.username"
+              label="User Name"
+              autofocus
+              outlined
+              bg-color="white"
+              color="indigo"
+              :rules="[(val) => !!val || 'Harap diisi terlebih dahulu']"
+            >
+              <template v-slot:append>
+                <q-icon :name="matAccountCircle" />
+              </template>
+            </q-input>
+          </div>
+          <div class="login__field">
+            <!-- <i class="login__icon fas fa-lock"></i> -->
+            <q-input
+              v-model="form.pass"
+              label="Password"
+              bg-color="white"
+              outlined
+              color="indigo"
+              :rules="[(val) => !!val || 'Harap diisi terlebih dahulu']"
+              :type="isPasw ? 'password' : 'text'"
+            >
+              <template v-slot:append>
+                <q-icon :name="matLock" />
+              </template>
+            </q-input>
+          </div>
+          <q-btn
+            class="button login__submit"
+            :icon-right="matLogin"
+            label="Log In"
+            type="submit"
+          />
+        </q-form>
+      </div>
+      <div class="screen__background"></div>
+    </div>
+  </div>

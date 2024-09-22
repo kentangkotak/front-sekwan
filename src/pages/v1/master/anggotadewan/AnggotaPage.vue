@@ -26,12 +26,14 @@
       v-if="Object.keys(wew.meta).length"
       class="footer absolute-bottom text-white z-top"
     >
-      <BottomComp
-        v-if="wew.meta !== null"
-        :key="wew.meta"
-        :meta="wew.meta"
-        @go-to="wew.setPage"
-      />
+      <div v-if="wew.dialog === false">
+        <BottomComp
+          v-if="wew.meta !== null"
+          :key="wew.meta"
+          :meta="wew.meta"
+          @go-to="wew.setPage"
+        />
+      </div>
     </div>
 
     <q-card flat no-shadow class="my-flex-1 scroll">

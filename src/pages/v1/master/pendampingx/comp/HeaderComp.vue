@@ -8,45 +8,31 @@
           dark
           color="white"
           dense
-          placeholder="Cari Anggota ..."
+          placeholder="Cari Pendamping ..."
           debounce="500"
           style="min-width: 200px"
           @keyup.enter="store.init()"
         >
-          <template v-if="store.params.q" #append>
+          <template v-if="q" #append>
             <q-icon
               name="close"
               icon="eva-close-outline"
               size="xs"
               class="cursor-pointer"
-              @click.stop.prevent="store.params.q = ''"
+              @click.stop.prevent="q = ''"
             />
           </template>
           <template #prepend>
             <q-icon size="sm" name="search" icon="search-outline" />
           </template>
         </q-input>
-        <!-- <q-select
-          v-model="txt"
-          dense
-          outlined
-          dark
-          color="white"
-          :options="txts"
-          label="status dewan"
-          class="q-ml-sm"
-          emit-value
-          map-options
-          style="min-width: 150px"
-          @update:model-value="gantiTxt"
-        /> -->
         <q-select
           v-model="komisi_id"
           dense
           outlined
           dark
           color="white"
-          :options="komisi"
+          :options="props.komisi"
           option-label="komisi"
           option-value="id"
           label="Komisi"
@@ -120,21 +106,19 @@
       </div>
     </div>
   </div>
-  <formDialog
+  <FormDialogComp
     v-model="store.dialog"
-    :jabatan="jabatan"
     :komisi="komisi"
     :golongan="golongan"
-    :tingkatan="tingkatan"
   />
 </template>
 <script setup>
-import { computed, defineAsyncComponent, onMounted, ref } from "vue";
-import { useStyledStore } from "src/stores/app/styled";
-import { useQuasar } from "quasar";
-import { useAnggotaDewanStore } from "src/stores/master/anggotadewan";
+import { computed, defineAsyncComponent, ref } from "vue";
+import { usePendampingDewanStorex } from "src/stores/master/pendampingdewanx";
+import FormDialogComp from "./FormDialogComp.vue";
 
-const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
+//const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
+const dialog = ref(false);
 const komisi_id = ref({
   id: "",
   komisi: "SEMUA",
@@ -156,13 +140,12 @@ const props = defineProps({
   adaRefresh: { type: Boolean, default: false },
   useFull: { type: Boolean, default: false },
   perPage: { type: Number, default: 5 },
-  jabatan: { type: Array, default: () => [] },
+  // jabatan: { type: Array, default: () => [] },
   komisi: { type: Array, default: () => [] },
   golongan: { type: Array, default: () => [] },
-  tingkatan: { type: Array, default: () => [] },
 });
 
-const store = useAnggotaDewanStore();
+const store = usePendampingDewanStorex();
 
 const q = computed({
   get() {
@@ -183,42 +166,8 @@ const selectPerPage = computed({
   },
 });
 
-function gantiTxt(val) {
-  if (val === "AKTIF") {
-    store.params.status = "";
-  } else if (val === "TIDAK AKTIF") {
-    store.params.status = 1;
-  } else {
-    store.params.status = "all";
-  }
-  store.init();
-}
-
-function gantikomisi(val) {
-  console.log("val", val);
-  store.params.komisi_id = val.id;
-  store.init();
-}
-
-const txt = ref("SEMUA");
-
-function gantiPeriode() {
-  // console.log(to.value)
-  // console.log(from.value)
-  const per = {
-    status: gantiStatus(txt.value),
-  };
-  emits("setPeriode", per);
-}
-
 function formDialogx() {
-  store.form.id = "";
-  store.form.nik = "";
-  store.form.nama = "";
-  store.form.alamat = "";
-  store.form.jns_kelamin = "";
-  store.form.id_jabatan = "";
-  store.form.id_komisi = "";
+  store.clear();
   store.dialog = true;
 }
 </script>

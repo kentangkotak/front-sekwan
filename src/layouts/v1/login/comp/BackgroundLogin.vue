@@ -1,9 +1,7 @@
 <template>
   <div class="context">
     <q-page-container>
-      <q-page>
-        <FormDialogLogin />
-      </q-page>
+      <q-page><FormDialogLogin /> </q-page>
     </q-page-container>
   </div>
 
@@ -30,7 +28,7 @@ import FormDialogLogin from "./FormDialogLogin.vue";
 </script>
 
 <style lang="scss" scoped>
-@import url("https://fonts.googleapis.com/css?family=Exo:400,700");
+// @import url("https://fonts.googleapis.com/css?family=Exo:400,700");
 
 * {
   margin: 0px;
@@ -61,7 +59,7 @@ body {
 }
 
 .circles {
-  position: absolute;
+  position: static;
   top: 0;
   left: 0;
   width: 100%;
@@ -70,7 +68,7 @@ body {
 }
 
 .circles li {
-  position: absolute;
+  position: fixed;
   display: block;
   list-style: none;
   width: 20px;

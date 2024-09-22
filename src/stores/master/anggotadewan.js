@@ -8,6 +8,7 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
     items: [],
     dewans: [],
     meta: {},
+    dialog: false,
     loading: false,
     dewan: null,
     tingkatan_id: null,

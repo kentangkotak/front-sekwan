@@ -7,7 +7,7 @@
         : 'container--q-header q-pa-xs'
     "
   >
-    <div class="header" style="margin-top: 5px">
+    <div class="header bg-primary text-white">
       <HeaderComp
         ada-per-page
         ada-refresh
@@ -20,37 +20,32 @@
         :golongan="storegolongan.items"
       />
     </div>
+    <!-- <div
+      v-if="Object.keys(store.meta).length"
+      class="footer absolute-bottom text-white z-top"
+    >
+      <BottomComp
+        v-if="store.meta !== null"
+        :key="store.meta"
+        :meta="store.meta"
+        @go-to="store.setPage"
+      />
+    </div> -->
 
-    <q-card flat no-shadow square class="my-flex-1 scroll">
+    <!-- <q-card flat no-shadow square class="my-flex-1 scroll">
       <ListPage :komisi="komisiStore.items" :golongan="storegolongan.items" />
-
-      <div
-        v-if="Object.keys(store.meta).length"
-        class="absolute-bottom bg-primary text-white"
-      >
-        <BottomComp
-          v-if="store.meta !== null"
-          :key="store.meta"
-          :meta="store.meta"
-          @go-to="store.setPage"
-        />
-      </div>
-    </q-card>
+    </q-card> -->
   </q-page>
 </template>
 <script setup>
 import { useKomisiStore } from "src/stores/master/komisi";
 import { usePendampingDewanStore } from "src/stores/master/pendampingdewan";
 import { useStyledStore } from "src/stores/app/styled";
-import ListPage from "src/pages/v1/master/pendamping/comp/ListPageComp.vue";
+// import ListPage from "src/pages/v1/master/pendamping/comp/ListPageComp.vue";
 import HeaderComp from "src/pages/v1/master/pendamping/comp/HeaderComp.vue";
-import BottomComp from "src/pages/v1/master/pendamping/comp/BottomComp.vue";
+// import BottomComp from "src/pages/v1/master/pendamping/comp/BottomComp.vue";
 import { useGolonganStore } from "src/stores/master/golongan";
-import { onMounted } from "vue";
-
-//const HeaderComp = defineAsyncComponent(() => import("./comp/HeaderComp.vue"));
-//const ListPage = defineAsyncComponent(() => import("./comp/ListPageComp.vue"));
-//const BottomComp = defineAsyncComponent(() => import("./comp/BottomComp.vue"));
+// import { onMounted } from "vue";
 
 const komisiStore = useKomisiStore();
 
@@ -59,9 +54,9 @@ const storegolongan = useGolonganStore();
 
 const style = useStyledStore();
 
-onMounted(() => {
-  storegolongan.getData();
-  store.getData();
-  komisiStore.getData();
-});
+// onMounted(() => {
+//   storegolongan.getData();
+//   store.getData();
+//   komisiStore.getData();
+// });
 </script>
