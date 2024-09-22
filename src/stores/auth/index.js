@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { api } from "src/boot/axios";
 import { notifErr, notifErrmodip } from "src/boot/notify-defaults";
+import { routerInstance } from "src/boot/router";
 import * as storage from "src/modules/storage";
 // import { routerInstance } from 'src/boot/router'
 
@@ -53,6 +54,35 @@ export const useAuthStore = defineStore("auth", {
       setTimeout(() => {
         this.loading = false;
       }, 2000);
+    },
+    logout() {
+      // waitLoad("show");
+      // this.titleLoading = "LOGGING OUT";
+      // try {
+
+      this.REMOVE_LOKAL();
+      setTimeout(() => {
+        routerInstance.replace("/login");
+        // waitLoad("done");
+      }, 200);
+
+      // } catch (error) {
+      //   console.log(error)
+      //   waitLoad('done')
+      // }
+    },
+    REMOVE_LOKAL() {
+      storage.clearStore();
+      storage.deleteLocalToken();
+      storage.deleteHeaderToken();
+      // storage.deleteUser();
+      // storage.deleteCurrentApp();
+      // storage.delAkses();
+      // storage.delApps();
+      // storage.delX();
+      // storage.delAutoPend();
+      this.user = null;
+      this.token = "";
     },
   },
 });

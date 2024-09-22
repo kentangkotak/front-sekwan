@@ -1,7 +1,7 @@
 <template>
   <q-header class="bg-indigo text-white" elevated>
     <q-toolbar class="glossy">
-      <q-btn dense flat round icon="menu" />
+      <q-btn dense flat round icon="menu" @click="emits('toggleLeftDrawer')" />
       <q-toolbar-title>
         <q-avatar>
           <img src="../../../../public/icons/sekwan.png" />
@@ -21,7 +21,12 @@
   </q-header>
 </template>
 <script setup>
+import { useAuthStore } from "src/stores/auth";
+
+const storeAuth = useAuthStore();
+
+const emits = defineEmits(["toggleLeftDrawer"]);
 function logout() {
-  localStorage.clear();
+  storeAuth.logout();
 }
 </script>
