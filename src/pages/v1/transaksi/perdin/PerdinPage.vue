@@ -9,6 +9,7 @@
   >
     <div class="header bg-primary text-white">
       <HeaderComp
+        class="q-pa-xs"
         :komisix="komisi.items"
         ada-per-page
         ada-refresh
@@ -19,22 +20,24 @@
         @set-per-page="store.setPerPage"
       />
     </div>
-    <div
-      v-if="Object.keys(store.metaperdin).length"
-      class="footer absolute-bottom text-white z-top"
-    >
-      <div v-if="store.dialog === false">
-        <BottomComp
-          v-if="store.metaperdin !== null"
-          :key="store.metaperdin"
-          :meta="store.metaperdin"
-          @go-to="store.setPage"
-        />
-      </div>
+    <div class="footer absolute-bottom text-white z-top">
+      <!-- <div
+        v-if="store.dialog === false"
+        class="footer absolute-bottom text-white z-top"
+      > -->
+      <BottomComp
+        v-if="store.metaperdin !== null"
+        :key="store.metaperdin"
+        :meta="store.metaperdin"
+        @go-to="store.setPage"
+      />
+      <!-- </div> -->
     </div>
 
     <q-card flat no-shadow class="my-flex-1 scroll">
-      <ListPage :komisix="komisi.items" />
+      <q-scroll-area style="height: 750px">
+        <ListPage :komisix="komisi.items" />
+      </q-scroll-area>
     </q-card>
   </q-page>
 </template>

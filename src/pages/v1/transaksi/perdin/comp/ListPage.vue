@@ -1,100 +1,93 @@
 <template>
   <div>
-    <div class="q-pb-xl">
-      <LoadingList v-if="store.loading" />
-      <empty-data v-else-if="!store.items.length && !store.loading" />
-      <q-list v-else separator>
-        <q-item v-for="(item, x) in store.items" :key="x">
-          <q-item-section>
-            <div class="row">
-              <div class="col-2">
-                <q-avatar>
-                  <img
-                    v-if="item?.jns_kelamin === 'P'"
-                    src="../../../../../assets/images/female.svg"
-                  />
-                  <img v-else src="../../../../../assets/images/male.svg" />
-                </q-avatar>
-              </div>
-              <div class="col-10 text-weight-bold">
-                <q-item-label class="text-red-10"
-                  >No. Transaksi : {{ item?.no_transaksi }}
-                </q-item-label>
-                <q-item-label class="text-orange"
-                  >Tanggal : {{ item.tanggal }} Sampai
-                  {{ item.tanggal_sampai }}</q-item-label
-                >
-                <q-item-label
-                  >KOMISI : {{ item?.komisi?.komisi }}
-                </q-item-label>
-              </div>
-              <q-item-label caption lines="2" class="text-primary"
-                >JUDUL : {{ item?.judul }}</q-item-label
+    <LoadingList v-if="store.loading" />
+    <empty-data v-else-if="!store.items.length && !store.loading" />
+    <q-list v-else separator>
+      <q-item v-for="(item, x) in store.items" :key="x">
+        <q-item-section>
+          <div class="row">
+            <div class="col-2">
+              <q-avatar>
+                <img
+                  v-if="item?.jns_kelamin === 'P'"
+                  src="../../../../../assets/images/female.svg"
+                />
+                <img v-else src="../../../../../assets/images/male.svg" />
+              </q-avatar>
+            </div>
+            <div class="col-10 text-weight-bold">
+              <q-item-label class="text-red-10"
+                >No. Transaksi : {{ item?.no_transaksi }}
+              </q-item-label>
+              <q-item-label class="text-orange"
+                >Tanggal : {{ item.tanggal }} Sampai
+                {{ item.tanggal_sampai }}</q-item-label
+              >
+              <q-item-label>KOMISI : {{ item?.komisi?.komisi }} </q-item-label>
+            </div>
+            <q-item-label caption lines="2" class="text-primary"
+              >JUDUL : {{ item?.judul }}</q-item-label
+            >
+          </div>
+        </q-item-section>
+        <q-separator vertical inset color="orange" />
+        <q-item-section>
+          <div class="row">
+            <div class="col-10 text-weight-bold q-ml-md">
+              <q-item-label class="text-purple-10"
+                >TUJUAN : {{ item?.provinsi?.name }}
+                <span v-if="item?.kota2 !== null">
+                  - {{ item?.kota2?.name }}
+                </span>
+              </q-item-label>
+              <q-item-label class="text-purple"
+                >INSTANSI YANG DITUJU :
+                {{ item?.instansi_tujuan }}</q-item-label
               >
             </div>
-          </q-item-section>
-          <q-separator vertical inset color="orange" />
-          <q-item-section>
-            <div class="row">
-              <div class="col-10 text-weight-bold q-ml-md">
-                <q-item-label class="text-purple-10"
-                  >TUJUAN : {{ item?.provinsi?.name }}
-                  <span v-if="item?.kota2 !== null">
-                    - {{ item?.kota2?.name }}
-                  </span>
-                </q-item-label>
-                <q-item-label class="text-purple"
-                  >INSTANSI YANG DITUJU :
-                  {{ item?.instansi_tujuan }}</q-item-label
-                >
-              </div>
+          </div>
+        </q-item-section>
+        <q-item-section side>
+          <div class="row">
+            <div class="col-7">
+              <q-btn
+                color="primary"
+                size="sm"
+                round
+                glossy
+                :loading="store.loading"
+                icon="eva-edit-2-outline"
+                @click="formDialogx(item, item?.id)"
+              >
+                <q-tooltip class="primary" :offset="[10, 10]"> Edit </q-tooltip>
+              </q-btn>
             </div>
-          </q-item-section>
-          <q-item-section side>
-            <div class="row">
-              <div class="col-7">
-                <q-btn
-                  color="primary"
-                  size="sm"
-                  round
-                  glossy
-                  :loading="store.loading"
-                  icon="eva-edit-2-outline"
-                  @click="formDialogx(item, item?.id)"
-                >
-                  <q-tooltip class="primary" :offset="[10, 10]">
-                    Edit
-                  </q-tooltip>
-                </q-btn>
-              </div>
-              <div class="col-1">
-                <q-btn
-                  v-model="store.payloadx.id"
-                  color="red"
-                  size="sm"
-                  round
-                  glossy
-                  icon="eva-person-delete-outline"
-                  :loading="store.loading"
-                  @click="store.lemparDewan(item.id)"
-                >
-                  <q-tooltip class="primary" :offset="[10, 10]">
-                    Delete
-                  </q-tooltip>
-                </q-btn>
-              </div>
+            <div class="col-1">
+              <q-btn
+                v-model="store.payloadx.id"
+                color="red"
+                size="sm"
+                round
+                glossy
+                icon="eva-person-delete-outline"
+                :loading="store.loading"
+                @click="store.lemparDewan(item.id)"
+              >
+                <q-tooltip class="primary" :offset="[10, 10]">
+                  Delete
+                </q-tooltip>
+              </q-btn>
             </div>
-          </q-item-section>
-        </q-item>
-        <q-separator />
-      </q-list>
-      <div class="q-pb-xl" />
-      <div class="q-pb-xl" />
-      <!-- </div> -->
-      <!-- </div> -->
-      <!-- </q-scroll-area> -->
-      <formDialog v-model="dialog" />
-    </div>
+          </div>
+        </q-item-section>
+      </q-item>
+      <q-separator />
+    </q-list>
+
+    <!-- </div> -->
+    <!-- </div> -->
+    <!-- </q-scroll-area> -->
+    <formDialog v-model="dialog" />
   </div>
 </template>
 
