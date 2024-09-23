@@ -21,6 +21,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
     disabled: false,
     dialog: false,
     total: 0,
+    total_biaya: 0,
     nik: "",
     biaya: 0,
     params: {
@@ -68,6 +69,7 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       jabatan: "",
       nik: "",
       komisi: "",
+      idkomisi: null,
       instansi_tujuan: "",
     },
     itemsrincian: [],
@@ -290,14 +292,56 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
           this.loading = false;
           if (resp.status === 200) {
             this.metaperdin = resp?.data;
-            this.items = resp.data?.data;
+            // this.items = resp.data?.data;
             this.meta.total = resp?.data?.total;
+            this.olahdata(resp.data?.data);
           }
         })
         .catch((err) => {
           console.log(err);
           this.loading = false;
         });
+    },
+    olahdata(val) {
+      const xxx = [];
+      val.forEach((x) => {
+        const notrans = x?.no_transaksi;
+        const tanggal = x?.tanggal;
+        const tanggalsampai = x?.tanggal_sampai;
+        const komisi = x?.komisi?.komisi;
+        const idkomisi = x?.komisi?.id;
+        const judul = x?.judul;
+        const idtujuanpropinsi = x?.provinsi?.id;
+        const tujuanpropinsi = x?.provinsi?.name;
+        const idtujuankota1 = x?.kota?.id;
+        const idtujuankota2 = x?.kota2?.id;
+        const tujuankota1 = x?.kota?.name;
+        const tujuankota2 = x?.kota2?.name;
+        const instansi_tujuan = x?.instansi_tujuan;
+        const totalk = x?.rinci.reduce(
+          (a, b) => parseInt(a) + parseInt(b.total_biaya),
+          0
+        );
+        const hasil = {
+          id: x?.id,
+          notrans: notrans,
+          tanggal: tanggal,
+          tanggal_sampai: tanggalsampai,
+          komisi: komisi,
+          idkomisi: idkomisi,
+          judul: judul,
+          idtujuanpropinsi: idtujuanpropinsi,
+          tujuanpropinsi: tujuanpropinsi,
+          idtujuankota1: idtujuankota1,
+          idtujuankota2: idtujuankota2,
+          tujuankota1: tujuankota1,
+          tujuankota2: tujuankota2,
+          instansi_tujuan: instansi_tujuan,
+          totalk: totalk,
+        };
+        xxx.push(hasil);
+      });
+      this.items = xxx;
     },
     refreshTable() {
       this.params.page = 1;

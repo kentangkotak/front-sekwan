@@ -156,6 +156,10 @@ function formDialogTransaksi() {
   //store.form.ko;
   store.form.id_propinsi = null;
   store.form.id_kota = "";
+  store.form.id_kotax = "";
+  store.form.instansi_tujuan = "";
+  store.form.idkomisi = "";
+  store.form.idkomisi = "";
 }
 
 function hapuspencarian() {

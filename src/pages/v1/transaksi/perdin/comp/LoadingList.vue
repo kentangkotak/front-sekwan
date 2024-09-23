@@ -1,6 +1,6 @@
 <template>
   <q-list separator no-padding>
-    <q-item v-for="item in 5" :key="item">
+    <q-item v-for="item in 9" :key="item">
       <q-item-section avatar>
         <q-skeleton size="100px" square animation="fade" />
       </q-item-section>

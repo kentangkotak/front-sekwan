@@ -17,13 +17,13 @@
             </div>
             <div class="col-10 text-weight-bold">
               <q-item-label class="text-red-10"
-                >No. Transaksi : {{ item?.no_transaksi }}
+                >No. Transaksi : {{ item?.notrans }}
               </q-item-label>
               <q-item-label class="text-orange"
                 >Tanggal : {{ item.tanggal }} Sampai
                 {{ item.tanggal_sampai }}</q-item-label
               >
-              <q-item-label>KOMISI : {{ item?.komisi?.komisi }} </q-item-label>
+              <q-item-label>KOMISI : {{ item?.komisi }} </q-item-label>
             </div>
             <q-item-label caption lines="2" class="text-primary"
               >JUDUL : {{ item?.judul }}</q-item-label
@@ -35,14 +35,17 @@
           <div class="row">
             <div class="col-10 text-weight-bold q-ml-md">
               <q-item-label class="text-purple-10"
-                >TUJUAN : {{ item?.provinsi?.name }}
-                <span v-if="item?.kota2 !== null">
-                  - {{ item?.kota2?.name }}
+                >TUJUAN : {{ item?.tujuanpropinsi }}
+                <span v-if="item?.tujuankota1 !== null">
+                  - {{ item?.tujuankota2 }}
                 </span>
               </q-item-label>
               <q-item-label class="text-purple"
                 >INSTANSI YANG DITUJU :
                 {{ item?.instansi_tujuan }}</q-item-label
+              >
+              <q-badge color="red"
+                >TOTAL BIAYA : Rp. {{ rupiah(item?.totalk) }}</q-badge
               >
             </div>
           </div>
@@ -83,7 +86,6 @@
       </q-item>
       <q-separator />
     </q-list>
-
     <!-- </div> -->
     <!-- </div> -->
     <!-- </q-scroll-area> -->
@@ -99,6 +101,8 @@ import { useGetBiaya } from "src/stores/transaksi/getbiaya";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
 import { useTranskRinci } from "src/stores/transaksi/transrinci";
 import { defineAsyncComponent, onMounted, onUnmounted, ref } from "vue";
+import LoadingList from "./LoadingList.vue";
+import EmptyData from "./EmptyData.vue";
 
 //const itemterpilih = ref({});
 const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
@@ -109,6 +113,7 @@ const storegetbiaya = useGetBiaya();
 const storekota = useKotaKab();
 const storePermen = usePermenStore();
 const storedewan = useAnggotaDewanStore();
+
 // const jabatan = ref([]);
 // const komisi = ref([]);
 
@@ -117,24 +122,33 @@ const rupiah = (number) => {
 };
 
 function formDialogx(val, id) {
+  console.log("wewwe", val);
   store.disabled = true;
   //coitemterpilih.value = val;
   dialog.value = true;
+  store.form.idkomisi = val?.komisi;
   store.form.id_jenistransaksi = 1;
   store.form.id = val?.id;
-  store.form.notrans = val?.no_transaksi;
+  store.form.notrans = val?.notrans;
   store.form.tanggal = val?.tanggal;
   store.form.tanggalsampai = val?.tanggal_sampai;
   store.form.lamaperdin = val?.lamaperdin;
   store.form.judul = val?.judul;
   store.form.koderekekning = val?.rekening50;
   store.form.uraian50 = val?.uraian50;
-  store.form.id_propinsi = val?.provinsi?.id;
-  store.form.id_kota = val?.kota?.name;
-  store.form.komisi = val?.komisi?.komisi;
-  storedewan.gantikomisi(val?.komisi?.id);
+  store.form.id_propinsi = val?.idtujuanpropinsi;
+  store.form.id_kota = val?.tujuankota1;
+
+  // komisi.value = [
+  //   {
+  //     id: val?.idkomisi,
+  //     komisi: val?.komisi,
+  //   },
+  // ];
+
+  // storedewan.gantikomisi(val?.idkomisi);
   store.form.instansi_tujuan = val?.instansi_tujuan;
-  store.form.id_kotax = val?.kota2?.name;
+  store.form.id_kotax = val?.tujuankota2;
   storePermen.kode = val?.uraian50;
   // store.form.namakota = val?.kota?.name;
   storegetbiaya.paramsbiaya.id_propinsi = store.form.id_propinsi;
@@ -163,7 +177,7 @@ function getstatusmu(val) {
 
 const props = defineProps({
   jabatan: { type: Array, default: () => [] },
-  komisix: { type: Array, default: () => [] },
+  //komisix: { type: Array, default: () => [] },
   golongan: { type: Array, default: () => [] },
   tingkatan: { type: Array, default: () => [] },
 });

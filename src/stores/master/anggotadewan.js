@@ -47,7 +47,6 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
       await api
         .get("/indexdewan", params)
         .then((resp) => {
-          // console.log('sasasa', resp)
           this.loading = false;
           if (resp.status === 200) {
             this.meta = resp?.data;
@@ -194,6 +193,7 @@ export const useAnggotaDewanStore = defineStore("master_anggota_dewan", {
         });
     },
     gantikomisi(val) {
+      // console.log("komisi", val);
       this.params.komisi_id = val;
       this.getData();
     },

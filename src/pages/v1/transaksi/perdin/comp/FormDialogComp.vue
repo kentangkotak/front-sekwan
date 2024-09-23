@@ -36,7 +36,6 @@
           <q-tooltip class="bg-white text-primary">Close</q-tooltip>
         </q-btn>
       </q-bar>
-
       <HederDialogComp
         :propinsi="strorepropinsi.items"
         :permen="storepermen.items"
@@ -45,24 +44,6 @@
       />
       <TotalTransPage :jenistransaksi="storejenistrans.items" />
       <JenisBiayaPage :jenistransaksi="storejenistrans.items" />
-
-      <!-- <GridTransComp /> -->
-
-      <!-- <div class="q-pa-md row items-start q-gutter-md">
-        <q-card class="my-card" flat bordered style="width: 100%">
-          <q-card-section horizontal>
-            <q-card-section style="width: 30%">
-              <RinciDialogComp
-                :jenistransaksi="storejenistrans.items"
-                :anggotadewan="storedewan.items"
-                :jeniskendaraan="storejeniskendaraan.items"
-                :pesawat="storepesawat.items"
-              />
-            </q-card-section>
-            <q-separator vertical />
-          </q-card-section>
-        </q-card>
-      </div> -->
     </q-card>
   </q-dialog>
 </template>

@@ -36,7 +36,7 @@
 
     <q-card flat no-shadow class="my-flex-1 scroll">
       <q-scroll-area style="height: 750px">
-        <ListPage :komisix="komisi.items" />
+        <ListPage />
       </q-scroll-area>
     </q-card>
   </q-page>

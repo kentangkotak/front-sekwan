@@ -93,20 +93,20 @@
           :disable="store.disabled"
         />
       </q-card-section>
+
       <q-card-section horizontal style="margin-left: 5px; margin-bottom: 10px">
         <q-select
-          ref="refkomisi"
-          v-model="store.form.komisi"
+          v-model="store.form.idkomisi"
           label="Komisi"
           outlined
           dense
+          emit-value
+          map-options
           style="margin-right: 5px; width: 25%"
           :options="props.komisix"
           option-label="komisi"
           option-value="id"
           :disable="store.disabled"
-          emit-value
-          map-options
           @update:model-value="(val) => storedewan.gantikomisi(val)"
         />
 
@@ -251,7 +251,7 @@ if (store.form.notrans === "") {
 
 onBeforeMount(() => {
   storedewan.params.komisi_id = "";
-  store.form.komisi = "";
+  //store.form.idkomisi = "";
 });
 //store.getData();
 </script>
