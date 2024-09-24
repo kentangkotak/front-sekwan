@@ -1,17 +1,19 @@
 <template>
   <div>
-    <div class="row justify-center" style="font-size: xx-large">
-      --<b
-        >Total = Rp.
-        {{
-          rupiah(
-            storerinci.totalall.reduce(
-              (total, curr) => (total = total + parseInt(curr.total_biaya)),
-              0
+    <div class="row justify-center">
+      <q-badge style="font-size: xx-large" color="red">
+        --<b
+          >Total = Rp.
+          {{
+            rupiah(
+              storerinci.totalall.reduce(
+                (total, curr) => (total = total + parseInt(curr.total_biaya)),
+                0
+              )
             )
-          )
-        }}</b
-      >--
+          }}</b
+        >--
+      </q-badge>
     </div>
     <div class="row justify-center q-pa-md q-gutter-sm">
       <q-btn
@@ -117,13 +119,24 @@ function formrinci(val) {
     storeheder.form.instansi_tujuan === null
   ) {
     notifErrmodip("Instansi Yang Dituju Tidak Boleh Kosong...!!!");
-  } else if (storeheder.form.komisi === "" || storeheder.form.komisi === null) {
+  } else if (
+    storeheder.form.idkomisi === "" ||
+    storeheder.form.idkomisi === null
+  ) {
     notifErrmodip("Komisi Tidak Boleh Kosong...!!!");
   } else if (
     storeheder.form.id_propinsi === null ||
     storeheder.form.id_propinsi === ""
   ) {
     notifErrmodip("Provinsi Tidak Boleh Kosong...!!!");
+  } else if (storeheder.form.sekretarisdprd === null) {
+    notifErrmodip("Sekretaris DPRD Tidak Boleh Kosong...!!!");
+  } else if (storeheder.form.bendaharapengeluaran === null) {
+    notifErrmodip("Bendahara Pengeluaran Tidak Boleh Kosong...!!!");
+  } else if (storeheder.form.sekretarisdprd === null) {
+    notifErrmodip("Sekretaris Tidak Boleh Kosong...!!!");
+  } else if (storeheder.form.ppk === null) {
+    notifErrmodip("PPK Tidak Boleh Kosong...!!!");
   } else {
     storebiaya.paramsbiaya.jenisbiaya = val;
     storebiaya.formrincian = true;

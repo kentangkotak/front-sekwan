@@ -9,8 +9,8 @@
   >
     <div class="header bg-primary text-white">
       <HeaderComp
-        class="q-pa-xs"
         :komisix="komisi.items"
+        :pejabat="pejabat.items"
         ada-per-page
         ada-refresh
         use-full
@@ -25,12 +25,14 @@
         v-if="store.dialog === false"
         class="footer absolute-bottom text-white z-top"
       > -->
-      <BottomComp
-        v-if="store.metaperdin !== null"
-        :key="store.metaperdin"
-        :meta="store.metaperdin"
-        @go-to="store.setPage"
-      />
+      <div v-if="store.dialog === false">
+        <BottomComp
+          v-if="store.metaperdin !== null"
+          :key="store.metaperdin"
+          :meta="store.metaperdin"
+          @go-to="store.setPage"
+        />
+      </div>
       <!-- </div> -->
     </div>
 
@@ -47,6 +49,7 @@ import { defineAsyncComponent, onMounted } from "vue";
 import { usePerdinStore } from "src/stores/transaksi/perdin";
 import { useTranskRinci } from "src/stores/transaksi/transrinci";
 import { useKomisiStore } from "src/stores/master/komisi";
+import { usePejabatstore } from "src/stores/master/pejabat";
 
 const style = useStyledStore();
 const HeaderComp = defineAsyncComponent(() => import("./comp/HeaderComp.vue"));
@@ -55,6 +58,7 @@ const BottomComp = defineAsyncComponent(() => import("./comp/BottomPage.vue"));
 const store = usePerdinStore();
 const storrinci = useTranskRinci();
 const komisi = useKomisiStore();
+const pejabat = usePejabatstore();
 
 onMounted(() => {
   // store.total = storrinci.totalall.reduce(
@@ -64,5 +68,6 @@ onMounted(() => {
   // console.log("reduce", store.total);
   store.gethedertransaksi();
   komisi.init();
+  pejabat.init();
 });
 </script>

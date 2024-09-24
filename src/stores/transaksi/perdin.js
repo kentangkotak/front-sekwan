@@ -71,6 +71,16 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
       komisi: "",
       idkomisi: null,
       instansi_tujuan: "",
+      instansi_tujuan2: "",
+      sekretarisdprd: null,
+      namasekretaris: null,
+      jabatansekretaris: null,
+      ppk: null,
+      namappk: null,
+      jabatanppk: null,
+      bendaharapengeluaran: null,
+      namabendaharapengeluaran: null,
+      jabatanbendaharapengeluaran: null,
     },
     itemsrincian: [],
     jabatan: {},
@@ -318,6 +328,16 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
         const tujuankota1 = x?.kota?.name;
         const tujuankota2 = x?.kota2?.name;
         const instansi_tujuan = x?.instansi_tujuan;
+        const instansi_tujuan2 = x?.instansi_tujuan2;
+        const sekretaris = x?.nip_pejabat_sekretaris;
+        const namasekretaris = x?.nama_pejabat_sekretaris;
+        const jabsekretaris = x?.jabatan_pejabat_sekretaris;
+        const ppk = x?.nip_ppk;
+        const namappk = x?.nama_ppk;
+        const jabppk = x?.jabatan_ppk;
+        const bendahara = x?.nip_bendahara;
+        const namabendahara = x?.nama_bendahara;
+        const jabbendahara = x?.jabatan_bendahara;
         const totalk = x?.rinci.reduce(
           (a, b) => parseInt(a) + parseInt(b.total_biaya),
           0
@@ -337,6 +357,16 @@ export const usePerdinStore = defineStore("transaksi_perdin", {
           tujuankota1: tujuankota1,
           tujuankota2: tujuankota2,
           instansi_tujuan: instansi_tujuan,
+          instansi_tujuan2: instansi_tujuan2,
+          sekretaris: sekretaris,
+          namasekretaris: namasekretaris,
+          jabsekretaris: jabsekretaris,
+          ppk: ppk,
+          namappk: namappk,
+          jabppk: jabppk,
+          bendahara: bendahara,
+          namabendahara: namabendahara,
+          jabbendahara: jabbendahara,
           totalk: totalk,
         };
         xxx.push(hasil);

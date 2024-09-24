@@ -90,7 +90,11 @@
       </div>
     </div>
   </div>
-  <formDialog v-model="dialogformtrans" :komisix="props.komisix" />
+  <formDialog
+    v-model="store.dialog"
+    :komisix="props.komisix"
+    :pejabat="props.pejabat"
+  />
 </template>
 <script setup>
 import { usePermenStore } from "src/stores/master/permen50";
@@ -99,7 +103,6 @@ import { useTranskRinci } from "src/stores/transaksi/transrinci";
 import { computed, defineAsyncComponent, ref } from "vue";
 
 const formDialog = defineAsyncComponent(() => import("./FormDialogComp.vue"));
-const dialogformtrans = ref(false);
 
 const emits = defineEmits([
   "cari",
@@ -117,6 +120,7 @@ const props = defineProps({
   useFull: { type: Boolean, default: false },
   perPage: { type: Number, default: 5 },
   komisix: { type: Array, default: () => [] },
+  pejabat: { type: Array, default: () => [] },
 });
 
 const store = usePerdinStore();
@@ -142,7 +146,7 @@ const selectPerPage = computed({
 });
 
 function formDialogTransaksi() {
-  dialogformtrans.value = true;
+  store.dialog = true;
 
   store.disabled = false;
   store.form.id_jenistransaksi = "1";

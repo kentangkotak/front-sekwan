@@ -1,6 +1,6 @@
 <template>
   <q-card-section>
-    <table>
+    <q-markup-table separator="cell" flat bordered>
       <thead>
         <tr>
           <th width="2%">NO.</th>
@@ -121,14 +121,15 @@
           <td></td>
         </tr>
       </tbody>
-    </table>
+    </q-markup-table>
   </q-card-section>
 </template>
 
 <script setup>
 import { useTranskRinci } from "src/stores/transaksi/transrinci";
-import { computed, onMounted } from "vue";
+import { computed, onMounted, ref } from "vue";
 
+const separator = ref("cell");
 const rupiah = (number) => {
   return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 };

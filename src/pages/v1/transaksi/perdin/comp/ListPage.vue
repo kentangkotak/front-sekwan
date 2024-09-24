@@ -125,7 +125,7 @@ function formDialogx(val, id) {
   console.log("wewwe", val);
   store.disabled = true;
   //coitemterpilih.value = val;
-  dialog.value = true;
+  store.dialog = true;
   store.form.idkomisi = val?.komisi;
   store.form.id_jenistransaksi = 1;
   store.form.id = val?.id;
@@ -138,16 +138,18 @@ function formDialogx(val, id) {
   store.form.uraian50 = val?.uraian50;
   store.form.id_propinsi = val?.idtujuanpropinsi;
   store.form.id_kota = val?.tujuankota1;
-
-  // komisi.value = [
-  //   {
-  //     id: val?.idkomisi,
-  //     komisi: val?.komisi,
-  //   },
-  // ];
-
   // storedewan.gantikomisi(val?.idkomisi);
   store.form.instansi_tujuan = val?.instansi_tujuan;
+  store.form.instansi_tujuan2 = val?.instansi_tujuan2;
+  store.form.sekretarisdprd = val?.sekretaris;
+  store.form.namasekretaris = val?.namasekretaris;
+  store.form.jabatansekretaris = val?.jabsekretaris;
+  store.form.ppk = val?.ppk;
+  store.form.namappk = val?.namappk;
+  store.form.jabatanppk = val?.jabppk;
+  store.form.bendaharapengeluaran = val?.bendahara;
+  store.form.namabendaharapengeluaran = val?.namabendahara;
+  store.form.jabatanbendaharapengeluaran = val?.jabbendahara;
   store.form.id_kotax = val?.tujuankota2;
   storePermen.kode = val?.uraian50;
   // store.form.namakota = val?.kota?.name;

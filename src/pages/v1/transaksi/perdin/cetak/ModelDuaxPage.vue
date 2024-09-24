@@ -13,7 +13,9 @@
     <div class="row">
       <div class="col-3 col-md-4">BEND. PENGELUARAN</div>
       <div class="col-1 col-md-4">:</div>
-      <div class="col-8 col-md-4">LIDYAWATI</div>
+      <div class="col-8 col-md-4">
+        {{ storeheder.form.namabendaharapengeluaran }}
+      </div>
     </div>
     <div class="row">
       <div class="col-3 col-md-4">TAHUN ANGGARAN</div>
@@ -86,10 +88,10 @@
     <br />
     <div class="row text-weight-bold">
       <div class="col text-center">
-        <u> SUMARDI, S.Sos </u>
+        <u> {{ storeheder.form.namappk }} </u>
       </div>
       <div class="col text-center">
-        <u>LIDYAWATI</u>
+        <u>{{ storeheder.form.namabendaharapengeluaran }}</u>
       </div>
     </div>
   </div>

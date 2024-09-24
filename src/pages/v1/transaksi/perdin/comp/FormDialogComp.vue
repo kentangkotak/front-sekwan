@@ -41,6 +41,7 @@
         :permen="storepermen.items"
         :maxx="maximizedToggle"
         :komisix="props.komisix"
+        :pejabat="props.pejabat"
       />
       <TotalTransPage :jenistransaksi="storejenistrans.items" />
       <JenisBiayaPage :jenistransaksi="storejenistrans.items" />
@@ -67,6 +68,7 @@ import { useKotaKab } from "src/stores/master/kotakab";
 
 const props = defineProps({
   komisix: { type: Array, default: () => [] },
+  pejabat: { type: Array, default: () => [] },
 });
 
 const maximizedToggle = ref(true);

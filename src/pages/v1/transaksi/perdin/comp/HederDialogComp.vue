@@ -2,11 +2,15 @@
   <div class="q-pa-md row items-start q-gutter-md" ref="refhederdialog">
     <q-card flat bordered class="my-card" style="width: 100%">
       <q-card-section style="margin-bottom: 10px; margin-top: 10px">
-        <div v-if="maxx === true" class="text-h4 absolute-center">
-          <b>FORM PERJALANAN DINAS</b>
+        <div v-if="maxx === true">
+          <q-badge color="primary" class="text-h6 absolute-center">
+            NO: {{ store.form.notrans ?? "-" }}
+          </q-badge>
         </div>
         <div v-else class="text-h10 absolute-center">
-          <b>FORM PERJALANAN DINAS</b>
+          <q-badge color="primary" class="text-h6 absolute-center">
+            NO: {{ store.form.notrans ?? "-" }}
+          </q-badge>
         </div>
       </q-card-section>
 
@@ -15,14 +19,6 @@
         horizontal
         style="margin-top: 10px; margin-left: 5px; margin-bottom: 10px"
       >
-        <q-input
-          v-model="store.form.notrans"
-          style="margin-right: 5px; width: 25%"
-          outlined
-          dense
-          label="No. Transaksi"
-          disable
-        />
         <q-input
           ref="reftanggal"
           outlined
@@ -84,7 +80,6 @@
         />
 
         <q-input
-          ref="refinstansitujuan"
           v-model="store.form.instansi_tujuan"
           style="margin-right: 5px; width: 25%"
           outlined
@@ -92,9 +87,14 @@
           label="Instansi Tujuan"
           :disable="store.disabled"
         />
-      </q-card-section>
-
-      <q-card-section horizontal style="margin-left: 5px; margin-bottom: 10px">
+        <q-input
+          v-model="store.form.instansi_tujuan2"
+          style="margin-right: 5px; width: 25%"
+          outlined
+          dense
+          label="Instansi Tujuan Lain"
+          :disable="store.disabled"
+        />
         <q-select
           v-model="store.form.idkomisi"
           label="Komisi"
@@ -109,7 +109,8 @@
           :disable="store.disabled"
           @update:model-value="(val) => storedewan.gantikomisi(val)"
         />
-
+      </q-card-section>
+      <q-card-section horizontal style="margin-left: 5px; margin-bottom: 10px">
         <q-select
           v-model="store.form.id_propinsi"
           style="margin-right: 5px; width: 25%"
@@ -169,7 +170,76 @@
           label="Tujuan Kota"
           clearable
         />
+        <q-select
+          v-model="store.form.sekretarisdprd"
+          style="margin-right: 5px; width: 25%"
+          :options="props.pejabat"
+          option-label="nama"
+          option-value="nip"
+          outlined
+          dense
+          emit-value
+          map-options
+          transition-show="scale"
+          transition-hide="scale"
+          :disable="store.disabled"
+          label="Sekretaris DPRD Kota Probolinggo"
+          clearable
+          @update:model-value="(val) => detailsekretaris(val)"
+        />
+        <q-select
+          v-model="store.form.ppk"
+          style="margin-right: 5px; width: 25%"
+          :options="props.pejabat"
+          option-label="nama"
+          option-value="nip"
+          outlined
+          dense
+          emit-value
+          map-options
+          transition-show="scale"
+          transition-hide="scale"
+          :disable="store.disabled"
+          label="PPK"
+          clearable
+          @update:model-value="(val) => detailppk(val)"
+        />
+        <q-select
+          v-model="store.form.bendaharapengeluaran"
+          style="margin-right: 5px; width: 25%"
+          :options="props.pejabat"
+          option-label="nama"
+          option-value="nip"
+          outlined
+          dense
+          emit-value
+          map-options
+          transition-show="scale"
+          transition-hide="scale"
+          :disable="store.disabled"
+          label="Bendahara Pengeluaran"
+          clearable
+          @update:model-value="(val) => detailbendahara(val)"
+        />
       </q-card-section>
+      <!-- <q-card-section horizontal style="margin-left: 5px; margin-bottom: 10px">
+        <q-select
+          v-model="store.form.sekretaris"
+          style="margin-right: 5px; width: 25%"
+          :options="storekotakab.items"
+          option-label="name"
+          option-value="id"
+          outlined
+          dense
+          emit-value
+          map-options
+          transition-show="scale"
+          transition-hide="scale"
+          :disable="store.disabled"
+          label="Sekretaris DPRD Kota Probolinggo"
+          clearable
+        />
+      </q-card-section> -->
     </q-card>
   </div>
 </template>
@@ -198,6 +268,7 @@ const props = defineProps({
   // kota: { type: Array, default: () => [] },
   permen: { type: Array, default: () => [] },
   maxx: { type: Boolean },
+  pejabat: { type: Array, default: () => [] },
 });
 
 const storekotakab = useKotaKab();
@@ -247,6 +318,24 @@ function isikomisi(val) {
 // };
 if (store.form.notrans === "") {
   store.formattanggal();
+}
+
+function detailsekretaris(val) {
+  const sekretaris = props.pejabat.find((x) => x.nip === val);
+  store.form.namasekretaris = sekretaris.nama;
+  store.form.jabatansekretaris = sekretaris.jabatan;
+}
+
+function detailppk(val) {
+  const ppk = props.pejabat.find((x) => x.nip === val);
+  store.form.namappk = ppk.nama;
+  store.form.jabatanppk = ppk.jabatan;
+}
+
+function detailbendahara(val) {
+  const bendahara = props.pejabat.find((x) => x.nip === val);
+  store.form.namabendaharapengeluaran = bendahara.nama;
+  store.form.jabatanbendaharapengeluaran = bendahara.jabatan;
 }
 
 onBeforeMount(() => {

@@ -60,8 +60,12 @@
       <div class="col"></div>
     </div>
     <div class="row text-weight-bold">
-      <div class="col text-center">Sekretaris DPRD Kota Probolinggo</div>
-      <div class="col text-center">PPK Sekretariat DPRD</div>
+      <div class="col text-center">
+        {{ transheder.form.jabatansekretaris }} Kota Probolinggo
+      </div>
+      <div class="col text-center">
+        {{ transheder.form.jabatanppk }} Sekretariat DPRD
+      </div>
     </div>
     <div class="row text-weight-bold">
       <div class="col"></div>
@@ -71,10 +75,10 @@
     <br />
     <div class="row text-weight-bold">
       <div class="col text-center">
-        <u> TEGUH BAGUS S., M.Pd </u>
+        <u> {{ transheder.form.namasekretaris }} </u>
       </div>
       <div class="col text-center">
-        <u>SUMARDI, S. Sos</u>
+        <u>{{ transheder.form.namappk }}</u>
       </div>
     </div>
   </div>
